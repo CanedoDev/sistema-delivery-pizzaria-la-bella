@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setVH();
 
     const loader = document.getElementById("global-loader");
-    const baseDelay = (loader && !loader.classList.contains("hidden")) ? 1.35 : 0;
+    const baseDelay = (loader && !loader.classList.contains("hidden")) ? 1.55 : 0;
 
     const isMobile = window.innerWidth <= 768;
     const pathId = isMobile ? "bio-stroke-path-mob" : "bio-stroke-path-desk";
