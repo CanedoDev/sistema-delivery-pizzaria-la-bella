@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 start: "top 80%",
                 end: "bottom bottom",
                 scrub: 1,
+                fastScrollEnd: true
             }
         });
 
@@ -44,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 start: "top 80%",
                 end: "bottom bottom",
                 scrub: 1,
+                fastScrollEnd: true
             }
         });
 

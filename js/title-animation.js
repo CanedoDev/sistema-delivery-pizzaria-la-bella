@@ -7,26 +7,41 @@ function animateTitle(title) {
         try { title._split.revert(); } catch(e) {}
     }
 
+    const rect = title.getBoundingClientRect();
+    const isAlreadyVisible = rect.top < window.innerHeight * 0.9 && rect.bottom > 0;
+
     const split = new SplitText(title, { type: "words,chars", wordsClass: "split-word" });
     title._split = split;
 
-    gsap.set(split.chars, { opacity: 0, y: 30, scale: 0.8 });
-
-    gsap.to(split.chars, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: "elastic.out(1, 0.75)",
-        stagger: 0.03,
-        overwrite: "auto",
-        scrollTrigger: {
-            trigger: title,
-            start: "top 88%",
-            toggleActions: "play none none none",
-            once: true
-        }
-    });
+    if (isAlreadyVisible) {
+        gsap.from(split.chars, {
+            opacity: 0,
+            y: 20,
+            duration: 0.45,
+            ease: "power2.out",
+            stagger: 0.018,
+            overwrite: "auto",
+            clearProps: "all"
+        });
+    } else {
+        gsap.set(split.chars, { opacity: 0, y: 24 });
+        gsap.to(split.chars, {
+            opacity: 1,
+            y: 0,
+            duration: 0.48,
+            ease: "power2.out",
+            stagger: 0.02,
+            overwrite: "auto",
+            clearProps: "all",
+            scrollTrigger: {
+                trigger: title,
+                start: "top 90%",
+                toggleActions: "play none none none",
+                once: true,
+                fastScrollEnd: true
+            }
+        });
+    }
 }
 
 window.animateTitle = animateTitle;
@@ -38,18 +53,8 @@ function initAllTitles() {
     });
 }
 
-if (document.readyState === 'complete') {
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(initAllTitles, { timeout: 1200 });
-    } else {
-        setTimeout(initAllTitles, 200);
-    }
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAllTitles);
 } else {
-    window.addEventListener('load', () => {
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(initAllTitles, { timeout: 1200 });
-        } else {
-            setTimeout(initAllTitles, 200);
-        }
-    });
+    initAllTitles();
 }

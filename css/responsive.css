@@ -14,7 +14,7 @@
                 order: 1;
 
                 .logo {
-                    height: 50px;
+                    height: 42px;
                 }
             }
 
@@ -484,6 +484,10 @@
 
     .footer-content .middle {
         order: -1; /* Logo no topo no mobile */
+    }
+
+    .footer-logo {
+        width: 140px;
     }
 
     .footer-content .left ul,

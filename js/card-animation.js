@@ -13,17 +13,19 @@ if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
         });
         if (visibleCards.length && typeof gsap !== 'undefined') {
             gsap.to(visibleCards, {
+                y: 0,
                 scale: 1,
                 opacity: 1,
-                duration: 0.6,
-                stagger: 0.04,
-                ease: "back.out(1.4)",
-                overwrite: "auto"
+                duration: 0.42,
+                stagger: 0.025,
+                ease: "power2.out",
+                overwrite: "auto",
+                clearProps: "willChange"
             });
         }
     }, {
-        rootMargin: '60px 0px',
-        threshold: 0.05
+        rootMargin: '160px 0px 80px 0px',
+        threshold: 0.01
     });
 }
 
@@ -40,10 +42,10 @@ function processCardsQueue() {
     });
 
     if (cardObserver && typeof gsap !== 'undefined') {
-        gsap.set(cardsToAnimate, { scale: 0.85, opacity: 0 });
+        gsap.set(cardsToAnimate, { y: 18, scale: 0.96, opacity: 0 });
         cardsToAnimate.forEach(c => cardObserver.observe(c));
     } else if (typeof gsap !== 'undefined') {
-        gsap.set(cardsToAnimate, { scale: 1, opacity: 1 });
+        gsap.set(cardsToAnimate, { y: 0, scale: 1, opacity: 1 });
     }
 }
 
