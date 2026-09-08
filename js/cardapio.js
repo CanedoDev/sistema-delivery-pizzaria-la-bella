@@ -382,14 +382,14 @@ const preencheDadosPizza = (pizzaItem, item, index) => {
     pizzaItem.setAttribute('data-key', index);
     const pizzaImg = pizzaItem.querySelector(".card-pizza-img");
     const mobImg = item.img.replace('.webp', '-mob.webp');
-    pizzaImg.srcset = `${mobImg} 360w, ${item.img} 706w`;
-    pizzaImg.sizes = "(max-width: 768px) 140px, 200px";
-    pizzaImg.src = item.img;
+    pizzaImg.srcset = `${mobImg} 480w, ${item.img} 706w`;
+    pizzaImg.sizes = "(max-width: 768px) 120px, 200px";
+    pizzaImg.src = mobImg;
     pizzaImg.alt = `Pizza ${item.name} artesanal`;
     pizzaImg.loading = "lazy";
     pizzaImg.decoding = "async";
-    pizzaImg.width = 200;
-    pizzaImg.height = 135;
+    pizzaImg.width = 140;
+    pizzaImg.height = 93;
     pizzaItem.querySelector(".card-title").innerHTML = item.name;
     pizzaItem.querySelector(".card-price").innerHTML = `R$ ${item.price[0].toFixed(2).replace('.', ',')}`;
 }
@@ -1220,14 +1220,14 @@ const carregarPizzas = () => {
         cardItem.classList.add('card-white', 'card-meio-a-meio');
 
         const pizzaImg = cardItem.querySelector(".card-pizza-img");
-        pizzaImg.srcset = "assets/img/pizzas/pizza-calabresa-mob.webp 360w, assets/img/pizzas/pizza-calabresa.webp 706w";
-        pizzaImg.sizes = "(max-width: 768px) 140px, 200px";
-        pizzaImg.src = 'assets/img/pizzas/pizza-calabresa.webp';
+        pizzaImg.srcset = "assets/img/pizzas/pizza-calabresa-mob.webp 480w, assets/img/pizzas/pizza-calabresa.webp 706w";
+        pizzaImg.sizes = "(max-width: 768px) 120px, 200px";
+        pizzaImg.src = 'assets/img/pizzas/pizza-calabresa-mob.webp';
         pizzaImg.alt = 'Pizza Meio a Meio Artesanal';
         pizzaImg.loading = "lazy";
         pizzaImg.decoding = "async";
-        pizzaImg.width = 200;
-        pizzaImg.height = 135;
+        pizzaImg.width = 140;
+        pizzaImg.height = 93;
 
         cardItem.querySelector(".card-title").innerHTML = "Meio a Meio";
         cardItem.querySelector(".card-price").innerHTML = "A partir de R$ 54,90";
@@ -1349,12 +1349,15 @@ const carregarPizzas = () => {
                 }
 
                 const comboImg = comboItem.querySelector(".card-pizza-img");
-                comboImg.src = combo.img;
+                const mobComboImg = combo.img.replace('.webp', '-mob.webp');
+                comboImg.srcset = `${mobComboImg} 480w, ${combo.img} 706w`;
+                comboImg.sizes = "(max-width: 768px) 120px, 200px";
+                comboImg.src = mobComboImg;
                 comboImg.alt = combo.name;
                 comboImg.loading = "lazy";
                 comboImg.decoding = "async";
-                comboImg.width = 200;
-                comboImg.height = 135;
+                comboImg.width = 140;
+                comboImg.height = 93;
                 comboItem.querySelector(".card-title").innerHTML = combo.name;
                 comboItem.querySelector(".card-price").innerHTML = `R$ ${combo.price.toFixed(2).replace('.', ',')}`;
 

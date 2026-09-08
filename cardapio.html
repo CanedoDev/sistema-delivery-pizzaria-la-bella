@@ -28,8 +28,11 @@
     <meta name="twitter:image" content="https://labellapizzapetropolis.com.br/assets/img/logo-la-bella-pizza.webp">
 
     <!-- Preload LCP Promo Banner Responsivo -->
-    <link rel="preload" as="image" href="assets/img/banner-promocao-combo-pizza-mob.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="assets/img/banner-promocao-combo-pizza.webp" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" as="image" type="image/webp" href="assets/img/banner-promocao-combo-pizza-mob.webp" media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" type="image/webp" href="assets/img/banner-promocao-combo-pizza.webp" media="(min-width: 769px)" fetchpriority="high">
+
+    <!-- Preload Fonte Principal (Elimina CLS de Font Swap) -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,8 +52,8 @@
     </style>
 
     <link rel="stylesheet" href="css/style.css?v=18">
-    <link rel="stylesheet" href="css/responsive.css?v=18">
-    <link rel="stylesheet" href="css/cardapio.css?v=13">
+    <link rel="stylesheet" href="css/responsive.css?v=19">
+    <link rel="stylesheet" href="css/cardapio.css?v=14">
     <link rel="stylesheet" href="css/cookie-banner.css?v=13" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="css/cookie-banner.css?v=13"></noscript>
     <script>
@@ -688,11 +691,11 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/SplitText.min.js" defer></script>
     <script src="js/security.js?v=13" defer></script>
     <script src="js/promo-slider.js?v=13" defer></script>
-    <script src="js/card-animation.js?v=18" defer></script>
+    <script src="js/card-animation.js?v=19" defer></script>
     <script src="js/title-animation.js?v=18" defer></script>
     <script src="js/pizzaJson.js?v=13" defer></script>
     <script src="js/combos.js?v=13" defer></script>
-    <script src="js/cardapio.js?v=14" defer></script>
+    <script src="js/cardapio.js?v=15" defer></script>
     <script src="js/nav-scrollspy.js?v=13" defer></script>
     <script src="js/loader.js?v=16" defer></script>
     <script src="js/cookie-banner.js?v=13" defer></script>

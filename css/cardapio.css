@@ -22,6 +22,12 @@ main {
 
 .cardapio-container {
     padding-top: 10px;
+    min-height: 85vh;
+}
+
+.cards-grid {
+    min-height: 800px;
+    contain-intrinsic-size: 800px 3000px;
 }
 
 .cardapio-container .section-title {

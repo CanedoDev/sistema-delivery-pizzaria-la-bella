@@ -193,6 +193,8 @@
         padding: 10px !important;
         /* Garante as 3 colunas, dividindo o espaco igualmente */
         grid-template-columns: repeat(3, 1fr) !important; 
+        min-height: 1200px !important;
+        contain-intrinsic-size: 300px 2500px !important;
     }
 
     .card {
