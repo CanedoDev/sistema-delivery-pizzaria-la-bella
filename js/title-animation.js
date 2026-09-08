@@ -10,7 +10,11 @@ function animateTitle(title) {
     const rect = title.getBoundingClientRect();
     const isAlreadyVisible = rect.top < window.innerHeight * 0.9 && rect.bottom > 0;
 
-    const split = new SplitText(title, { type: "words,chars", wordsClass: "split-word" });
+    const split = new SplitText(title, { 
+        type: "words,chars", 
+        wordsClass: "split-word",
+        charsClass: "split-char" 
+    });
     title._split = split;
 
     if (isAlreadyVisible) {
@@ -20,8 +24,7 @@ function animateTitle(title) {
             duration: 0.45,
             ease: "power2.out",
             stagger: 0.018,
-            overwrite: "auto",
-            clearProps: "all"
+            overwrite: "auto"
         });
     } else {
         gsap.set(split.chars, { opacity: 0, y: 24 });
@@ -32,7 +35,6 @@ function animateTitle(title) {
             ease: "power2.out",
             stagger: 0.02,
             overwrite: "auto",
-            clearProps: "all",
             scrollTrigger: {
                 trigger: title,
                 start: "top 90%",

@@ -556,6 +556,13 @@ body {
     white-space: nowrap;
 }
 
+.split-char,
+.split-word > div,
+.split-word > span {
+    display: inline-block !important;
+    position: relative;
+}
+
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 2fr);
