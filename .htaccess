@@ -3,6 +3,33 @@
 # Otimização de Performance, Ciclo de Vida de Cache e Segurança
 # ==============================================================================
 
+# ------------------------------------------------------------------------------
+# 0. URLs Amigáveis (Clean URLs) & Redirecionamentos 301
+# ------------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 0.1 Redirecionar acessos antigos com acento (/cardápio ou /cardápio.html) para /cardapio limpo
+    RewriteCond %{THE_REQUEST} /card(%C3%A1|%c3%a1|á)pio(\.html)? [NC]
+    RewriteRule ^.*$ /cardapio [R=301,L]
+
+    # 0.2 Redirecionar /index ou /index.html para a raiz /
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+index(\.html)?[\s?] [NC]
+    RewriteRule ^index(\.html)?$ / [R=301,L]
+
+    # 0.3 Se o visitante ou bot acessar diretamente qualquer arquivo com .html, redireciona 301 para a versão sem extensão
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+([^.\s?]+)\.html[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L]
+
+    # 0.4 Reescrita interna: entrega o arquivo .html existente quando requisitado sem extensão
+    # Ex: /cardapio -> cardapio.html | /linkbio -> linkbio.html | /privacidade -> privacidade.html
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}\.html -f
+    RewriteRule ^(.*)$ $1.html [L,QSA]
+</IfModule>
+
 # 1. Habilitar Expiração de Cache (mod_expires)
 <IfModule mod_expires.c>
     ExpiresActive On

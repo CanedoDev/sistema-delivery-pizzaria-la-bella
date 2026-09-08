@@ -11,7 +11,7 @@ function initCookieBanner() {
     banner.innerHTML = `
         <div class="cookie-banner-content">
             <p class="cookie-banner-text">
-                Utilizamos cookies e tecnologias semelhantes para aprimorar sua experiência de navegação, lembrar preferências e analisar o uso do nosso cardápio. Para saber mais, acesse nossa <a href="privacidade.html">Política de Privacidade</a>.
+                Utilizamos cookies e tecnologias semelhantes para aprimorar sua experiência de navegação, lembrar preferências e analisar o uso do nosso cardápio. Para saber mais, acesse nossa <a href="privacidade">Política de Privacidade</a>.
             </p>
             <div class="cookie-banner-actions">
                 <button type="button" class="cookie-btn cookie-btn-reject" id="cookie-btn-reject">Recusar</button>

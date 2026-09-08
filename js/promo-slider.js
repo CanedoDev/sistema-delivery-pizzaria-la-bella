@@ -91,11 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const ehQuarta = (diaSemana === 3);
 
                 if (promoTipo === 'terca' && ehTerca) {
-                    slide.setAttribute('href', 'cardápio.html?promo=terca#cardapio');
+                    slide.setAttribute('href', 'cardapio?promo=terca#cardapio');
                 } else if (promoTipo === 'quarta' && ehQuarta) {
-                    slide.setAttribute('href', 'cardápio.html?promo=quarta#cardapio');
+                    slide.setAttribute('href', 'cardapio?promo=quarta#cardapio');
                 } else {
-                    slide.setAttribute('href', 'cardápio.html#cardapio');
+                    slide.setAttribute('href', 'cardapio#cardapio');
                 }
             });
         });

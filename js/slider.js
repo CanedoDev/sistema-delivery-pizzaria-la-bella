@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             DOM.dots.forEach((dot, index) => { dot.classList.toggle('active', index === currentIndex); });
 
-            if (DOM.orderBtn) DOM.orderBtn.href = `cardápio.html?modal=${nextData.modalSlug}`;
+            if (DOM.orderBtn) DOM.orderBtn.href = `cardapio?modal=${nextData.modalSlug}`;
         }, 0.5);
 
         tl.set(smallTextElements, { y: 20 }, 0.51);

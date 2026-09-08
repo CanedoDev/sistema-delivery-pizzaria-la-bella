@@ -18,7 +18,7 @@
                 }
             }
 
-            /* No cardápio.html usamos nav-actions */
+            /* No cardapio.html usamos nav-actions */
             .nav-actions {
                 order: 2;
                 display: flex;
