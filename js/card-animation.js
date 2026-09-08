@@ -1,52 +1,79 @@
+gsap.registerPlugin(ScrollTrigger);
+
 let cardsQueue = [];
 let animTimer = null;
-
-let cardObserver = null;
-if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
-    cardObserver = new IntersectionObserver((entries, obs) => {
-        const visibleCards = [];
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                visibleCards.push(entry.target);
-                obs.unobserve(entry.target);
-            }
-        });
-        if (visibleCards.length && typeof gsap !== 'undefined') {
-            gsap.to(visibleCards, {
-                y: 0,
-                scale: 1,
-                opacity: 1,
-                duration: 0.42,
-                stagger: 0.025,
-                ease: "power2.out",
-                overwrite: "auto",
-                clearProps: "willChange"
-            });
-        }
-    }, {
-        rootMargin: '160px 0px 80px 0px',
-        threshold: 0.01
-    });
-}
 
 function processCardsQueue() {
     if (!cardsQueue.length) return;
 
-    const cardsToAnimate = cardsQueue.filter(card => card && !card.closest('.models') && !card.dataset.stActive);
+    const cardsToAnimate = [...cardsQueue];
     cardsQueue = [];
 
-    if (!cardsToAnimate.length) return;
+    const isMobile = window.innerWidth <= 768;
 
-    cardsToAnimate.forEach(c => {
-        c.dataset.stActive = "true";
+    const startVal = isMobile ? "top 92%" : "top 100%";
+    const endVal = "bottom top";
+
+    cardsToAnimate.forEach((card, idx) => {
+        if (!card || card.closest('.models')) return;
+        card.removeAttribute('data-st-active');
+        card.dataset.stActive = "true";
+
+        const animateCardIn = (delayOffset = 0) => {
+            gsap.to(card, {
+                scale: 1,
+                opacity: 1,
+                duration: 0.8,
+                delay: delayOffset,
+                ease: "elastic.out(1, 0.75)",
+                overwrite: "auto"
+            });
+        };
+
+        const animateCardOut = () => {
+            gsap.to(card, {
+                scale: 0.4,
+                opacity: 0,
+                duration: 0.35,
+                ease: "power2.in",
+                overwrite: "auto"
+            });
+        };
+
+        gsap.set(card, { scale: 0.4, opacity: 0 });
+
+        const rect = card.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight * 1.05 && rect.bottom > 0;
+
+        if (isInViewport) {
+            const staggerDelay = (idx % 3) * 0.08;
+            animateCardIn(staggerDelay);
+        }
+
+        ScrollTrigger.create({
+            trigger: card,
+            start: startVal,
+            end: endVal,
+            fastScrollEnd: true,
+            onEnter: () => {
+                const staggerDelay = (idx % 3) * 0.08;
+                animateCardIn(staggerDelay);
+            },
+            onEnterBack: () => {
+                const staggerDelay = (idx % 3) * 0.08;
+                animateCardIn(staggerDelay);
+            },
+            onLeaveBack: () => {
+                animateCardOut();
+            }
+        });
     });
 
-    if (cardObserver && typeof gsap !== 'undefined') {
-        gsap.set(cardsToAnimate, { y: 18, scale: 0.96, opacity: 0 });
-        cardsToAnimate.forEach(c => cardObserver.observe(c));
-    } else if (typeof gsap !== 'undefined') {
-        gsap.set(cardsToAnimate, { y: 0, scale: 1, opacity: 1 });
-    }
+    setTimeout(() => {
+        if (typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.refresh();
+        }
+    }, 60);
 }
 
 window.observeCard = function(card) {
