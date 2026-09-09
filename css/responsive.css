@@ -193,14 +193,14 @@
         padding: 10px !important;
         /* Garante as 3 colunas, dividindo o espaco igualmente */
         grid-template-columns: repeat(3, 1fr) !important; 
-        min-height: 1200px !important;
-        contain-intrinsic-size: 300px 2500px !important;
+        min-height: auto !important;
     }
 
     .card {
         padding: 0 5px 15px !important;
         border-radius: 15px !important;
         margin-top: 40px !important; /* Espaço para a miniatura da pizza */
+        height: auto !important;
     }
 
     .card-img-wrapper {
