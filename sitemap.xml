@@ -3,21 +3,15 @@
     <!-- Página Inicial / Home -->
     <url>
         <loc>https://pizzarialabellapetropolis.com.br/</loc>
-        <lastmod>2026-09-02</lastmod>
+        <lastmod>2026-09-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://pizzarialabellapetropolis.com.br/index.html</loc>
-        <lastmod>2026-09-02</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
     </url>
 
     <!-- Cardápio Completo -->
     <url>
         <loc>https://pizzarialabellapetropolis.com.br/cardapio</loc>
-        <lastmod>2026-09-08</lastmod>
+        <lastmod>2026-09-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -25,7 +19,7 @@
     <!-- Linkbio / Links Úteis -->
     <url>
         <loc>https://pizzarialabellapetropolis.com.br/linkbio</loc>
-        <lastmod>2026-09-08</lastmod>
+        <lastmod>2026-09-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -33,7 +27,7 @@
     <!-- Arquivo de Contexto para LLMs / GEO -->
     <url>
         <loc>https://pizzarialabellapetropolis.com.br/llm.txt</loc>
-        <lastmod>2026-09-02</lastmod>
+        <lastmod>2026-09-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>

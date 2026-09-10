@@ -2,7 +2,7 @@
 
 Aplicação web completa e interativa para pizzaria artesanal em Petrópolis/RJ. O projeto une experiência de usuário (UX) de alto padrão, animações aceleradas por GPU, engenharia de performance (Core Web Vitals) e motor de regras de negócio em JavaScript puro para promoções sazonais e fechamento de pedidos via WhatsApp.
 
-- **Demonstracao Online:** https://labellapizzapetropolis.com.br
+- **Demonstracao Online:** https://pizzarialabellapetropolis.com.br
 - **Repositório:** https://github.com/CanedoDev/Sistema-delivery-pizzaria
 
 ---
@@ -96,4 +96,4 @@ Essa abordagem reflete um fluxo de trabalho contemporâneo de engenharia de soft
 
 Desenvolvido por **Canedo Web Studio** / **CanedoDev**  
 * GitHub: [CanedoDev](https://github.com/CanedoDev)
-* Website do Cliente: [La Bella Pizza Petrópolis](https://labellapizzapetropolis.com.br)
+* Website do Cliente: [La Bella Pizza Petrópolis](https://pizzarialabellapetropolis.com.br)

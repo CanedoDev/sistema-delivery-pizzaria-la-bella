@@ -1,5 +1,5 @@
 # robots.txt para La Bella Pizza Petrópolis
-# https://labellapizzapetropolis.com.br
+# https://pizzarialabellapetropolis.com.br
 
 User-agent: *
 Allow: /
@@ -31,5 +31,5 @@ User-agent: Meta-ExternalAgent
 Allow: /
 
 # Mapeamento do Site e Contexto para LLMs
-Sitemap: https://labellapizzapetropolis.com.br/sitemap.xml
-# Contexto para IAs: https://labellapizzapetropolis.com.br/llm.txt
+Sitemap: https://pizzarialabellapetropolis.com.br/sitemap.xml
+# Contexto para IAs: https://pizzarialabellapetropolis.com.br/llm.txt
