@@ -45,6 +45,12 @@ function getCardObserver() {
 window.observeCard = function(card) {
     if (!card || card.closest('.models')) return;
 
+    if (window.innerWidth <= 768) {
+        card.style.opacity = '1';
+        card.style.transform = 'none';
+        return;
+    }
+
     // Estado inicial suave
     card.style.opacity = '0';
     card.style.transform = 'scale(0.4)';

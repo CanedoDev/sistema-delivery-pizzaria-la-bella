@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const isMobile = window.innerWidth <= 768;
-    const circleDur = isMobile ? 0.42 : 0.55;
-    const logoDur = isMobile ? 0.42 : 0.52;
+    const circleDur = isMobile ? 0.22 : 0.55;
+    const logoDur = isMobile ? 0.22 : 0.52;
 
     let dismissed = false;
     const dismissLoader = () => {
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const tl = gsap.timeline({
-        delay: 0.15,
+        delay: isMobile ? 0.05 : 0.15,
         onComplete: dismissLoader
     });
 
@@ -37,18 +37,18 @@ document.addEventListener("DOMContentLoaded", () => {
     .to(".pizza-svg", {
         opacity: 0,
         scale: 0.5,
-        duration: 0.12
+        duration: isMobile ? 0.08 : 0.12
     }, "-=0.04")
     .to(".loader-logo", {
         scale: 1,
         opacity: 1,
         duration: logoDur,
-        ease: "elastic.out(1, 0.7)"
+        ease: isMobile ? "power2.out" : "elastic.out(1, 0.7)"
     }, "-=0.04")
-    .to({}, { duration: 0.18 })
+    .to({}, { duration: isMobile ? 0.06 : 0.18 })
     .to(loader, {
         yPercent: -100,
-        duration: 0.48,
+        duration: isMobile ? 0.28 : 0.48,
         ease: "power3.inOut"
     });
 

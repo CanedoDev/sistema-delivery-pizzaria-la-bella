@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.innerWidth <= 768) return;
+
     const magneticTargets = [
         { selector: '.conceito-img-left', baseRotation: -3 },
         { selector: '.conceito-img-right', baseRotation: 3 },
