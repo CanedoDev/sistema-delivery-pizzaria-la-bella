@@ -8,21 +8,20 @@ function animateTitle(title) {
     }
 
     const split = new SplitText(title, { 
-        type: "words,chars", 
-        wordsClass: "split-word",
-        charsClass: "split-char" 
+        type: "words", 
+        wordsClass: "split-word"
     });
     title._split = split;
 
-    gsap.set(split.chars, { opacity: 0, y: 30, scale: 0.8 });
+    gsap.set(split.words, { opacity: 0, y: 24 });
 
-    gsap.to(split.chars, {
+    gsap.to(split.words, {
         opacity: 1,
         y: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: "elastic.out(1, 0.75)",
-        stagger: 0.03,
+        duration: 0.65,
+        ease: "power2.out",
+        stagger: 0.04,
+        force3D: true,
         overwrite: "auto",
         scrollTrigger: {
             trigger: title,

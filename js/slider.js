@@ -168,7 +168,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             opacity: 0,
             rotation: "+=45",
             duration: 0.5,
-            ease: "power2.in"
+            ease: "power2.in",
+            force3D: true
         }, 0);
 
         tl.add(() => {
@@ -223,7 +224,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             opacity: 1,
             rotation: nextData.rotation,
             duration: 1.2,
-            ease: "customBezier"
+            ease: "customBezier",
+            force3D: true
         }, 0.55);
     }
 

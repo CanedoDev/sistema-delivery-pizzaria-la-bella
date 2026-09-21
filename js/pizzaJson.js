@@ -67,7 +67,7 @@ let pizzaJson = [
         id: 8,
         category: 'Pizzas Tradicionais',
         name: 'Americana',
-        img: 'assets/img/pizzas/pizza-presunto-c-ovos.webp',
+        img: 'assets/img/pizzas/pizza-americana.webp',
         price: [62.90, 69.90, 86.90, 93.90],
         sizes: ['Média 30 cm', 'Grande 35 cm', 'Super 40 cm', 'Max 45 cm'],
         description: 'Combinação robusta e saborosa: cubos de bacon torrado crocante, ovos cozidos picados e rodelas de cebola sobre muçarela.'
@@ -85,7 +85,7 @@ let pizzaJson = [
         id: 10,
         category: 'Pizzas Tradicionais',
         name: 'Bacon',
-        img: 'assets/img/pizzas/pizza-3-porquinhos.webp',
+        img: 'assets/img/pizzas/pizza-bacon.webp',
         price: [62.90, 69.90, 86.90, 93.90],
         sizes: ['Média 30 cm', 'Grande 35 cm', 'Super 40 cm', 'Max 45 cm'],
         description: 'Sabor defumado inconfundível: bacon crocante premium, anéis de cebola e um toque especial de alho torrado sobre muçarela.'
@@ -94,7 +94,7 @@ let pizzaJson = [
         id: 11,
         category: 'Pizzas Tradicionais',
         name: 'Baiana',
-        img: 'assets/img/pizzas/pizza-calabresa.webp',
+        img: 'assets/img/pizzas/pizza-baiana.webp',
         price: [62.90, 69.90, 86.90, 93.90],
         sizes: ['Média 30 cm', 'Grande 35 cm', 'Super 40 cm', 'Max 45 cm'],
         description: 'Toque picante na medida certa: calabresa picante moída, ovos cozidos, pimenta biquinho aromática e rodelas de cebola.'
@@ -311,7 +311,7 @@ let pizzaJson = [
         id: 34,
         category: 'Pizzas Especiais',
         name: 'Napolitana',
-        img: 'assets/img/pizzas/pizza-alho-e-parmesao.webp',
+        img: 'assets/img/pizzas/pizza-napolitana.webp',
         price: [68.90, 76.90, 89.90, 96.90],
         sizes: ['Média 30 cm', 'Grande 35 cm', 'Super 40 cm', 'Max 45 cm'],
         description: 'Simplicidade clássica e refinada: fatias de tomate fresco suculento, queijo parmesão gratinado e azeitonas pretas sobre muçarela.'
@@ -474,7 +474,7 @@ let pizzaJson = [
         id: 52,
         category: 'Pizzas Doces',
         name: 'Banana c/ Canela',
-        img: 'assets/img/pizza-brasileira.webp',
+        img: 'assets/img/pizzas/pizza-banana-canela.webp',
         price: [44.90, 49.90],
         sizes: ['Média 30 cm', 'Grande 35 cm'],
         description: 'Doce e perfumada: fatias de banana fresca caramelizadas com açúcar e canela aromática sobre queijo muçarela derretido.'
@@ -483,7 +483,7 @@ let pizzaJson = [
         id: 53,
         category: 'Pizzas Doces',
         name: 'Brigadeiro',
-        img: 'assets/img/pizza-frango-catupiry.webp',
+        img: 'assets/img/pizzas/pizza-brigadeiro.webp',
         price: [47.90, 51.90],
         sizes: ['Média 30 cm', 'Grande 35 cm'],
         description: 'A sobremesa mais amada: generosa camada de brigadeiro cremoso artesanal coberto com granulado de chocolate nobre.'
@@ -492,7 +492,7 @@ let pizzaJson = [
         id: 54,
         category: 'Pizzas Doces',
         name: 'Brigadeiro Especial',
-        img: 'assets/img/pizza-calabresa.webp',
+        img: 'assets/img/pizzas/pizza-brigadeiro-especial.webp',
         price: [49.90, 54.90],
         sizes: ['Média 30 cm', 'Grande 35 cm'],
         description: 'Contraste doce e salgado irresistível: brigadeiro de panela artesanal, granulado crocante e muçarela derretida.'
@@ -501,7 +501,7 @@ let pizzaJson = [
         id: 55,
         category: 'Pizzas Doces',
         name: 'Chocolate c/ Banana',
-        img: 'assets/img/pizza-brasileira.webp',
+        img: 'assets/img/pizzas/pizza-chocolate-banana.webp',
         price: [47.90, 51.90],
         sizes: ['Média 30 cm', 'Grande 35 cm'],
         description: 'Combinação clássica que conforta: chocolate cremoso meio amargo derretido com fatias doces de banana fresca.'
@@ -510,7 +510,7 @@ let pizzaJson = [
         id: 56,
         category: 'Pizzas Doces',
         name: 'Chocolate c/ Morango',
-        img: 'assets/img/pizza-frango-catupiry.webp',
+        img: 'assets/img/pizzas/pizza-chocolate-morango.webp',
         price: [49.90, 54.90],
         sizes: ['Média 30 cm', 'Grande 35 cm'],
         description: 'A queridinha das sobremesas: chocolate nobre derretido coberto com pedaços frescos de morangos selecionados.'
@@ -519,7 +519,7 @@ let pizzaJson = [
         id: 57,
         category: 'Pizzas Doces',
         name: 'Festa',
-        img: 'assets/img/pizza-calabresa.webp',
+        img: 'assets/img/pizzas/pizza-festa.webp',
         price: [49.90, 54.90],
         sizes: ['Média 30 cm', 'Grande 35 cm'],
         description: 'Alegre e crocante: chocolate cremoso coberto com confeitos coloridos crocantes de chocolate confeitado.'
@@ -528,7 +528,7 @@ let pizzaJson = [
         id: 58,
         category: 'Pizzas Doces',
         name: 'Prestígio',
-        img: 'assets/img/pizza-brasileira.webp',
+        img: 'assets/img/pizzas/pizza-prestigio.webp',
         price: [49.90, 54.90],
         sizes: ['Média 30 cm', 'Grande 35 cm'],
         description: 'Clássico tropical inconfundível: chocolate nobre derretido com generosa cobertura de coco ralado fresco.'
@@ -537,7 +537,7 @@ let pizzaJson = [
         id: 59,
         category: 'Pizzas Doces',
         name: 'Romeu e Julieta',
-        img: 'assets/img/pizza-frango-catupiry.webp',
+        img: 'assets/img/pizzas/pizza-romeu-e-julieta.webp',
         price: [44.90, 49.90],
         sizes: ['Média 30 cm', 'Grande 35 cm'],
         description: 'O par perfeito da doçura: goiabada cremosa cascão combinada com autêntico requeijão cremoso suave.'

@@ -1,5 +1,10 @@
 function initCookieBanner() {
     const consent = localStorage.getItem('cookie_consent');
+    if (consent === 'rejected' && typeof gtag === 'function') {
+        gtag('consent', 'update', {
+            'analytics_storage': 'denied'
+        });
+    }
     if (consent) return;
 
     const banner = document.createElement('div');
@@ -33,9 +38,9 @@ function initCookieBanner() {
             banner.remove();
         }, 400);
 
-        if (tipo === 'accepted' && typeof gtag === 'function') {
+        if (typeof gtag === 'function') {
             gtag('consent', 'update', {
-                'analytics_storage': 'granted'
+                'analytics_storage': tipo === 'accepted' ? 'granted' : 'denied'
             });
         }
     };

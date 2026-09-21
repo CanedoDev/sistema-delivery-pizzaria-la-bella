@@ -1,5 +1,5 @@
 // Otimização de Performance: Animação fluida com IntersectionObserver nativo
-// Elimina reflows síncronos forçados (getBoundingClientRect em loop) e reduz tempo de CPU de 70ms para < 2ms
+// Sem stagger atrasando os cards e com aceleração de hardware (force3D: true)
 
 let cardObserver = null;
 
@@ -13,29 +13,24 @@ function getCardObserver() {
                         gsap.to(card, {
                             scale: 1,
                             opacity: 1,
-                            duration: 0.7,
-                            ease: "elastic.out(1, 0.75)",
-                            overwrite: "auto"
+                            duration: 0.45,
+                            ease: "power2.out",
+                            force3D: true,
+                            overwrite: "auto",
+                            onComplete: () => {
+                                card.style.willChange = 'auto';
+                            }
                         });
                     } else {
                         card.style.opacity = '1';
                         card.style.transform = 'scale(1)';
                     }
-                } else if (entry.boundingClientRect.top > 0) {
-                    // Se o card rolou para fora da tela por baixo, reseta suavemente
-                    if (typeof gsap !== 'undefined') {
-                        gsap.to(card, {
-                            scale: 0.4,
-                            opacity: 0,
-                            duration: 0.3,
-                            ease: "power2.in",
-                            overwrite: "auto"
-                        });
-                    }
+                    // Desconecta o observer deste card após animar para zerar o consumo de CPU em scroll
+                    cardObserver.unobserve(card);
                 }
             });
         }, {
-            rootMargin: "0px 0px 50px 0px",
+            rootMargin: "0px 0px 80px 0px",
             threshold: 0.05
         });
     }
@@ -51,9 +46,10 @@ window.observeCard = function(card) {
         return;
     }
 
-    // Estado inicial suave
+    // Estado inicial suave e leve
     card.style.opacity = '0';
-    card.style.transform = 'scale(0.4)';
+    card.style.transform = 'scale(0.85)';
+    card.style.willChange = 'transform, opacity';
 
     const observer = getCardObserver();
     if (observer) {
@@ -65,6 +61,7 @@ window.observeCard = function(card) {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Cards da home: animam todos juntos sem stagger
     document.querySelectorAll('.cards-grid .card').forEach(card => {
         window.observeCard(card);
     });
