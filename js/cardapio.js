@@ -378,6 +378,21 @@ const botoesFechar = () => {
     }
 }
 
+const formatarTituloCard = (nome) => {
+    if (!nome) return '';
+    if (nome.includes(' - ')) {
+        const parts = nome.split(' - ');
+        return `<span class="card-title-name">${parts[0]}</span><span class="card-title-details">- ${parts.slice(1).join(' - ')}</span>`;
+    }
+    if (nome.includes(' (')) {
+        const idx = nome.indexOf(' (');
+        const main = nome.substring(0, idx);
+        const details = nome.substring(idx + 1);
+        return `<span class="card-title-name">${main}</span><span class="card-title-details">${details}</span>`;
+    }
+    return nome;
+};
+
 const preencheDadosPizza = (pizzaItem, item, index) => {
     pizzaItem.setAttribute('data-key', index);
     const pizzaImg = pizzaItem.querySelector(".card-pizza-img");
@@ -390,13 +405,23 @@ const preencheDadosPizza = (pizzaItem, item, index) => {
     pizzaImg.decoding = "async";
     pizzaImg.width = 140;
     pizzaImg.height = 93;
-    pizzaItem.querySelector(".card-title").innerHTML = item.name;
+    pizzaItem.querySelector(".card-title").innerHTML = formatarTituloCard(item.name);
     pizzaItem.querySelector(".card-price").innerHTML = `R$ ${item.price[0].toFixed(2).replace('.', ',')}`;
 }
 
 const preencherDadosModal = (item) => {
     seleciona('.pizzaBig img').src = item.img
-    seleciona('.pizzaInfo h1').innerHTML = item.name
+    if (item.name && item.name.includes(' - ')) {
+        const parts = item.name.split(' - ');
+        seleciona('.pizzaInfo h1').innerHTML = `<span class="pizza-title-name">${parts[0]}</span><span class="pizza-title-details">- ${parts.slice(1).join(' - ')}</span>`;
+    } else if (item.name && item.name.includes(' (')) {
+        const idx = item.name.indexOf(' (');
+        const main = item.name.substring(0, idx);
+        const details = item.name.substring(idx + 1);
+        seleciona('.pizzaInfo h1').innerHTML = `<span class="pizza-title-name">${main}</span><span class="pizza-title-details">${details}</span>`;
+    } else {
+        seleciona('.pizzaInfo h1').innerHTML = item.name;
+    }
     seleciona('.pizzaInfo--desc').innerHTML = item.description
     seleciona('.pizzaInfo--actualPrice').innerHTML = formatoReal(item.price[0])
 
@@ -438,6 +463,11 @@ const atualizarBonusRefri = () => {
     const bonusRefriEl = seleciona('.pizzaInfo--bonusRefri')
     const selectedSize = seleciona('.pizzaInfo--size.selected')
     if (!bonusRefriEl) return
+    const currentItem = pizzaJson[modalKey]
+    if (currentItem && currentItem.category === 'Bebidas') {
+        bonusRefriEl.style.display = 'none'
+        return
+    }
     const key = selectedSize ? selectedSize.getAttribute('data-key') : ''
     if (key === 'S' || key === 'MX') {
         bonusRefriEl.style.display = 'flex'
@@ -446,40 +476,135 @@ const atualizarBonusRefri = () => {
     }
 }
 
+const preencherTiposBebida = (key) => {
+    const typeArea = seleciona('.pizzaInfo--typearea');
+    if (!typeArea) return;
+    const typesContainer = typeArea.querySelector('.pizzaInfo--types');
+    const item = pizzaJson[key];
+
+    if (item && item.types && item.types.length > 0) {
+        typeArea.style.display = 'block';
+        typesContainer.innerHTML = '';
+        item.types.forEach((type, index) => {
+            const typeDiv = document.createElement('div');
+            typeDiv.className = `pizzaInfo--type ${index === 0 ? 'selected' : ''}`;
+            typeDiv.setAttribute('data-type', type);
+            let label = type;
+            if (type === 'Comum') label = 'Comum';
+            else if (type === 'Zero') label = 'Zero Açúcar';
+            else if (type === 'Black') label = 'Black';
+            typeDiv.innerText = label;
+            typeDiv.addEventListener('click', () => {
+                typesContainer.querySelectorAll('.pizzaInfo--type').forEach(t => t.classList.remove('selected'));
+                typeDiv.classList.add('selected');
+                ajustarTamanhosPorTipo(key);
+            });
+            typesContainer.appendChild(typeDiv);
+        });
+    } else {
+        typeArea.style.display = 'none';
+        typesContainer.innerHTML = '';
+    }
+};
+
+const ajustarTamanhosPorTipo = (key) => {
+    const item = pizzaJson[key];
+    if (!item) return;
+
+    const selectedTypeEl = seleciona('.pizzaInfo--type.selected');
+    const selectedType = selectedTypeEl ? selectedTypeEl.getAttribute('data-type') : null;
+
+    let availableSizes = item.sizes;
+    if (item.typeRules && selectedType && item.typeRules[selectedType]) {
+        availableSizes = item.typeRules[selectedType].sizes;
+    }
+
+    const allSizes = selecionaTodos('.pizzaInfo--size');
+    allSizes.forEach((sizeEl, sIdx) => {
+        if (availableSizes && availableSizes[sIdx]) {
+            sizeEl.style.display = 'block';
+            sizeEl.innerHTML = availableSizes[sIdx];
+        } else {
+            sizeEl.style.display = 'none';
+        }
+    });
+
+    const currentSelected = seleciona('.pizzaInfo--size.selected');
+    if (!currentSelected || currentSelected.style.display === 'none') {
+        const firstVisible = [...allSizes].find(s => s.style.display !== 'none');
+        if (firstVisible) firstVisible.classList.add('selected');
+    }
+
+    atualizaPreco();
+};
+
 const preencherTamanhos = (key) => {
     let currentSelected = seleciona('.pizzaInfo--size.selected')
     if (currentSelected) currentSelected.classList.remove('selected')
 
+    const item = pizzaJson[key]
+    const isBebida = item && item.category === 'Bebidas'
+    const sizeLabels = ['MÉDIA', 'GRANDE', 'SUPER', 'MAX']
+
+    const sectorEl = seleciona('.pizzaInfo--sizearea .pizzaInfo--sector')
+    if (sectorEl) sectorEl.innerText = isBebida ? 'Volume' : 'Tamanho'
+
+    const selectedTypeEl = seleciona('.pizzaInfo--type.selected')
+    const selectedType = (isBebida && selectedTypeEl) ? selectedTypeEl.getAttribute('data-type') : null
+
+    let availableSizes = item ? item.sizes : []
+    if (item && item.typeRules && selectedType && item.typeRules[selectedType]) {
+        availableSizes = item.typeRules[selectedType].sizes
+    }
+
     selecionaTodos('.pizzaInfo--size').forEach((size, sizeIndex) => {
-        if (pizzaJson[key].sizes[sizeIndex]) {
+        if (availableSizes && availableSizes[sizeIndex]) {
             size.style.display = 'block'
-            size.querySelector('span').innerHTML = pizzaJson[key].sizes[sizeIndex]
+            if (isBebida) {
+                size.innerHTML = availableSizes[sizeIndex]
+            } else {
+                size.innerHTML = `${sizeLabels[sizeIndex] || ''} <span>${availableSizes[sizeIndex]}</span>`
+            }
         } else {
             size.style.display = 'none'
         }
     })
 
     let allSizes = selecionaTodos('.pizzaInfo--size')
-    if (pizzaJson[key].sizes[1]) {
+    if (availableSizes && availableSizes[1]) {
         allSizes[1].classList.add('selected')
     } else {
         allSizes[0].classList.add('selected')
     }
 
     atualizarBonusRefri()
+    atualizaPreco()
 }
 
 const atualizaPreco = () => {
+    const item = pizzaJson[modalKey];
+    if (!item) return;
+
     let sizeIndex = [...selecionaTodos('.pizzaInfo--size')].findIndex(size => size.classList.contains('selected'))
-    let precoOriginal = pizzaJson[modalKey].price[sizeIndex]
+    if (sizeIndex === -1) sizeIndex = 0;
+
+    let precoOriginal = item.price[sizeIndex] !== undefined ? item.price[sizeIndex] : item.price[0];
+
+    const selectedTypeEl = seleciona('.pizzaInfo--type.selected');
+    const selectedType = selectedTypeEl ? selectedTypeEl.getAttribute('data-type') : null;
+    if (item.typeRules && selectedType && item.typeRules[selectedType]) {
+        precoOriginal = item.typeRules[selectedType].price[sizeIndex] !== undefined
+            ? item.typeRules[selectedType].price[sizeIndex]
+            : item.typeRules[selectedType].price[0];
+    }
 
     const { quartaFeira } = getPromocaoStatus()
     let descontoPromo = 0
 
     if (quartaFeira && sizeIndex === 1) {
-        if (pizzaPromoQuartaUm.includes(pizzaJson[modalKey].id)) {
+        if (pizzaPromoQuartaUm.includes(item.id)) {
             descontoPromo = 10
-        } else if (pizzaPromoQuartaDois.includes(pizzaJson[modalKey].id)) {
+        } else if (pizzaPromoQuartaDois.includes(item.id)) {
             descontoPromo = 11
         }
     }
@@ -603,24 +728,45 @@ const configurarPopupAvisoPromo = () => {
 const adicionarNoCarrinho = () => {
     seleciona('.pizzaInfo--addButton').addEventListener('click', () => {
 
-        let size = seleciona('.pizzaInfo--size.selected').getAttribute('data-key')
+        const itemAtual = pizzaJson[modalKey];
+        const isBebida = itemAtual && itemAtual.category === 'Bebidas';
 
-        let sizeIndex = [...selecionaTodos('.pizzaInfo--size')].findIndex(size => size.classList.contains('selected'))
+        let sizeIndex = [...selecionaTodos('.pizzaInfo--size')].findIndex(size => size.classList.contains('selected'));
+        if (sizeIndex === -1) sizeIndex = 0;
 
-        let price = pizzaJson[modalKey].price[sizeIndex]
+        const selectedTypeEl = seleciona('.pizzaInfo--type.selected');
+        const selectedType = (isBebida && selectedTypeEl) ? selectedTypeEl.getAttribute('data-type') : null;
+
+        let availableSizes = itemAtual.sizes;
+        let availablePrices = itemAtual.price;
+        if (itemAtual.typeRules && selectedType && itemAtual.typeRules[selectedType]) {
+            availableSizes = itemAtual.typeRules[selectedType].sizes;
+            availablePrices = itemAtual.typeRules[selectedType].price;
+        }
+
+        let size = isBebida
+            ? (availableSizes[sizeIndex] || availableSizes[0])
+            : seleciona('.pizzaInfo--size.selected').getAttribute('data-key');
+
+        let price = availablePrices[sizeIndex] !== undefined ? availablePrices[sizeIndex] : availablePrices[0];
 
         let refriEscolhido = null;
-        if (size === 'S' || size === 'MX') {
+        if (!isBebida && (size === 'S' || size === 'MX')) {
             const selectRefriEl = seleciona('.pizzaInfo--refriSelect');
             const refriVal = selectRefriEl ? selectRefriEl.value : 'Coca-Cola 2L';
             refriEscolhido = `${refriVal} (Grátis)`;
         }
 
-        let identificador = pizzaJson[modalKey].id + 't' + size + (refriEscolhido ? '_' + refriEscolhido.replace(/\s+/g, '_') : '')
+        let identificador = itemAtual.id + 't' + size + (selectedType ? '_' + selectedType : '') + (refriEscolhido ? '_' + refriEscolhido.replace(/\s+/g, '_') : '');
+
+        let nomeFinalItem = itemAtual.name;
+        if (isBebida && itemAtual.baseName) {
+            nomeFinalItem = selectedType ? `${itemAtual.baseName} ${selectedType}` : itemAtual.baseName;
+        }
 
         const { quartaFeira } = getPromocaoStatus()
         const ehPromoAtual = quartaFeira && (size === 'G' || sizeIndex === 1) &&
-            (pizzaPromoQuartaUm.includes(pizzaJson[modalKey].id) || pizzaPromoQuartaDois.includes(pizzaJson[modalKey].id))
+            (pizzaPromoQuartaUm.includes(itemAtual.id) || pizzaPromoQuartaDois.includes(itemAtual.id))
 
         if (ehPromoAtual) {
             const promoExistente = cart.reduce((acc, it) => {
@@ -641,7 +787,9 @@ const adicionarNoCarrinho = () => {
         } else {
             let pizzaNoCarrinho = {
                 identificador,
-                id: pizzaJson[modalKey].id,
+                id: itemAtual.id,
+                customName: isBebida ? nomeFinalItem : null,
+                selectedType: selectedType,
                 size: size,
                 sizeIndex: sizeIndex,
                 qt: quantPizzas,
@@ -730,7 +878,8 @@ const atualizarCarrinho = () => {
             } else {
 
                 let pizzaItem = pizzaJson.find((item) => item.id == itemDoCarrinho.id)
-                let pizzaName = pizzaItem ? `${pizzaItem.name} (${itemDoCarrinho.size})` : `Item (${itemDoCarrinho.size})`
+                let displayName = itemDoCarrinho.customName || (pizzaItem ? pizzaItem.name : 'Item')
+                let pizzaName = `${displayName} (${itemDoCarrinho.size})`
 
                 let refriBadge = ''
                 if (itemDoCarrinho.size === 'S' || itemDoCarrinho.size === 'MX') {
@@ -850,7 +999,7 @@ const capturarDadosDoPedido = () => {
             pedido.desconto += economia
         } else {
             let pizzaItem = pizzaJson.find((item) => item.id == itemDoCarrinho.id)
-            let pizzaName = pizzaItem ? pizzaItem.name : 'Item'
+            let pizzaName = itemDoCarrinho.customName || (pizzaItem ? pizzaItem.name : 'Item')
             let pizzaSize = itemDoCarrinho.size
             let pizzasQt = itemDoCarrinho.qt
             let pizzaPrice = itemDoCarrinho.price
@@ -870,7 +1019,7 @@ const capturarDadosDoPedido = () => {
                 pedido.desconto += itemDesconto
             }
 
-            const brindeRefri = (itemDoCarrinho.size === 'S' || itemDoCarrinho.size === 'MX') || !!itemDoCarrinho.refrigerante
+            const brindeRefri = ((itemDoCarrinho.size === 'S' || itemDoCarrinho.size === 'MX') || !!itemDoCarrinho.refrigerante) && (!pizzaItem || pizzaItem.category !== 'Bebidas')
 
             pedido.itens.push({
                 isCombo: false,
@@ -1318,6 +1467,7 @@ const carregarPizzas = () => {
             let chave = pegarKey(e);
             abrirModal();
             preencherDadosModal(item);
+            preencherTiposBebida(chave);
             preencherTamanhos(chave);
             seleciona('.pizzaInfo--qt').innerHTML = quantPizzas;
             escolherTamanho(chave);
@@ -1329,7 +1479,7 @@ const carregarPizzas = () => {
 
     if (tercaFeira && typeof combosJson !== 'undefined' && termoAtual.trim() === '') {
         const combosTerca = combosJson.filter(c => c.category === 'PromocaoTerca');
-        if (combosTerca.length > 0 && (categoriaAtual === 'all' || categoriaAtual === 'combos')) {
+        if (combosTerca.length > 0 && categoriaAtual === 'all') {
             let tituloTerca = document.createElement('h2');
             tituloTerca.classList.add('category-title');
             tituloTerca.innerHTML = "La Bella em Dobro";
@@ -1358,7 +1508,7 @@ const carregarPizzas = () => {
                 comboImg.decoding = "async";
                 comboImg.width = 140;
                 comboImg.height = 93;
-                comboItem.querySelector(".card-title").innerHTML = combo.name;
+                comboItem.querySelector(".card-title").innerHTML = formatarTituloCard(combo.name);
                 comboItem.querySelector(".card-price").innerHTML = `R$ ${combo.price.toFixed(2).replace('.', ',')}`;
 
                 const btn = comboItem.querySelector('.card-btn');
@@ -1377,11 +1527,9 @@ const carregarPizzas = () => {
         }
     }
 
-    if (pizzasPromo.length > 0 && termoAtual.trim() === '') {
+    if (pizzasPromo.length > 0 && termoAtual.trim() === '' && categoriaAtual === 'all') {
         let temPromoPraMostrar = pizzasPromo.some(({ item }) => {
-            const catSlug = item.category.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
-            return item.name.toLowerCase().includes(termoAtual.toLowerCase()) &&
-                (categoriaAtual === 'all' || categoriaAtual === catSlug);
+            return item.name.toLowerCase().includes(termoAtual.toLowerCase());
         });
 
         if (temPromoPraMostrar) {

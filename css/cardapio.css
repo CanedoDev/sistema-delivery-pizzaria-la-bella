@@ -215,6 +215,23 @@ main {
     line-height: 1.1;
     margin-bottom: 10px;
     font-family: 'Damion', cursive;
+    word-spacing: 0.35em;
+    letter-spacing: 0.5px;
+}
+
+.pizza-title-name {
+    font-family: 'Damion', cursive;
+}
+
+.pizza-title-details {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    margin-top: 4px;
+    color: #444;
+    word-spacing: normal;
+    line-height: 1.3;
 }
 
 .pizzaInfo--desc {
@@ -231,6 +248,38 @@ main {
     font-weight: 600;
     margin-bottom: 8px;
     letter-spacing: 1px;
+}
+
+.pizzaInfo--types {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.pizzaInfo--type {
+    flex: 1;
+    padding: 10px 14px;
+    background-color: #eee;
+    color: #333;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.pizzaInfo--type:hover {
+    background-color: #e5e5e5;
+}
+
+.pizzaInfo--type.selected {
+    background-color: #dc4e44;
+    color: #fff;
+    border-color: #C0392B;
+    box-shadow: 0px 5px 15px rgba(220, 78, 68, 0.4);
 }
 
 /* Opções de Tamanhos */
@@ -1161,7 +1210,18 @@ aside.show {
     /* Verde tema */
     font-family: 'Damion', cursive;
     text-transform: uppercase;
-    letter-spacing: -1px;
+    letter-spacing: 0.5px;
+    word-spacing: 0.35em;
+}
+
+.split-word {
+    display: inline-block;
+    white-space: nowrap;
+    margin-right: 0.35em;
+}
+
+.split-word:last-child {
+    margin-right: 0;
 }
 
 @media (max-width: 840px) {
@@ -1269,6 +1329,23 @@ aside.show {
     line-height: 1.25;
     padding-top: 4px;
     overflow: visible;
+    word-spacing: 0.35em;
+    letter-spacing: 0.5px;
+}
+
+.combo-title-name {
+    font-family: 'Damion', cursive;
+}
+
+.combo-title-details {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    margin-top: 4px;
+    color: #444;
+    word-spacing: normal;
+    line-height: 1.3;
 }
 
 .comboInfo--desc {
@@ -2015,6 +2092,8 @@ aside.show {
     font-weight: 100;
     margin: 0;
     line-height: 1.1;
+    word-spacing: 0.35em;
+    letter-spacing: 0.5px;
 }
 
 .meioInfo--desc {
@@ -2456,6 +2535,8 @@ aside.show {
     color: #DE4E45;
     margin: 0;
     line-height: 1.1;
+    word-spacing: 0.35em;
+    letter-spacing: 0.5px;
 }
 
 .flavorPickerSubtitle {

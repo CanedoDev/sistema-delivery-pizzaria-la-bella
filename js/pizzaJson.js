@@ -611,8 +611,8 @@ let pizzaJson = [
         id: 67,
         category: 'Combos',
         comboId: 101,
-        name: 'Combo Super + Doce + Refri',
-        img: 'assets/img/banner-promocao-combo-pizza-mob.webp',
+        name: 'Combo Super - 1 Doce + Refri 2L',
+        img: 'assets/img/combo-doce.webp',
         price: [120.00],
         sizes: ['1 Super + 1 Média Doce + 1 Refri 2L'],
         description: '1 Super Salgada (40cm) + 1 Média Doce (30cm) + 1 Refrigerante 2L'
@@ -621,8 +621,8 @@ let pizzaJson = [
         id: 68,
         category: 'Combos',
         comboId: 102,
-        name: 'Combo 2 Grandes + Refri',
-        img: 'assets/img/banner-promocao-la-bella-em-dobro-mob.webp',
+        name: 'Combo 2 Grandes - com Refri 2L',
+        img: 'assets/img/combo-2-grandes.webp',
         price: [120.00],
         sizes: ['2 Grandes + Refri 2L'],
         description: '2 Pizzas Grandes Tradicionais (35cm) + 1 Refrigerante 2L'
@@ -631,37 +631,58 @@ let pizzaJson = [
     {
         id: 69,
         category: 'Bebidas',
-        name: 'Coca-Cola',
-        img: 'assets/img/logo-la-bella-pizza.webp',
-        price: [8.00, 14.00],
-        sizes: ['600ml', '2L'],
-        description: 'Refrigerante Coca-Cola original geladinho e refrescante.'
+        name: 'Coca-Cola (Comum ou Zero)',
+        baseName: 'Coca-Cola',
+        img: 'assets/img/bebida-coca-cola.webp',
+        types: ['Comum', 'Zero'],
+        sizes: ['600ml', '1.5L', '2L'],
+        price: [8.00, 12.00, 15.00],
+        description: 'Refrigerante Coca-Cola geladinho e refrescante. Escolha entre a versão Tradicional ou Zero Açúcar.'
     },
     {
         id: 70,
         category: 'Bebidas',
-        name: 'Pepsi',
-        img: 'assets/img/logo-la-bella-pizza.webp',
-        price: [8.00, 14.00],
-        sizes: ['600ml', '2L'],
-        description: 'Refrigerante Pepsi sabor marcante geladinho e refrescante.'
+        name: 'Pepsi (Comum ou Black)',
+        baseName: 'Pepsi',
+        img: 'assets/img/bebida-pepsi.webp',
+        types: ['Comum', 'Black'],
+        sizes: ['600ml', '1.5L', '2L'],
+        price: [8.00, 10.00, 12.00],
+        description: 'Refrigerante Pepsi sabor marcante geladinho. Escolha entre a versão Tradicional ou Pepsi Black.'
     },
     {
         id: 71,
         category: 'Bebidas',
-        name: 'Guaraná Antarctica',
-        img: 'assets/img/logo-la-bella-pizza.webp',
-        price: [8.00, 14.00],
-        sizes: ['600ml', '2L'],
-        description: 'Refrigerante Guaraná Antarctica original da Amazônia geladinho.'
+        name: 'Pepsi Twist',
+        baseName: 'Pepsi Twist',
+        img: 'assets/img/bebida-pepsi-twist.webp',
+        sizes: ['2L'],
+        price: [12.00],
+        description: 'Refrigerante Pepsi Twist com toque cítrico de suco de limão bem gelado.'
     },
     {
         id: 72,
         category: 'Bebidas',
+        name: 'Guaraná Antarctica (Comum ou Zero)',
+        baseName: 'Guaraná Antarctica',
+        img: 'assets/img/bebida-guarana.webp',
+        types: ['Comum', 'Zero'],
+        sizes: ['600ml', '1.5L', '2L'],
+        price: [8.00, 10.00, 12.00],
+        typeRules: {
+            'Comum': { sizes: ['600ml', '1.5L', '2L'], price: [8.00, 10.00, 12.00] },
+            'Zero': { sizes: ['1.5L', '2L'], price: [10.00, 12.00] }
+        },
+        description: 'Autêntico Guaraná Antarctica bem geladinho. Escolha entre a versão Tradicional ou Zero Açúcar.'
+    },
+    {
+        id: 73,
+        category: 'Bebidas',
         name: 'Sprite',
-        img: 'assets/img/logo-la-bella-pizza.webp',
-        price: [8.00, 14.00],
-        sizes: ['600ml', '2L'],
+        baseName: 'Sprite',
+        img: 'assets/img/bebida-sprite.webp',
+        sizes: ['2L'],
+        price: [12.00],
         description: 'Refrigerante Sprite sabor limão bem geladinho e refrescante.'
     }
 ];
@@ -670,9 +691,9 @@ let combosJson = [
     {
         id: 101,
         code: 'combo_super_doce_refri',
-        name: 'Combo Super + Doce + Refri',
+        name: 'Combo Super - 1 Doce + Refri 2L',
         category: 'Combos',
-        img: 'assets/img/banner-promocao-combo-pizza-mob.webp',
+        img: 'assets/img/combo-doce.webp',
         price: 120.00,
         description: '1 Super Salgada (40cm) + 1 Média Doce (30cm) + 1 Refrigerante 2L',
         rules: {
@@ -688,9 +709,9 @@ let combosJson = [
     {
         id: 102,
         code: 'combo_2_grandes_refri',
-        name: 'Combo 2 Grandes + Refri',
+        name: 'Combo 2 Grandes - com Refri 2L',
         category: 'Combos',
-        img: 'assets/img/banner-promocao-la-bella-em-dobro-mob.webp',
+        img: 'assets/img/combo-2-grandes.webp',
         price: 120.00,
         description: '2 Pizzas Grandes Tradicionais (35cm) + 1 Refrigerante 2L',
         rules: {
@@ -710,7 +731,7 @@ let combosJson = [
         name: 'La Bella em Dobro - 2 Médias (30cm)',
         category: 'PromocaoTerca',
         dayOfWeek: 2,
-        img: 'assets/img/pizzas/pizza-calabresa.webp',
+        img: 'assets/img/promo-terca-2-medias.webp',
         price: 109.90,
         description: '2 Pizzas de 30cm (Médias) Tradicionais por R$ 109,90',
         rules: {
@@ -727,7 +748,7 @@ let combosJson = [
         name: 'La Bella em Dobro - 2 Grandes (35cm)',
         category: 'PromocaoTerca',
         dayOfWeek: 2,
-        img: 'assets/img/pizzas/pizza-brasileira.webp',
+        img: 'assets/img/promo-terca-2-grandes.webp',
         price: 129.90,
         description: '2 Pizzas de 35cm (Grandes) Tradicionais por R$ 129,90',
         rules: {
@@ -744,7 +765,7 @@ let combosJson = [
         name: 'La Bella em Dobro - 2 Super (40cm)',
         category: 'PromocaoTerca',
         dayOfWeek: 2,
-        img: 'assets/img/pizzas/pizza-frango-catupiry.webp',
+        img: 'assets/img/promo-terca-2-super.webp',
         price: 159.90,
         description: '2 Pizzas de 40cm (Super) Tradicionais por R$ 159,90',
         rules: {

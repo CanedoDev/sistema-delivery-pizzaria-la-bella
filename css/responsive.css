@@ -361,6 +361,8 @@
         font-size: 40px !important;
         line-height: 1.1 !important;
         margin-bottom: 20px !important;
+        word-spacing: 0.35em !important;
+        letter-spacing: 0.5px !important;
     }
 
     /* Títulos Secundários / Destaques */

@@ -150,7 +150,14 @@ const abrirModalCombo = (combo) => {
     const descEl = modalBody.querySelector('.comboInfo--desc');
     const tagEl = modalBody.querySelector('.comboTag');
 
-    if (titleEl) titleEl.innerText = combo.name;
+    if (titleEl) {
+        if (combo.name && combo.name.includes(' - ')) {
+            const parts = combo.name.split(' - ');
+            titleEl.innerHTML = `<span class="combo-title-name">${parts[0]}</span><span class="combo-title-details">- ${parts.slice(1).join(' - ')}</span>`;
+        } else {
+            titleEl.innerText = combo.name;
+        }
+    }
     if (descEl) descEl.innerText = combo.description;
     if (tagEl) {
         tagEl.innerText = combo.category === 'PromocaoTerca' ? 'PROMOÇÃO DE TERÇA' : 'OFERTA ESPECIAL';
