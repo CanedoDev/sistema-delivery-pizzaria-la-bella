@@ -65,7 +65,7 @@
 
     <link rel="stylesheet" href="css/style.css?v=20">
     <link rel="stylesheet" href="css/responsive.css?v=20">
-    <link rel="stylesheet" href="css/cardapio.css?v=14">
+    <link rel="stylesheet" href="css/cardapio.css?v=15">
     <link rel="stylesheet" href="css/cookie-banner.css?v=13" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="css/cookie-banner.css?v=13"></noscript>
     <script>
@@ -154,8 +154,12 @@
                     <span>Desconto</span>
                     <span>R$ --</span>
                 </div>
+                <div class="cart--totalitem entrega">
+                    <span>Taxa de Entrega</span>
+                    <span class="entrega--tag">Sob consulta</span>
+                </div>
                 <div class="cart--totalitem total big">
-                    <span>Total</span>
+                    <span>Total (Itens)</span>
                     <span>R$ --</span>
                 </div>
                 <div class="cart--finalizar">Finalizar a compra</div>
@@ -370,7 +374,7 @@
                             <span class="adendo-label">Horários:</span> Ter a Qui e Dom: 18h às 23h | Sex, Sáb e Vésperas: 18h às 00h
                         </div>
                         <div class="adendo-item">
-                            <span class="adendo-label">Brinde:</span> Pizzas Super (40cm) e Max (45cm) acompanham Refri 2L grátis
+                            <span class="adendo-label">Brinde:</span> Pizzas Super (40cm) e Max (45cm) acompanham Refri 2L grátis (sabores sob consulta, exceto Coca-Cola)
                         </div>
                         <div class="adendo-item">
                             <span class="adendo-label">Promoções:</span> Válidas apenas nos dias indicados (exceto feriados e vésperas) - máx. 1 por pedido
@@ -408,17 +412,16 @@
                     <h1>--</h1>
                     <div class="pizzaInfo--desc">--</div>
                     <div class="pizzaInfo--bonusRefri" style="display: none;">
-                        <div class="comboInfo--sector">REFRIGERANTE 2L (GRÁTIS)</div>
-                        <select class="combo-select-drink pizzaInfo--refriSelect" aria-label="Escolha seu refrigerante 2L grátis">
-                            <option value="Coca-Cola 2L">Coca-Cola 2L (Grátis)</option>
-                            <option value="Coca-Cola Zero 2L">Coca-Cola Zero 2L (Grátis)</option>
-                            <option value="Guaraná Antarctica 2L">Guaraná Antarctica 2L (Grátis)</option>
-                            <option value="Guaraná Antarctica Zero 2L">Guaraná Antarctica Zero 2L (Grátis)</option>
-                            <option value="Guaraná Antarctica Twist 2L">Guaraná Antarctica Twist 2L (Grátis)</option>
-                            <option value="Pepsi 2L">Pepsi 2L (Grátis)</option>
-                            <option value="Pepsi Black 2L">Pepsi Black 2L (Grátis)</option>
-                            <option value="Sprite 2L">Sprite 2L (Grátis)</option>
+                        <div class="comboInfo--sector">REFRIGERANTE 2L (BRINDE - SOB CONSULTA)</div>
+                        <select class="combo-select-drink pizzaInfo--refriSelect" aria-label="Escolha seu refrigerante 2L de brinde">
+                            <option value="Guaraná Antarctica 2L">Guaraná Antarctica 2L (Sob consulta)</option>
+                            <option value="Guaraná Antarctica Zero 2L">Guaraná Antarctica Zero 2L (Sob consulta)</option>
+                            <option value="Pepsi 2L">Pepsi 2L (Sob consulta)</option>
+                            <option value="Pepsi Black 2L">Pepsi Black 2L (Sob consulta)</option>
+                            <option value="Pepsi Twist 2L">Pepsi Twist 2L (Sob consulta)</option>
+                            <option value="Sprite 2L">Sprite 2L (Sob consulta)</option>
                         </select>
+                        <span class="bonus-refri-disclaimer">*Sabores de brinde sob consulta (sujeito à disponibilidade no dia)</span>
                     </div>
                     <div class="pizzaInfo--typearea" style="display: none;">
                         <div class="pizzaInfo--sector">Versão / Sabor</div>
@@ -457,34 +460,49 @@
                     <h1>Detalhes da Entrega</h1>
 
                     <div class="checkout-form">
-                        <input type="text" id="checkout-nome" placeholder="Seu Nome Completo" required>
-                        <input type="tel" id="checkout-telefone" placeholder="Seu Telefone" required>
+                        <input type="text" id="checkout-nome" placeholder="Seu Nome Completo *" required>
+                        <input type="tel" id="checkout-telefone" placeholder="Seu Telefone / WhatsApp *" required>
 
                         <div class="cep-group">
                             <input type="text" id="checkout-cep" placeholder="CEP (Apenas Números)" maxlength="8">
                         </div>
 
-                        <input type="text" id="checkout-endereco" placeholder="Endereço (Rua, Avenida)" required>
+                        <input type="text" id="checkout-endereco" placeholder="Endereço (Rua, Avenida) *" required>
 
                         <div class="address-details">
-                            <input type="text" id="checkout-numero" placeholder="Número" required>
-                            <input type="text" id="checkout-bairro" placeholder="Bairro" required>
+                            <input type="text" id="checkout-numero" placeholder="Número *" required>
+                            <input type="text" id="checkout-bairro" placeholder="Bairro *" required>
                         </div>
 
-                        <input type="text" id="checkout-complemento" placeholder="Complemento / Ponto de Referência">
+                        <div class="address-details">
+                            <select id="checkout-tipo-residencia" required>
+                                <option value="" disabled selected>Tipo de Imóvel: Casa ou Apto? *</option>
+                                <option value="Casa">Casa</option>
+                                <option value="Apartamento">Apartamento</option>
+                            </select>
+                            <input type="text" id="checkout-complemento" placeholder="Apto / Bloco / Referência">
+                        </div>
 
                         <div class="payment-method">
-                            <select id="checkout-pagamento">
-                                <option value="" disabled selected>Forma de Pagamento</option>
+                            <select id="checkout-pagamento" required>
+                                <option value="" disabled selected>Forma de Pagamento *</option>
                                 <option value="Pix">Pix via Celular</option>
                                 <option value="Cartão">Cartão (Leva a Maquininha)</option>
                                 <option value="Dinheiro">Dinheiro Físico</option>
                             </select>
                         </div>
+
+                        <div class="checkout-delivery-info">
+                            <div class="checkout-delivery-row">
+                                <span class="delivery-label">Taxa de Entrega:</span>
+                                <span class="delivery-badge">Sob Consulta</span>
+                            </div>
+                            <p class="delivery-note">O valor do frete é calculado e informado pela pizzaria via WhatsApp de acordo com o endereço e tipo de residência.</p>
+                        </div>
                     </div>
 
-                    <div class="checkoutInfo--confirmButton">Enviar Pedido</div>
-                    <div class="checkoutInfo--cancelButton">Cancelar Pedido</div>
+                    <div class="checkoutInfo--confirmButton">Enviar Pedido via WhatsApp</div>
+                    <div class="checkoutInfo--cancelButton">Voltar ao Carrinho</div>
                 </div>
             </div>
         </div>
@@ -578,17 +596,16 @@
                     </div>
 
                     <div class="meioInfo--bonusRefri" style="display: none;">
-                        <div class="comboInfo--sector">REFRIGERANTE 2L (GRÁTIS)</div>
-                        <select class="combo-select-drink meioInfo--refriSelect" aria-label="Escolha seu refrigerante 2L grátis">
-                            <option value="Coca-Cola 2L">Coca-Cola 2L (Grátis)</option>
-                            <option value="Coca-Cola Zero 2L">Coca-Cola Zero 2L (Grátis)</option>
-                            <option value="Guaraná Antarctica 2L">Guaraná Antarctica 2L (Grátis)</option>
-                            <option value="Guaraná Antarctica Zero 2L">Guaraná Antarctica Zero 2L (Grátis)</option>
-                            <option value="Guaraná Antarctica Twist 2L">Guaraná Antarctica Twist 2L (Grátis)</option>
-                            <option value="Pepsi 2L">Pepsi 2L (Grátis)</option>
-                            <option value="Pepsi Black 2L">Pepsi Black 2L (Grátis)</option>
-                            <option value="Sprite 2L">Sprite 2L (Grátis)</option>
+                        <div class="comboInfo--sector">REFRIGERANTE 2L (BRINDE - SOB CONSULTA)</div>
+                        <select class="combo-select-drink meioInfo--refriSelect" aria-label="Escolha seu refrigerante 2L de brinde">
+                            <option value="Guaraná Antarctica 2L">Guaraná Antarctica 2L (Sob consulta)</option>
+                            <option value="Guaraná Antarctica Zero 2L">Guaraná Antarctica Zero 2L (Sob consulta)</option>
+                            <option value="Pepsi 2L">Pepsi 2L (Sob consulta)</option>
+                            <option value="Pepsi Black 2L">Pepsi Black 2L (Sob consulta)</option>
+                            <option value="Pepsi Twist 2L">Pepsi Twist 2L (Sob consulta)</option>
+                            <option value="Sprite 2L">Sprite 2L (Sob consulta)</option>
                         </select>
+                        <span class="bonus-refri-disclaimer">*Sabores de brinde sob consulta (sujeito à disponibilidade no dia)</span>
                     </div>
 
                     <div class="meioInfo--pricearea">
@@ -719,7 +736,7 @@
     <script src="js/title-animation.js?v=18" defer></script>
     <script src="js/pizzaJson.js?v=13" defer></script>
     <script src="js/combos.js?v=13" defer></script>
-    <script src="js/cardapio.js?v=15" defer></script>
+    <script src="js/cardapio.js?v=16" defer></script>
     <script src="js/nav-scrollspy.js?v=13" defer></script>
     <script src="js/loader.js?v=16" defer></script>
     <script src="js/cookie-banner.js?v=13" defer></script>

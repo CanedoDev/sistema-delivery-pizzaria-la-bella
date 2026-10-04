@@ -753,8 +753,8 @@ const adicionarNoCarrinho = () => {
         let refriEscolhido = null;
         if (!isBebida && (size === 'S' || size === 'MX')) {
             const selectRefriEl = seleciona('.pizzaInfo--refriSelect');
-            const refriVal = selectRefriEl ? selectRefriEl.value : 'Coca-Cola 2L';
-            refriEscolhido = `${refriVal} (Grátis)`;
+            const refriVal = selectRefriEl ? selectRefriEl.value : 'Guaraná Antarctica 2L';
+            refriEscolhido = `${refriVal} (Sob consulta)`;
         }
 
         let identificador = itemAtual.id + 't' + size + (selectedType ? '_' + selectedType : '') + (refriEscolhido ? '_' + refriEscolhido.replace(/\s+/g, '_') : '');
@@ -861,7 +861,7 @@ const atualizarCarrinho = () => {
 
                 let refriBadge = ''
                 if (itemDoCarrinho.refrigerante) {
-                    refriBadge = `<div class="cart--item-refri">Acompanha: Refri 2L (${itemDoCarrinho.refrigerante})</div>`
+                    refriBadge = `<div class="cart--item-refri">Brinde: ${itemDoCarrinho.refrigerante}</div>`
                 }
 
                 cartItem.querySelector('.cart--item-nome').innerHTML = `
@@ -883,8 +883,8 @@ const atualizarCarrinho = () => {
 
                 let refriBadge = ''
                 if (itemDoCarrinho.size === 'S' || itemDoCarrinho.size === 'MX') {
-                    const nomeRefri = itemDoCarrinho.refrigerante || 'Refri 2L Grátis'
-                    refriBadge = `<div class="cart--item-refri">Acompanha: ${nomeRefri}</div>`
+                    const nomeRefri = itemDoCarrinho.refrigerante || 'Refri 2L (Sob consulta)'
+                    refriBadge = `<div class="cart--item-refri">Brinde: ${nomeRefri}</div>`
                 }
 
                 cartItem.querySelector('.cart--item img').src = pizzaItem ? pizzaItem.img : 'assets/img/logo-la-bella-pizza.webp'
@@ -1139,16 +1139,17 @@ const configurarCheckout = () => {
 
     seleciona('.checkoutInfo--confirmButton').addEventListener('click', () => {
 
-        let nomePessoa = seleciona('#checkout-nome').value
-        let telefonePessoa = seleciona('#checkout-telefone').value
-        let enderecoPessoa = seleciona('#checkout-endereco').value
-        let numeroCasaPessoa = seleciona('#checkout-numero').value
-        let bairroPessoa = seleciona('#checkout-bairro').value
-        let complementoPessoa = seleciona('#checkout-complemento').value
-        let formaPagamento = seleciona('#checkout-pagamento').value
+        let nomePessoa = (seleciona('#checkout-nome')?.value || '').trim()
+        let telefonePessoa = (seleciona('#checkout-telefone')?.value || '').trim()
+        let enderecoPessoa = (seleciona('#checkout-endereco')?.value || '').trim()
+        let numeroCasaPessoa = (seleciona('#checkout-numero')?.value || '').trim()
+        let bairroPessoa = (seleciona('#checkout-bairro')?.value || '').trim()
+        let tipoResidencia = (seleciona('#checkout-tipo-residencia')?.value || '').trim()
+        let complementoPessoa = (seleciona('#checkout-complemento')?.value || '').trim()
+        let formaPagamento = (seleciona('#checkout-pagamento')?.value || '').trim()
 
-        if (!nomePessoa || !telefonePessoa || !enderecoPessoa || !numeroCasaPessoa || !bairroPessoa) {
-            alert('Atenção: Parece que você esqueceu de preencher algum campo obrigatório!')
+        if (!nomePessoa || !telefonePessoa || !enderecoPessoa || !numeroCasaPessoa || !bairroPessoa || !tipoResidencia || !formaPagamento) {
+            alert('Atenção: Por favor, preencha todos os campos obrigatórios (incluindo tipo de imóvel e forma de pagamento).')
             return
         }
 
@@ -1175,15 +1176,21 @@ const configurarCheckout = () => {
                     mensagem += `  ↳ ${item.detalhes}\n`
                 }
                 if (item.brindeRefri) {
-                    const refriTxt = (item.refrigeranteNome && !item.refrigeranteNome.includes('Refrigerante')) ? `Refrigerante ${item.refrigeranteNome}` : (item.refrigeranteNome || 'Refrigerante 2L Grátis');
-                    mensagem += `  ↳ *Brinde:* ${refriTxt}\n`
+                    let refriTxt = item.refrigeranteNome || 'Refri 2L (Sob consulta)'
+                    if (!refriTxt.includes('consulta') && !refriTxt.includes('Consulta')) {
+                        refriTxt += ' (Sob consulta)'
+                    }
+                    mensagem += `  ↳ *Brinde:* ${refriTxt} _(sujeito a estoque)_\n`
                 }
                 mensagem += `  ↳ Valor: ${formatoReal(item.totalPizza)}\n\n`
             } else {
                 mensagem += `• *${item.nome}* (${item.tamanho}) - ${item.quantidade}x\n`
                 if (item.brindeRefri) {
-                    const refriTxt = (item.refrigeranteNome && !item.refrigeranteNome.includes('Refrigerante')) ? `Refrigerante ${item.refrigeranteNome}` : (item.refrigeranteNome || 'Refrigerante 2L Grátis');
-                    mensagem += `  ↳ *Brinde:* ${refriTxt}\n`
+                    let refriTxt = item.refrigeranteNome || 'Refri 2L (Sob consulta)'
+                    if (!refriTxt.includes('consulta') && !refriTxt.includes('Consulta')) {
+                        refriTxt += ' (Sob consulta)'
+                    }
+                    mensagem += `  ↳ *Brinde:* ${refriTxt} _(sujeito a estoque)_\n`
                 }
                 mensagem += `  ↳ Valor: ${formatoReal(item.totalPizza)}`
                 if (item.desconto > 0) {
@@ -1199,15 +1206,17 @@ const configurarCheckout = () => {
         if (pedido.desconto > 0) {
             mensagem += `• *Desconto / Economia:* -${formatoReal(pedido.desconto)}\n`
         }
-        mensagem += `• *TOTAL DO PEDIDO:* *${formatoReal(pedido.total)}*\n`
+        mensagem += `• *Taxa de Entrega:* Sob consulta (informada via WhatsApp)\n`
+        mensagem += `• *TOTAL DOS ITENS:* *${formatoReal(pedido.total)}* (+ entrega)\n`
         mensagem += `━━━━━━━━━━━━━━━━━━━━\n\n`
 
         mensagem += `*DADOS PARA ENTREGA:*\n`
         mensagem += `• *Nome:* ${nomePessoa}\n`
         mensagem += `• *Telefone:* ${telefonePessoa}\n`
         mensagem += `• *Endereço:* ${enderecoPessoa}, Nº ${numeroCasaPessoa} - ${bairroPessoa}\n`
-        if (complementoPessoa && complementoPessoa.trim() !== '') {
-            mensagem += `• *Complemento:* ${complementoPessoa.trim()}\n`
+        mensagem += `• *Tipo de Imóvel:* ${tipoResidencia}\n`
+        if (complementoPessoa) {
+            mensagem += `• *Complemento:* ${complementoPessoa}\n`
         }
         mensagem += `• *Forma de Pagamento:* ${formaPagamento}\n`
         mensagem += `━━━━━━━━━━━━━━━━━━━━`
@@ -1793,8 +1802,8 @@ const adicionarMeioAoCarrinho = () => {
     let refriEscolhido = null;
     if (temRefri) {
         const selectRefriEl = seleciona('.meioInfo--refriSelect');
-        const refriVal = selectRefriEl ? selectRefriEl.value : 'Coca-Cola 2L';
-        refriEscolhido = `${refriVal} (Grátis)`;
+        const refriVal = selectRefriEl ? selectRefriEl.value : 'Guaraná Antarctica 2L';
+        refriEscolhido = `${refriVal} (Sob consulta)`;
     }
 
     const idsOrdenados = [meioState.sabor1.id, meioState.sabor2.id].sort((a, b) => a - b).join('-');

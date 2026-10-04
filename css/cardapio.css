@@ -536,6 +536,47 @@ aside.show {
     gap: 10px;
 }
 
+.checkout-delivery-info {
+    background: #faf4ed;
+    border: 1px dashed #de4e44;
+    border-radius: 12px;
+    padding: 12px 14px;
+    text-align: left;
+    margin-top: 4px;
+    box-sizing: border-box;
+}
+
+.checkout-delivery-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.checkout-delivery-row .delivery-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+}
+
+.checkout-delivery-row .delivery-badge {
+    background: #de4e44;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.checkout-delivery-info .delivery-note {
+    font-size: 11.5px;
+    color: #666;
+    margin: 0;
+    line-height: 1.4;
+}
+
 .checkoutInfo--confirmButton {
     padding: 16px 20px;
     background-color: #64b95f;
@@ -747,6 +788,21 @@ aside.show {
 
 .cart--totalitem span:first-child {
     font-weight: 600;
+}
+
+.cart--totalitem.entrega {
+    padding: 10px 0;
+    align-items: center;
+}
+
+.cart--totalitem.entrega .entrega--tag {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #de4e44;
+    background: rgba(222, 78, 68, 0.09);
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
 }
 
 .cart--totalitem.big {
@@ -2000,6 +2056,15 @@ aside.show {
 .bonus-text strong {
     color: #113c0f;
     font-weight: 700;
+}
+
+.bonus-refri-disclaimer {
+    display: block;
+    font-size: 11px;
+    color: #666;
+    margin-top: 4px;
+    font-style: italic;
+    line-height: 1.3;
 }
 
 /* =========================================
