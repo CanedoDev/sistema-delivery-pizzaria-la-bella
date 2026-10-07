@@ -754,7 +754,7 @@ const adicionarNoCarrinho = () => {
         if (!isBebida && (size === 'S' || size === 'MX')) {
             const selectRefriEl = seleciona('.pizzaInfo--refriSelect');
             const refriVal = selectRefriEl ? selectRefriEl.value : 'Guaraná Antarctica 2L';
-            refriEscolhido = `${refriVal} (Sob consulta)`;
+            refriEscolhido = `${refriVal} (Sujeito a estoque)`;
         }
 
         let identificador = itemAtual.id + 't' + size + (selectedType ? '_' + selectedType : '') + (refriEscolhido ? '_' + refriEscolhido.replace(/\s+/g, '_') : '');
@@ -883,7 +883,7 @@ const atualizarCarrinho = () => {
 
                 let refriBadge = ''
                 if (itemDoCarrinho.size === 'S' || itemDoCarrinho.size === 'MX') {
-                    const nomeRefri = itemDoCarrinho.refrigerante || 'Refri 2L (Sob consulta)'
+                    const nomeRefri = itemDoCarrinho.refrigerante || 'Refri 2L (Sujeito a estoque)'
                     refriBadge = `<div class="cart--item-refri">Brinde: ${nomeRefri}</div>`
                 }
 
@@ -1176,21 +1176,21 @@ const configurarCheckout = () => {
                     mensagem += `  ↳ ${item.detalhes}\n`
                 }
                 if (item.brindeRefri) {
-                    let refriTxt = item.refrigeranteNome || 'Refri 2L (Sob consulta)'
-                    if (!refriTxt.includes('consulta') && !refriTxt.includes('Consulta')) {
-                        refriTxt += ' (Sob consulta)'
+                    let refriTxt = item.refrigeranteNome || 'Refri 2L (Sujeito a estoque)'
+                    if (!refriTxt.toLowerCase().includes('estoque')) {
+                        refriTxt += ' (Sujeito a estoque)'
                     }
-                    mensagem += `  ↳ *Brinde:* ${refriTxt} _(sujeito a estoque)_\n`
+                    mensagem += `  ↳ *Brinde:* ${refriTxt}\n`
                 }
                 mensagem += `  ↳ Valor: ${formatoReal(item.totalPizza)}\n\n`
             } else {
                 mensagem += `• *${item.nome}* (${item.tamanho}) - ${item.quantidade}x\n`
                 if (item.brindeRefri) {
-                    let refriTxt = item.refrigeranteNome || 'Refri 2L (Sob consulta)'
-                    if (!refriTxt.includes('consulta') && !refriTxt.includes('Consulta')) {
-                        refriTxt += ' (Sob consulta)'
+                    let refriTxt = item.refrigeranteNome || 'Refri 2L (Sujeito a estoque)'
+                    if (!refriTxt.toLowerCase().includes('estoque')) {
+                        refriTxt += ' (Sujeito a estoque)'
                     }
-                    mensagem += `  ↳ *Brinde:* ${refriTxt} _(sujeito a estoque)_\n`
+                    mensagem += `  ↳ *Brinde:* ${refriTxt}\n`
                 }
                 mensagem += `  ↳ Valor: ${formatoReal(item.totalPizza)}`
                 if (item.desconto > 0) {
@@ -1206,8 +1206,8 @@ const configurarCheckout = () => {
         if (pedido.desconto > 0) {
             mensagem += `• *Desconto / Economia:* -${formatoReal(pedido.desconto)}\n`
         }
-        mensagem += `• *Taxa de Entrega:* Sob consulta (informada via WhatsApp)\n`
-        mensagem += `• *TOTAL DOS ITENS:* *${formatoReal(pedido.total)}* (+ entrega)\n`
+        mensagem += `• *Taxa de Entrega:* Informada após o envio do pedido (via WhatsApp)\n`
+        mensagem += `• *TOTAL DOS ITENS:* *${formatoReal(pedido.total)}* (+ taxa de entrega)\n`
         mensagem += `━━━━━━━━━━━━━━━━━━━━\n\n`
 
         mensagem += `*DADOS PARA ENTREGA:*\n`
@@ -1803,7 +1803,7 @@ const adicionarMeioAoCarrinho = () => {
     if (temRefri) {
         const selectRefriEl = seleciona('.meioInfo--refriSelect');
         const refriVal = selectRefriEl ? selectRefriEl.value : 'Guaraná Antarctica 2L';
-        refriEscolhido = `${refriVal} (Sob consulta)`;
+        refriEscolhido = `${refriVal} (Sujeito a estoque)`;
     }
 
     const idsOrdenados = [meioState.sabor1.id, meioState.sabor2.id].sort((a, b) => a - b).join('-');
