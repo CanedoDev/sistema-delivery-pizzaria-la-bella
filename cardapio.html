@@ -8,15 +8,25 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB0XWB4P99"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-      gtag('config', 'G-YB0XWB4P99');
+        gtag('config', 'G-YB0XWB4P99');
+    </script>
+    <!--Microsoft Clarity-->
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "yv1ou02qbj");
     </script>
     <title>Cardápio La Bella Pizza | Pizzas Artesanais, Doces e Gourmet em Petrópolis</title>
-    <meta name="description" content="Cardápio online da La Bella Pizza Petrópolis. Mais de 60 sabores tradicionais, especiais, doces e linha gourmet artesanal. Delivery em toda Petrópolis!">
-    <meta name="keywords" content="cardapio la bella pizza, pizzas petropolis, delivery pizza bingen, pizza gourmet petropolis, pizza burrata petropolis, pizza parma petropolis">
+    <meta name="description"
+        content="Cardápio online da La Bella Pizza Petrópolis. Mais de 60 sabores tradicionais, especiais, doces e linha gourmet artesanal. Delivery em toda Petrópolis!">
+    <meta name="keywords"
+        content="cardapio la bella pizza, pizzas petropolis, delivery pizza bingen, pizza gourmet petropolis, pizza burrata petropolis, pizza parma petropolis">
     <link rel="canonical" href="https://pizzarialabellapetropolis.com.br/cardapio">
 
     <!-- Favicon -->
@@ -30,7 +40,8 @@
     <!-- Open Graph / Redes Sociais & WhatsApp -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Cardápio La Bella Pizza | Pizzas Artesanais em Petrópolis">
-    <meta property="og:description" content="Confira nossos sabores de pizzas tradicionais, especiais e gourmet com entrega rápida em toda Petrópolis.">
+    <meta property="og:description"
+        content="Confira nossos sabores de pizzas tradicionais, especiais e gourmet com entrega rápida em toda Petrópolis.">
     <meta property="og:url" content="https://pizzarialabellapetropolis.com.br/cardapio">
     <meta property="og:image" content="https://pizzarialabellapetropolis.com.br/assets/img/logo-la-bella-pizza.webp">
     <meta property="og:locale" content="pt_BR">
@@ -40,34 +51,98 @@
     <meta name="twitter:image" content="https://pizzarialabellapetropolis.com.br/assets/img/logo-la-bella-pizza.webp">
 
     <!-- Preload LCP Promo Banner Responsivo -->
-    <link rel="preload" as="image" type="image/webp" href="assets/img/banner-promocao-combo-pizza-mob.webp" media="(max-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" type="image/webp" href="assets/img/banner-promocao-combo-pizza.webp" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" as="image" type="image/webp" href="assets/img/banner-promocao-combo-pizza-mob.webp"
+        media="(max-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" type="image/webp" href="assets/img/banner-promocao-combo-pizza.webp"
+        media="(min-width: 769px)" fetchpriority="high">
 
     <!-- Preload Fonte Principal (Elimina CLS de Font Swap) -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2" as="font"
+        type="font/woff2" crossorigin>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Damion&family=Poppins:wght@400;500;600&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Damion&family=Poppins:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Damion&family=Poppins:wght@400;500;600&display=swap"></noscript>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Damion&family=Poppins:wght@400;500;600&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Damion&family=Poppins:wght@400;500;600&display=swap"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Damion&family=Poppins:wght@400;500;600&display=swap">
+    </noscript>
 
     <style>
-        #global-loader{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:#FAF8F5;z-index:999999;display:flex;justify-content:center;align-items:center;transition:opacity .35s ease;overflow:hidden}
-        #global-loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-        .loader-content{position:relative;width:250px;height:250px;display:flex;justify-content:center;align-items:center}
-        .pizza-svg{width:120px;height:120px;position:absolute}
-        .eat-circle{stroke-dasharray:158;stroke-dashoffset:0}
-        .loader-logo{width:200px;height:auto;position:absolute;opacity:0;transform:scale(0)}
-        .loader-credits{position:absolute;bottom:24px;font-size:11px;letter-spacing:.4px;color:#888;font-family:'Poppins',sans-serif;font-weight:400;text-align:center;width:100%}
+        #global-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #FAF8F5;
+            z-index: 999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity .35s ease;
+            overflow: hidden
+        }
+
+        #global-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none
+        }
+
+        .loader-content {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        .pizza-svg {
+            width: 120px;
+            height: 120px;
+            position: absolute
+        }
+
+        .eat-circle {
+            stroke-dasharray: 158;
+            stroke-dashoffset: 0
+        }
+
+        .loader-logo {
+            width: 200px;
+            height: auto;
+            position: absolute;
+            opacity: 0;
+            transform: scale(0)
+        }
+
+        .loader-credits {
+            position: absolute;
+            bottom: 24px;
+            font-size: 11px;
+            letter-spacing: .4px;
+            color: #888;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            text-align: center;
+            width: 100%
+        }
     </style>
 
     <link rel="stylesheet" href="css/style.css?v=20">
     <link rel="stylesheet" href="css/responsive.css?v=20">
     <link rel="stylesheet" href="css/cardapio.css?v=16">
     <link rel="stylesheet" href="css/cookie-banner.css?v=13" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="css/cookie-banner.css?v=13"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="css/cookie-banner.css?v=13">
+    </noscript>
     <script>
         function setVH() {
             let vh = window.innerHeight * 0.01;
@@ -92,7 +167,8 @@
             <svg class="pizza-svg" viewBox="0 0 100 100">
                 <defs>
                     <mask id="pizza-mask">
-                        <circle class="eat-circle" cx="50" cy="50" r="25" fill="none" stroke="white" stroke-width="50" stroke-dasharray="158" stroke-dashoffset="0" transform="rotate(-90 50 50)" />
+                        <circle class="eat-circle" cx="50" cy="50" r="25" fill="none" stroke="white" stroke-width="50"
+                            stroke-dasharray="158" stroke-dashoffset="0" transform="rotate(-90 50 50)" />
                     </mask>
                 </defs>
                 <g mask="url(#pizza-mask)">
@@ -103,7 +179,7 @@
                     <path d="M 50 50 L 50 98 A 48 48 0 0 1 8.431 74 Z" fill="#DE4E45" />
                     <path d="M 50 50 L 8.431 74 A 48 48 0 0 1 8.431 26 Z" fill="#64B95F" />
                     <path d="M 50 50 L 8.431 26 A 48 48 0 0 1 50 2 Z" fill="#DE4E45" />
-                    
+
                     <!-- Borda (crosta da pizza) na cor original laranja -->
                     <circle cx="50" cy="50" r="46" fill="none" stroke="#ff9f1c" stroke-width="8" />
                 </g>
@@ -143,7 +219,8 @@
             <div class="cart"></div>
             <div class="cart--promo-alert" style="display: none;">
                 <span class="promo-alert-badge">Aviso Promocional</span>
-                <p>O desconto de quarta-feira foi aplicado em <strong>1 pizza</strong>. Pizzas promocionais adicionais seguem o valor de tabela normal.</p>
+                <p>O desconto de quarta-feira foi aplicado em <strong>1 pizza</strong>. Pizzas promocionais adicionais
+                    seguem o valor de tabela normal.</p>
             </div>
             <div class="cart--details">
                 <div class="cart--totalitem subtotal">
@@ -176,14 +253,19 @@
             <a href="/#promocoes" class="nav-link" data-section="promocoes">Promoções</a>
 
             <a href="/" class="logo-link">
-                <img src="assets/img/logo-la-bella-pizza.webp" alt="Logo La Bella Pizza Petrópolis" class="logo" width="90" height="60">
+                <img src="assets/img/logo-la-bella-pizza.webp" alt="Logo La Bella Pizza Petrópolis" class="logo"
+                    width="90" height="60">
             </a>
 
             <a href="/#sobre" class="nav-link" data-section="sobre">Sobre</a>
             <a href="#contato" class="nav-link" data-section="contato">Contato</a>
             <div class="nav-actions">
                 <div class="search-openner">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
                 </div>
                 <div class="search-bar">
                     <input type="text" id="search-input" placeholder="Qual pizza você busca?">
@@ -192,7 +274,12 @@
 
                 <div class="menu-openner">
                     <span>0</span>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
                 </div>
             </div>
         </nav>
@@ -202,11 +289,16 @@
             <div class="promocao-container">
                 <div class="promo-slider">
                     <div class="promo-slides">
-                        <div class="promo-slide promo-banner-red" data-promo="quarta" role="button" tabindex="0" style="cursor: pointer;">
+                        <div class="promo-slide promo-banner-red" data-promo="quarta" role="button" tabindex="0"
+                            style="cursor: pointer;">
                             <div class="promo-banner-img">
                                 <picture>
-                                    <source media="(max-width: 768px)" srcset="assets/img/banner-promocao-combo-pizza-mob.webp">
-                                    <img src="assets/img/banner-promocao-combo-pizza.webp" alt="Promoção Quarta da Casa - Pizzas artesanais a partir de R$ 59,90" class="promo-banner-bg" width="1024" height="572" fetchpriority="high" decoding="async">
+                                    <source media="(max-width: 768px)"
+                                        srcset="assets/img/banner-promocao-combo-pizza-mob.webp">
+                                    <img src="assets/img/banner-promocao-combo-pizza.webp"
+                                        alt="Promoção Quarta da Casa - Pizzas artesanais a partir de R$ 59,90"
+                                        class="promo-banner-bg" width="1024" height="572" fetchpriority="high"
+                                        decoding="async">
                                 </picture>
                             </div>
                             <div class="promo-banner-grid">
@@ -215,38 +307,54 @@
                                     <div class="promo-banner-heading">
                                         <span class="promo-banner-title-script text-cream">Quarta</span>
                                         <span class="promo-banner-subtitle-script text-cream">da Casa</span>
-                                        <svg class="promo-title-flourish" viewBox="0 0 140 18" fill="none" aria-hidden="true">
-                                            <path d="M10 11 C 35 14, 60 7, 70 7 C 80 7, 105 14, 130 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                                            <circle cx="8" cy="11" r="2" fill="currentColor"/>
-                                            <circle cx="132" cy="11" r="2" fill="currentColor"/>
+                                        <svg class="promo-title-flourish" viewBox="0 0 140 18" fill="none"
+                                            aria-hidden="true">
+                                            <path d="M10 11 C 35 14, 60 7, 70 7 C 80 7, 105 14, 130 11"
+                                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                                            <circle cx="8" cy="11" r="2" fill="currentColor" />
+                                            <circle cx="132" cy="11" r="2" fill="currentColor" />
                                         </svg>
                                     </div>
                                 </div>
                                 <!-- Coluna 1, Linha 3: Logo -->
                                 <div class="promo-grid-cell promo-cell-logo">
-                                    <img src="assets/img/logo-la-bella-pizza.webp" alt="La Bella Pizza Delivery" class="promo-banner-logo" width="120" height="80" loading="lazy" decoding="async">
+                                    <img src="assets/img/logo-la-bella-pizza.webp" alt="La Bella Pizza Delivery"
+                                        class="promo-banner-logo" width="120" height="80" loading="lazy"
+                                        decoding="async">
                                 </div>
                                 <!-- Coluna 3, Linha 2: Descrição -->
                                 <div class="promo-grid-cell promo-cell-desc">
-                                    <p class="promo-banner-desc">Sabores selecionados<br>com condições especiais<br>a partir de:</p>
+                                    <p class="promo-banner-desc">Sabores selecionados<br>com condições especiais<br>a
+                                        partir de:</p>
                                     <div class="promo-row-divider promo-divider-gold"></div>
                                 </div>
                                 <!-- Coluna 3, Linha 3: Preço -->
                                 <div class="promo-grid-cell promo-cell-price">
                                     <div class="promo-banner-price-box">
-                                        <svg class="promo-pizza-icon promo-icon-gold" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                            <path d="M 9.5 2.8 A 9.5 9.5 0 1 1 2.8 9.5 L 11.5 11.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M 10 4.5 A 7.8 7.8 0 1 1 4.5 10" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-dasharray="1.5 2"/>
-                                            <path d="M 8.2 1.5 A 9.5 9.5 0 0 0 1.5 8.2 L 10.5 10.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M 7.2 3 A 7.8 7.8 0 0 0 3 7.2" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
-                                            <circle cx="15.2" cy="7.8" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="16.2" cy="14.2" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="10.2" cy="16.5" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="5.8" cy="5.8" r="1.1" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="12.2" cy="7" r="0.6" fill="currentColor"/>
-                                            <circle cx="18" cy="10.5" r="0.6" fill="currentColor"/>
-                                            <circle cx="13" cy="14" r="0.6" fill="currentColor"/>
-                                            <circle cx="7" cy="13.5" r="0.6" fill="currentColor"/>
+                                        <svg class="promo-pizza-icon promo-icon-gold" viewBox="0 0 24 24" fill="none"
+                                            aria-hidden="true">
+                                            <path d="M 9.5 2.8 A 9.5 9.5 0 1 1 2.8 9.5 L 11.5 11.5 Z"
+                                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M 10 4.5 A 7.8 7.8 0 1 1 4.5 10" stroke="currentColor"
+                                                stroke-width="0.9" stroke-linecap="round" stroke-dasharray="1.5 2" />
+                                            <path d="M 8.2 1.5 A 9.5 9.5 0 0 0 1.5 8.2 L 10.5 10.5 Z"
+                                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M 7.2 3 A 7.8 7.8 0 0 0 3 7.2" stroke="currentColor"
+                                                stroke-width="0.9" stroke-linecap="round" />
+                                            <circle cx="15.2" cy="7.8" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="16.2" cy="14.2" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="10.2" cy="16.5" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="5.8" cy="5.8" r="1.1" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="12.2" cy="7" r="0.6" fill="currentColor" />
+                                            <circle cx="18" cy="10.5" r="0.6" fill="currentColor" />
+                                            <circle cx="13" cy="14" r="0.6" fill="currentColor" />
+                                            <circle cx="7" cy="13.5" r="0.6" fill="currentColor" />
                                         </svg>
                                         <span class="promo-banner-price">R$ 59,90</span>
                                     </div>
@@ -257,11 +365,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="promo-slide promo-banner-green" data-promo="terca" role="button" tabindex="0" style="cursor: pointer;">
+                        <div class="promo-slide promo-banner-green" data-promo="terca" role="button" tabindex="0"
+                            style="cursor: pointer;">
                             <div class="promo-banner-img">
                                 <picture>
-                                    <source media="(max-width: 768px)" srcset="assets/img/banner-promocao-la-bella-em-dobro-mob.webp">
-                                    <img src="assets/img/banner-promocao-la-bella-em-dobro.webp" alt="Promoção La Bella em Dobro - 2 Pizzas de 30cm por R$ 109,90, 35cm por R$ 129,90 e 40cm por R$ 159,90" class="promo-banner-bg" width="1024" height="572" loading="lazy" decoding="async">
+                                    <source media="(max-width: 768px)"
+                                        srcset="assets/img/banner-promocao-la-bella-em-dobro-mob.webp">
+                                    <img src="assets/img/banner-promocao-la-bella-em-dobro.webp"
+                                        alt="Promoção La Bella em Dobro - 2 Pizzas de 30cm por R$ 109,90, 35cm por R$ 129,90 e 40cm por R$ 159,90"
+                                        class="promo-banner-bg" width="1024" height="572" loading="lazy"
+                                        decoding="async">
                                 </picture>
                             </div>
                             <div class="promo-banner-grid">
@@ -270,35 +383,51 @@
                                     <div class="promo-banner-heading">
                                         <span class="promo-banner-title-script text-white">La Bella</span>
                                         <span class="promo-banner-subtitle-script text-green">em Dobro</span>
-                                        <svg class="promo-title-swash-green" viewBox="0 0 150 20" fill="none" aria-hidden="true">
-                                            <path d="M8 12 C 3 16, 12 18, 22 14 C 55 4, 105 7, 142 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                        <svg class="promo-title-swash-green" viewBox="0 0 150 20" fill="none"
+                                            aria-hidden="true">
+                                            <path d="M8 12 C 3 16, 12 18, 22 14 C 55 4, 105 7, 142 14"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                                         </svg>
                                     </div>
                                 </div>
                                 <!-- Coluna 1, Linha 3: Logo -->
                                 <div class="promo-grid-cell promo-cell-logo">
-                                    <img src="assets/img/logo-la-bella-pizza.webp" alt="La Bella Pizza Delivery" class="promo-banner-logo" width="120" height="80" loading="lazy" decoding="async">
+                                    <img src="assets/img/logo-la-bella-pizza.webp" alt="La Bella Pizza Delivery"
+                                        class="promo-banner-logo" width="120" height="80" loading="lazy"
+                                        decoding="async">
                                 </div>
                                 <!-- Coluna 3, Linha 1: Opção 30cm -->
                                 <div class="promo-grid-cell promo-cell-opt1">
                                     <div class="promo-row-item">
-                                        <svg class="promo-pizza-icon promo-icon-green" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                            <path d="M 9.5 2.8 A 9.5 9.5 0 1 1 2.8 9.5 L 11.5 11.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M 10 4.5 A 7.8 7.8 0 1 1 4.5 10" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-dasharray="1.5 2"/>
-                                            <path d="M 8.2 1.5 A 9.5 9.5 0 0 0 1.5 8.2 L 10.5 10.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M 7.2 3 A 7.8 7.8 0 0 0 3 7.2" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
-                                            <circle cx="15.2" cy="7.8" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="16.2" cy="14.2" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="10.2" cy="16.5" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="5.8" cy="5.8" r="1.1" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="12.2" cy="7" r="0.6" fill="currentColor"/>
-                                            <circle cx="18" cy="10.5" r="0.6" fill="currentColor"/>
-                                            <circle cx="13" cy="14" r="0.6" fill="currentColor"/>
-                                            <circle cx="7" cy="13.5" r="0.6" fill="currentColor"/>
+                                        <svg class="promo-pizza-icon promo-icon-green" viewBox="0 0 24 24" fill="none"
+                                            aria-hidden="true">
+                                            <path d="M 9.5 2.8 A 9.5 9.5 0 1 1 2.8 9.5 L 11.5 11.5 Z"
+                                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M 10 4.5 A 7.8 7.8 0 1 1 4.5 10" stroke="currentColor"
+                                                stroke-width="0.9" stroke-linecap="round" stroke-dasharray="1.5 2" />
+                                            <path d="M 8.2 1.5 A 9.5 9.5 0 0 0 1.5 8.2 L 10.5 10.5 Z"
+                                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M 7.2 3 A 7.8 7.8 0 0 0 3 7.2" stroke="currentColor"
+                                                stroke-width="0.9" stroke-linecap="round" />
+                                            <circle cx="15.2" cy="7.8" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="16.2" cy="14.2" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="10.2" cy="16.5" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="5.8" cy="5.8" r="1.1" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="12.2" cy="7" r="0.6" fill="currentColor" />
+                                            <circle cx="18" cy="10.5" r="0.6" fill="currentColor" />
+                                            <circle cx="13" cy="14" r="0.6" fill="currentColor" />
+                                            <circle cx="7" cy="13.5" r="0.6" fill="currentColor" />
                                         </svg>
                                         <div class="promo-row-text">
                                             <span class="promo-row-label">2 pizzas de 30cm</span>
-                                            <span class="promo-row-price"><span class="promo-row-por">por</span> <strong>R$ 109,90</strong></span>
+                                            <span class="promo-row-price"><span class="promo-row-por">por</span>
+                                                <strong>R$ 109,90</strong></span>
                                         </div>
                                     </div>
                                     <div class="promo-row-divider"></div>
@@ -306,23 +435,35 @@
                                 <!-- Coluna 3, Linha 2: Opção 35cm -->
                                 <div class="promo-grid-cell promo-cell-opt2">
                                     <div class="promo-row-item">
-                                        <svg class="promo-pizza-icon promo-icon-green" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                            <path d="M 9.5 2.8 A 9.5 9.5 0 1 1 2.8 9.5 L 11.5 11.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M 10 4.5 A 7.8 7.8 0 1 1 4.5 10" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-dasharray="1.5 2"/>
-                                            <path d="M 8.2 1.5 A 9.5 9.5 0 0 0 1.5 8.2 L 10.5 10.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M 7.2 3 A 7.8 7.8 0 0 0 3 7.2" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
-                                            <circle cx="15.2" cy="7.8" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="16.2" cy="14.2" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="10.2" cy="16.5" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="5.8" cy="5.8" r="1.1" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="12.2" cy="7" r="0.6" fill="currentColor"/>
-                                            <circle cx="18" cy="10.5" r="0.6" fill="currentColor"/>
-                                            <circle cx="13" cy="14" r="0.6" fill="currentColor"/>
-                                            <circle cx="7" cy="13.5" r="0.6" fill="currentColor"/>
+                                        <svg class="promo-pizza-icon promo-icon-green" viewBox="0 0 24 24" fill="none"
+                                            aria-hidden="true">
+                                            <path d="M 9.5 2.8 A 9.5 9.5 0 1 1 2.8 9.5 L 11.5 11.5 Z"
+                                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M 10 4.5 A 7.8 7.8 0 1 1 4.5 10" stroke="currentColor"
+                                                stroke-width="0.9" stroke-linecap="round" stroke-dasharray="1.5 2" />
+                                            <path d="M 8.2 1.5 A 9.5 9.5 0 0 0 1.5 8.2 L 10.5 10.5 Z"
+                                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M 7.2 3 A 7.8 7.8 0 0 0 3 7.2" stroke="currentColor"
+                                                stroke-width="0.9" stroke-linecap="round" />
+                                            <circle cx="15.2" cy="7.8" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="16.2" cy="14.2" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="10.2" cy="16.5" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="5.8" cy="5.8" r="1.1" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="12.2" cy="7" r="0.6" fill="currentColor" />
+                                            <circle cx="18" cy="10.5" r="0.6" fill="currentColor" />
+                                            <circle cx="13" cy="14" r="0.6" fill="currentColor" />
+                                            <circle cx="7" cy="13.5" r="0.6" fill="currentColor" />
                                         </svg>
                                         <div class="promo-row-text">
                                             <span class="promo-row-label">2 pizzas de 35cm</span>
-                                            <span class="promo-row-price"><span class="promo-row-por">por</span> <strong>R$ 129,90</strong></span>
+                                            <span class="promo-row-price"><span class="promo-row-por">por</span>
+                                                <strong>R$ 129,90</strong></span>
                                         </div>
                                     </div>
                                     <div class="promo-row-divider"></div>
@@ -330,23 +471,35 @@
                                 <!-- Coluna 3, Linha 3: Opção 40cm -->
                                 <div class="promo-grid-cell promo-cell-opt3">
                                     <div class="promo-row-item">
-                                        <svg class="promo-pizza-icon promo-icon-green" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                            <path d="M 9.5 2.8 A 9.5 9.5 0 1 1 2.8 9.5 L 11.5 11.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M 10 4.5 A 7.8 7.8 0 1 1 4.5 10" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-dasharray="1.5 2"/>
-                                            <path d="M 8.2 1.5 A 9.5 9.5 0 0 0 1.5 8.2 L 10.5 10.5 Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M 7.2 3 A 7.8 7.8 0 0 0 3 7.2" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
-                                            <circle cx="15.2" cy="7.8" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="16.2" cy="14.2" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="10.2" cy="16.5" r="1.2" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="5.8" cy="5.8" r="1.1" stroke="currentColor" stroke-width="1.1"/>
-                                            <circle cx="12.2" cy="7" r="0.6" fill="currentColor"/>
-                                            <circle cx="18" cy="10.5" r="0.6" fill="currentColor"/>
-                                            <circle cx="13" cy="14" r="0.6" fill="currentColor"/>
-                                            <circle cx="7" cy="13.5" r="0.6" fill="currentColor"/>
+                                        <svg class="promo-pizza-icon promo-icon-green" viewBox="0 0 24 24" fill="none"
+                                            aria-hidden="true">
+                                            <path d="M 9.5 2.8 A 9.5 9.5 0 1 1 2.8 9.5 L 11.5 11.5 Z"
+                                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M 10 4.5 A 7.8 7.8 0 1 1 4.5 10" stroke="currentColor"
+                                                stroke-width="0.9" stroke-linecap="round" stroke-dasharray="1.5 2" />
+                                            <path d="M 8.2 1.5 A 9.5 9.5 0 0 0 1.5 8.2 L 10.5 10.5 Z"
+                                                stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M 7.2 3 A 7.8 7.8 0 0 0 3 7.2" stroke="currentColor"
+                                                stroke-width="0.9" stroke-linecap="round" />
+                                            <circle cx="15.2" cy="7.8" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="16.2" cy="14.2" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="10.2" cy="16.5" r="1.2" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="5.8" cy="5.8" r="1.1" stroke="currentColor"
+                                                stroke-width="1.1" />
+                                            <circle cx="12.2" cy="7" r="0.6" fill="currentColor" />
+                                            <circle cx="18" cy="10.5" r="0.6" fill="currentColor" />
+                                            <circle cx="13" cy="14" r="0.6" fill="currentColor" />
+                                            <circle cx="7" cy="13.5" r="0.6" fill="currentColor" />
                                         </svg>
                                         <div class="promo-row-text">
                                             <span class="promo-row-label">2 pizzas de 40cm</span>
-                                            <span class="promo-row-price"><span class="promo-row-por">por</span> <strong>R$ 159,90</strong></span>
+                                            <span class="promo-row-price"><span class="promo-row-por">por</span>
+                                                <strong>R$ 159,90</strong></span>
                                         </div>
                                     </div>
                                 </div>
@@ -371,28 +524,33 @@
                 <div class="cardapio-adendo">
                     <div class="adendo-grid">
                         <div class="adendo-item">
-                            <span class="adendo-label">Horários:</span> Ter a Qui e Dom: 18h às 23h | Sex, Sáb e Vésperas: 18h às 00h
+                            <span class="adendo-label">Horários:</span> Ter a Qui e Dom: 18h às 23h | Sex, Sáb e
+                            Vésperas: 18h às 00h
                         </div>
                         <div class="adendo-item">
-                            <span class="adendo-label">Brinde:</span> Pizzas Super (40cm) e Max (45cm) acompanham Refri 2L grátis (sujeito a estoque, exceto Coca-Cola)
+                            <span class="adendo-label">Brinde:</span> Pizzas Super (40cm) e Max (45cm) acompanham Refri
+                            2L grátis (sujeito a estoque, exceto Coca-Cola)
                         </div>
                         <div class="adendo-item">
-                            <span class="adendo-label">Promoções:</span> Válidas apenas nos dias indicados (exceto feriados e vésperas) - máx. 1 por pedido
+                            <span class="adendo-label">Promoções:</span> Válidas apenas nos dias indicados (exceto
+                            feriados e vésperas) - máx. 1 por pedido
                         </div>
                         <div class="adendo-item">
-                            <span class="adendo-label">Fidelidade:</span> Troca de 10 selos por 1 pizza média de Ter a Qui (exceto feriados e vésperas)
+                            <span class="adendo-label">Fidelidade:</span> Troca de 10 selos por 1 pizza média de Ter a
+                            Qui (exceto feriados e vésperas)
                         </div>
                     </div>
                 </div>
 
                 <div class="category-buttons-box">
-                    <div class="category-button pizzas-todas active" data-filter ='all'>Todos</div>
-                    <div class="category-button pizzas-tradicionais" data-filter ='pizzas-tradicionais'>Tradicionais</div>
-                    <div class="category-button pizzas-especiais" data-filter ='pizzas-especiais'>Especiais</div>
-                    <div class="category-button pizzas-doces" data-filter ='pizzas-doces'>Doces</div>
-                    <div class="category-button pizzas-gourmet" data-filter ='pizzas-gourmet'>Gourmet</div>
-                    <div class="category-button combos" data-filter ='combos'>Combos</div>
-                    <div class="category-button bebidas" data-filter ='bebidas'>Bebidas</div>
+                    <div class="category-button pizzas-todas active" data-filter='all'>Todos</div>
+                    <div class="category-button pizzas-tradicionais" data-filter='pizzas-tradicionais'>Tradicionais
+                    </div>
+                    <div class="category-button pizzas-especiais" data-filter='pizzas-especiais'>Especiais</div>
+                    <div class="category-button pizzas-doces" data-filter='pizzas-doces'>Doces</div>
+                    <div class="category-button pizzas-gourmet" data-filter='pizzas-gourmet'>Gourmet</div>
+                    <div class="category-button combos" data-filter='combos'>Combos</div>
+                    <div class="category-button bebidas" data-filter='bebidas'>Bebidas</div>
                 </div>
                 <div class="cards-grid">
                     <!-- Dinamicamente preenchido pelo JS -->
@@ -413,15 +571,18 @@
                     <div class="pizzaInfo--desc">--</div>
                     <div class="pizzaInfo--bonusRefri" style="display: none;">
                         <div class="comboInfo--sector">REFRIGERANTE 2L GRÁTIS (SUJEITO A ESTOQUE)</div>
-                        <select class="combo-select-drink pizzaInfo--refriSelect" aria-label="Escolha seu refrigerante 2L de brinde">
+                        <select class="combo-select-drink pizzaInfo--refriSelect"
+                            aria-label="Escolha seu refrigerante 2L de brinde">
                             <option value="Guaraná Antarctica 2L">Guaraná Antarctica 2L (Sujeito a estoque)</option>
-                            <option value="Guaraná Antarctica Zero 2L">Guaraná Antarctica Zero 2L (Sujeito a estoque)</option>
+                            <option value="Guaraná Antarctica Zero 2L">Guaraná Antarctica Zero 2L (Sujeito a estoque)
+                            </option>
                             <option value="Pepsi 2L">Pepsi 2L (Sujeito a estoque)</option>
                             <option value="Pepsi Black 2L">Pepsi Black 2L (Sujeito a estoque)</option>
                             <option value="Pepsi Twist 2L">Pepsi Twist 2L (Sujeito a estoque)</option>
                             <option value="Sprite 2L">Sprite 2L (Sujeito a estoque)</option>
                         </select>
-                        <span class="bonus-refri-disclaimer">*Sabores de brinde sujeitos à disponibilidade no estoque</span>
+                        <span class="bonus-refri-disclaimer">*Sabores de brinde sujeitos à disponibilidade no
+                            estoque</span>
                     </div>
                     <div class="pizzaInfo--typearea" style="display: none;">
                         <div class="pizzaInfo--sector">Versão / Sabor</div>
@@ -497,7 +658,8 @@
                                 <span class="delivery-label">Taxa de Entrega:</span>
                                 <span class="delivery-badge">Após o envio do pedido</span>
                             </div>
-                            <p class="delivery-note">O valor da taxa de entrega será informado pela pizzaria via WhatsApp após o envio do pedido, conforme o seu endereço e bairro.</p>
+                            <p class="delivery-note">O valor da taxa de entrega será informado pela pizzaria via
+                                WhatsApp após o envio do pedido, conforme o seu endereço e bairro.</p>
                         </div>
                     </div>
 
@@ -549,13 +711,15 @@
                 <div class="meioInfo">
                     <div class="meioTag">2 SABORES</div>
                     <h1>Pizza Meio a Meio</h1>
-                    <div class="meioInfo--desc">Escolha metade um sabor e metade outro. O preço prevalecente é o da metade de maior valor no tamanho selecionado.</div>
+                    <div class="meioInfo--desc">Escolha metade um sabor e metade outro. O preço prevalecente é o da
+                        metade de maior valor no tamanho selecionado.</div>
 
                     <div class="meioInfo--sizearea">
                         <div class="meioInfo--sector">Tamanho</div>
                         <div class="meioInfo--sizes">
                             <div data-key="M" data-size-index="0" class="meioInfo--size">MÉDIA <span>30 cm</span></div>
-                            <div data-key="G" data-size-index="1" class="meioInfo--size selected">GRANDE <span>35 cm</span></div>
+                            <div data-key="G" data-size-index="1" class="meioInfo--size selected">GRANDE <span>35
+                                    cm</span></div>
                             <div data-key="S" data-size-index="2" class="meioInfo--size">SUPER <span>40 cm</span></div>
                             <div data-key="MX" data-size-index="3" class="meioInfo--size">MAX <span>45 cm</span></div>
                         </div>
@@ -564,13 +728,15 @@
                     <div class="meioInfo--slotsArea">
                         <div class="meioInfo--sector">Sabores Escolhidos</div>
                         <div class="meio-slots-grid">
-                            <div class="meio-slot" data-slot-index="0" tabindex="0" role="button" aria-label="Escolher primeiro sabor">
+                            <div class="meio-slot" data-slot-index="0" tabindex="0" role="button"
+                                aria-label="Escolher primeiro sabor">
                                 <div class="meio-slot-top">
                                     <span class="meio-slot-badge">1ª Metade</span>
                                     <span class="meio-slot-btn-text">Alterar</span>
                                 </div>
                                 <div class="meio-slot-content">
-                                    <img src="assets/img/pizzas/pizza-mussarela.webp" alt="1º Sabor" class="meio-slot-img" />
+                                    <img src="assets/img/pizzas/pizza-mussarela.webp" alt="1º Sabor"
+                                        class="meio-slot-img" />
                                     <div class="meio-slot-text">
                                         <h4 class="meio-slot-name">Muçarela</h4>
                                         <span class="meio-slot-price">R$ 64,90</span>
@@ -578,13 +744,15 @@
                                 </div>
                             </div>
 
-                            <div class="meio-slot" data-slot-index="1" tabindex="0" role="button" aria-label="Escolher segundo sabor">
+                            <div class="meio-slot" data-slot-index="1" tabindex="0" role="button"
+                                aria-label="Escolher segundo sabor">
                                 <div class="meio-slot-top">
                                     <span class="meio-slot-badge">2ª Metade</span>
                                     <span class="meio-slot-btn-text">Alterar</span>
                                 </div>
                                 <div class="meio-slot-content">
-                                    <img src="assets/img/pizzas/pizza-calabresa.webp" alt="2º Sabor" class="meio-slot-img" />
+                                    <img src="assets/img/pizzas/pizza-calabresa.webp" alt="2º Sabor"
+                                        class="meio-slot-img" />
                                     <div class="meio-slot-text">
                                         <h4 class="meio-slot-name">Calabresa</h4>
                                         <span class="meio-slot-price">R$ 69,90</span>
@@ -597,15 +765,18 @@
 
                     <div class="meioInfo--bonusRefri" style="display: none;">
                         <div class="comboInfo--sector">REFRIGERANTE 2L GRÁTIS (SUJEITO A ESTOQUE)</div>
-                        <select class="combo-select-drink meioInfo--refriSelect" aria-label="Escolha seu refrigerante 2L de brinde">
+                        <select class="combo-select-drink meioInfo--refriSelect"
+                            aria-label="Escolha seu refrigerante 2L de brinde">
                             <option value="Guaraná Antarctica 2L">Guaraná Antarctica 2L (Sujeito a estoque)</option>
-                            <option value="Guaraná Antarctica Zero 2L">Guaraná Antarctica Zero 2L (Sujeito a estoque)</option>
+                            <option value="Guaraná Antarctica Zero 2L">Guaraná Antarctica Zero 2L (Sujeito a estoque)
+                            </option>
                             <option value="Pepsi 2L">Pepsi 2L (Sujeito a estoque)</option>
                             <option value="Pepsi Black 2L">Pepsi Black 2L (Sujeito a estoque)</option>
                             <option value="Pepsi Twist 2L">Pepsi Twist 2L (Sujeito a estoque)</option>
                             <option value="Sprite 2L">Sprite 2L (Sujeito a estoque)</option>
                         </select>
-                        <span class="bonus-refri-disclaimer">*Sabores de brinde sujeitos à disponibilidade no estoque</span>
+                        <span class="bonus-refri-disclaimer">*Sabores de brinde sujeitos à disponibilidade no
+                            estoque</span>
                     </div>
 
                     <div class="meioInfo--pricearea">
@@ -618,7 +789,8 @@
                                 <button class="meioInfo--qtmais">+</button>
                             </div>
                         </div>
-                        <div class="meioInfo--ruleNote">Preço baseado na metade mais valorizada: <strong class="meioInfo--prevailingName">Calabresa</strong></div>
+                        <div class="meioInfo--ruleNote">Preço baseado na metade mais valorizada: <strong
+                                class="meioInfo--prevailingName">Calabresa</strong></div>
                     </div>
 
                     <div class="meioInfo--addButton">Adicionar ao carrinho</div>
@@ -641,14 +813,20 @@
 
                 <div class="flavorPickerSearchArea">
                     <div class="flavorPickerSearchInputWrap">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DB4D44" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" id="flavorPickerSearch" placeholder="Buscar sabor (ex: calabresa, muçarela, chocolate)..." autocomplete="off">
-                        <button type="button" class="flavorPickerSearchClear" style="display: none;" aria-label="Limpar busca">&times;</button>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DB4D44" stroke-width="2.5">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="flavorPickerSearch"
+                            placeholder="Buscar sabor (ex: calabresa, muçarela, chocolate)..." autocomplete="off">
+                        <button type="button" class="flavorPickerSearchClear" style="display: none;"
+                            aria-label="Limpar busca">&times;</button>
                     </div>
 
                     <div class="flavorPickerCategories">
                         <button type="button" class="flavor-cat-btn active" data-cat="all">Todas</button>
-                        <button type="button" class="flavor-cat-btn" data-cat="Pizzas Tradicionais">Tradicionais</button>
+                        <button type="button" class="flavor-cat-btn"
+                            data-cat="Pizzas Tradicionais">Tradicionais</button>
                         <button type="button" class="flavor-cat-btn" data-cat="Pizzas Especiais">Especiais</button>
                         <button type="button" class="flavor-cat-btn" data-cat="Pizzas Doces">Doces</button>
                         <button type="button" class="flavor-cat-btn" data-cat="Pizzas Gourmet">Gourmet</button>
@@ -672,7 +850,8 @@
                 <h3>Regra de Promoção</h3>
                 <p>O desconto especial é válido para <strong>apenas 1 pizza promocional por pedido</strong>.</p>
                 <div class="promo-alert-explanation">
-                    A primeira pizza promocional recebeu o desconto especial. Unidades promocionais adicionais foram mantidas com o preço regular de cardápio.
+                    A primeira pizza promocional recebeu o desconto especial. Unidades promocionais adicionais foram
+                    mantidas com o preço regular de cardápio.
                 </div>
                 <button type="button" class="promo-alert-btn" id="promoAlertCloseBtn">Entendi, continuar</button>
             </div>
@@ -694,16 +873,23 @@
                         </ul>
                     </div>
                     <div class="middle">
-                        <img src="assets/img/logo-la-bella-pizza.webp" alt="Logo La Bella Pizza Petrópolis" class="footer-logo" width="153" height="102" loading="lazy" decoding="async">
+                        <img src="assets/img/logo-la-bella-pizza.webp" alt="Logo La Bella Pizza Petrópolis"
+                            class="footer-logo" width="153" height="102" loading="lazy" decoding="async">
                         <div class="footer-social">
-                            <a href="https://www.instagram.com/labellapizzapetropolis/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da La Bella Pizza Petrópolis" title="Siga no Instagram">
+                            <a href="https://www.instagram.com/labellapizzapetropolis/" target="_blank"
+                                rel="noopener noreferrer" aria-label="Instagram da La Bella Pizza Petrópolis"
+                                title="Siga no Instagram">
                                 <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                                 </svg>
                             </a>
-                            <a href="https://www.facebook.com/labellapizzapetropolis/" target="_blank" rel="noopener noreferrer" aria-label="Facebook da La Bella Pizza Petrópolis" title="Curta no Facebook">
+                            <a href="https://www.facebook.com/labellapizzapetropolis/" target="_blank"
+                                rel="noopener noreferrer" aria-label="Facebook da La Bella Pizza Petrópolis"
+                                title="Curta no Facebook">
                                 <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                    <path
+                                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                                 </svg>
                             </a>
                         </div>
@@ -711,18 +897,25 @@
                     <div class="right">
                         <h4>Peça sua pizza</h4>
                         <ul>
-                            <li><a href="https://wa.me/5524999323962" target="_blank">Tirar dúvidas via Whatsapp</a></li>
+                            <li><a href="https://wa.me/5524999323962" target="_blank">Tirar dúvidas via Whatsapp</a>
+                            </li>
                             <li><a href="#pedido">Pedir em 3 cliques</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="bottom">
-                    <div class="telefone"><strong>Telefone / WhatsApp:</strong> <a href="tel:+5524999323962">(24) 99932-3962</a></div>
-                    <div class="endereco"><strong>Endereço:</strong> <a href="https://maps.google.com/?q=Pizzaria+La+Bella,+Rua+Bingen,+2076+-+Bingen,+Petr%C3%B3polis+-+RJ,+25660-008" target="_blank" rel="noopener noreferrer">Rua Bingen, 2076 - Bingen, Petrópolis - RJ, CEP: 25660-008</a></div>
-                    <div class="horario"><strong>Horários:</strong> Ter a Qui e Dom: 18h às 23h | Sex a Sáb e Vésperas: 18h às 00h | Seg: Fechado</div>
+                    <div class="telefone"><strong>Telefone / WhatsApp:</strong> <a href="tel:+5524999323962">(24)
+                            99932-3962</a></div>
+                    <div class="endereco"><strong>Endereço:</strong> <a
+                            href="https://maps.google.com/?q=Pizzaria+La+Bella,+Rua+Bingen,+2076+-+Bingen,+Petr%C3%B3polis+-+RJ,+25660-008"
+                            target="_blank" rel="noopener noreferrer">Rua Bingen, 2076 - Bingen, Petrópolis - RJ, CEP:
+                            25660-008</a></div>
+                    <div class="horario"><strong>Horários:</strong> Ter a Qui e Dom: 18h às 23h | Sex a Sáb e Vésperas:
+                        18h às 00h | Seg: Fechado</div>
                 </div>
                 <div class="footer-credits">
-                    <a href="https://canedoweb.vercel.app/" target="_blank" rel="noopener noreferrer">Desenvolvido por Canedo Web Studio</a>
+                    <a href="https://canedoweb.vercel.app/" target="_blank" rel="noopener noreferrer">Desenvolvido por
+                        Canedo Web Studio</a>
                 </div>
             </div>
         </div>
@@ -741,4 +934,5 @@
     <script src="js/loader.js?v=16" defer></script>
     <script src="js/cookie-banner.js?v=13" defer></script>
 </body>
+
 </html>
