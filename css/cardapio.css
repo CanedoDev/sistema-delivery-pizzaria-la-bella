@@ -2010,6 +2010,32 @@ aside.show {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
 }
 
+/* Card Meio a Meio Gourmet */
+.card.card-meio-gourmet {
+    background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(135deg, #059669 0%, #10B981 50%, #047857 100%) !important;
+}
+
+.card.card-meio-gourmet .card-btn {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+}
+
+.card.card-meio-gourmet .card-btn:hover {
+    box-shadow: 0 5px 15px rgba(5, 150, 105, 0.35) !important;
+}
+
+/* Card Meio a Meio Doce */
+.card.card-meio-doce {
+    background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(135deg, #B45309 0%, #D97706 50%, #F59E0B 100%) !important;
+}
+
+.card.card-meio-doce .card-btn {
+    background: linear-gradient(135deg, #B45309 0%, #D97706 100%) !important;
+}
+
+.card.card-meio-doce .card-btn:hover {
+    box-shadow: 0 5px 15px rgba(217, 119, 6, 0.35) !important;
+}
+
 .card-badge-meio {
     display: inline-block;
     background: linear-gradient(135deg, #DE4E45 50%, #64B95F 50%);
@@ -2182,13 +2208,14 @@ aside.show {
 }
 
 .meioInfo--sizes {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
     gap: 8px;
     width: 100%;
 }
 
 .meioInfo--size {
+    flex: 1;
+    min-width: 0;
     padding: 9px 4px;
     border: 1px solid #e0e0e0;
     border-radius: 12px;

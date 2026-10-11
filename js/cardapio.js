@@ -538,48 +538,71 @@ const ajustarTamanhosPorTipo = (key) => {
     atualizaPreco();
 };
 
+const obterInfoTamanho = (str) => {
+    if (!str) return { key: 'G', label: 'GRANDE', name: 'Grande' };
+    const s = str.toLowerCase();
+    if (s.includes('grande') || s.includes('35')) {
+        return { key: 'G', label: 'GRANDE', name: 'Grande' };
+    }
+    if (s.includes('média') || s.includes('media') || s.includes('30')) {
+        return { key: 'M', label: 'MÉDIA', name: 'Média' };
+    }
+    if (s.includes('super') || s.includes('40')) {
+        return { key: 'S', label: 'SUPER', name: 'Super' };
+    }
+    if (s.includes('max') || s.includes('45')) {
+        return { key: 'MX', label: 'MAX', name: 'Max' };
+    }
+    return { key: 'G', label: 'GRANDE', name: 'Grande' };
+};
+
 const preencherTamanhos = (key) => {
-    let currentSelected = seleciona('.pizzaInfo--size.selected')
-    if (currentSelected) currentSelected.classList.remove('selected')
+    let currentSelected = seleciona('.pizzaInfo--size.selected');
+    if (currentSelected) currentSelected.classList.remove('selected');
 
-    const item = pizzaJson[key]
-    const isBebida = item && item.category === 'Bebidas'
-    const sizeLabels = ['MÉDIA', 'GRANDE', 'SUPER', 'MAX']
+    const item = pizzaJson[key];
+    const isBebida = item && item.category === 'Bebidas';
 
-    const sectorEl = seleciona('.pizzaInfo--sizearea .pizzaInfo--sector')
-    if (sectorEl) sectorEl.innerText = isBebida ? 'Volume' : 'Tamanho'
+    const sectorEl = seleciona('.pizzaInfo--sizearea .pizzaInfo--sector');
+    if (sectorEl) sectorEl.innerText = isBebida ? 'Volume' : 'Tamanho';
 
-    const selectedTypeEl = seleciona('.pizzaInfo--type.selected')
-    const selectedType = (isBebida && selectedTypeEl) ? selectedTypeEl.getAttribute('data-type') : null
+    const selectedTypeEl = seleciona('.pizzaInfo--type.selected');
+    const selectedType = (isBebida && selectedTypeEl) ? selectedTypeEl.getAttribute('data-type') : null;
 
-    let availableSizes = item ? item.sizes : []
+    let availableSizes = item ? item.sizes : [];
     if (item && item.typeRules && selectedType && item.typeRules[selectedType]) {
-        availableSizes = item.typeRules[selectedType].sizes
+        availableSizes = item.typeRules[selectedType].sizes;
     }
 
     selecionaTodos('.pizzaInfo--size').forEach((size, sizeIndex) => {
         if (availableSizes && availableSizes[sizeIndex]) {
-            size.style.display = 'block'
+            size.style.display = 'block';
             if (isBebida) {
-                size.innerHTML = availableSizes[sizeIndex]
+                size.setAttribute('data-key', availableSizes[sizeIndex]);
+                size.innerHTML = availableSizes[sizeIndex];
             } else {
-                size.innerHTML = `${sizeLabels[sizeIndex] || ''} <span>${availableSizes[sizeIndex]}</span>`
+                const info = obterInfoTamanho(availableSizes[sizeIndex]);
+                size.setAttribute('data-key', info.key);
+                size.innerHTML = `${info.label} <span>${availableSizes[sizeIndex]}</span>`;
             }
         } else {
-            size.style.display = 'none'
+            size.style.display = 'none';
         }
-    })
+    });
 
-    let allSizes = selecionaTodos('.pizzaInfo--size')
-    if (availableSizes && availableSizes[1]) {
-        allSizes[1].classList.add('selected')
+    let allSizes = selecionaTodos('.pizzaInfo--size');
+    const grandeBtn = [...allSizes].find(s => s.style.display !== 'none' && s.getAttribute('data-key') === 'G');
+    if (grandeBtn) {
+        grandeBtn.classList.add('selected');
     } else {
-        allSizes[0].classList.add('selected')
+        const firstVisible = [...allSizes].find(s => s.style.display !== 'none');
+        if (firstVisible) firstVisible.classList.add('selected');
+        else if (allSizes[0]) allSizes[0].classList.add('selected');
     }
 
-    atualizarBonusRefri()
-    atualizaPreco()
-}
+    atualizarBonusRefri();
+    atualizaPreco();
+};
 
 const atualizaPreco = () => {
     const item = pizzaJson[modalKey];
@@ -856,24 +879,36 @@ const atualizarCarrinho = () => {
                 desconto += economiaItem
             } else if (itemDoCarrinho.isMeioAMeio) {
 
-                cartItem.classList.add('is-meio-a-meio')
-                cartItem.querySelector('.cart--item img').src = 'assets/img/pizzas/pizza-calabresa.webp'
+                cartItem.classList.add('is-meio-a-meio');
+                cartItem.querySelector('.cart--item img').src = itemDoCarrinho.img || 'assets/img/pizzas/pizza-calabresa.webp';
 
-                let refriBadge = ''
+                let refriBadge = '';
                 if (itemDoCarrinho.refrigerante) {
-                    refriBadge = `<div class="cart--item-refri">Brinde: ${itemDoCarrinho.refrigerante}</div>`
+                    refriBadge = `<div class="cart--item-refri">Brinde: ${itemDoCarrinho.refrigerante}</div>`;
                 }
 
+                let tagBg = 'linear-gradient(135deg, #DE4E45 50%, #64B95F 50%)';
+                let tagNome = 'Meio a Meio';
+                if (itemDoCarrinho.tipoMeio === 'gourmet') {
+                    tagBg = 'linear-gradient(135deg, #059669 0%, #047857 100%)';
+                    tagNome = 'Gourmet';
+                } else if (itemDoCarrinho.tipoMeio === 'doce') {
+                    tagBg = 'linear-gradient(135deg, #B45309 0%, #D97706 100%)';
+                    tagNome = 'Doce';
+                }
+
+                const nomeTitulo = itemDoCarrinho.name || `Pizza Meio a Meio (${itemDoCarrinho.sizeName || itemDoCarrinho.size})`;
+
                 cartItem.querySelector('.cart--item-nome').innerHTML = `
-                    <span class="cart--item-tag-combo" style="background: linear-gradient(135deg, #DE4E45 50%, #64B95F 50%);">Meio a Meio</span>
-                    <div class="cart--item-combo-title">Pizza Meio a Meio (${itemDoCarrinho.sizeName || itemDoCarrinho.size})</div>
+                    <span class="cart--item-tag-combo" style="background: ${tagBg};">${tagNome}</span>
+                    <div class="cart--item-combo-title">${nomeTitulo}</div>
                     <div class="cart--item-combo-sub">½ ${itemDoCarrinho.sabor1.name} + ½ ${itemDoCarrinho.sabor2.name}</div>
                     ${refriBadge}
-                `
-                cartItem.querySelector('.cart--item--qt').innerHTML = itemDoCarrinho.qt
+                `;
+                cartItem.querySelector('.cart--item--qt').innerHTML = itemDoCarrinho.qt;
 
-                let itemTotal = itemDoCarrinho.qt * itemDoCarrinho.price
-                subtotal += itemTotal
+                let itemTotal = itemDoCarrinho.qt * itemDoCarrinho.price;
+                subtotal += itemTotal;
 
             } else {
 
@@ -1024,7 +1059,7 @@ const capturarDadosDoPedido = () => {
             pedido.itens.push({
                 isCombo: false,
                 isMeioAMeio: !!itemDoCarrinho.isMeioAMeio,
-                nome: itemDoCarrinho.isMeioAMeio ? `Pizza Meio a Meio (${itemDoCarrinho.sizeName || itemDoCarrinho.size})` : pizzaName,
+                nome: itemDoCarrinho.isMeioAMeio ? (itemDoCarrinho.name || `Pizza Meio a Meio (${itemDoCarrinho.sizeName || itemDoCarrinho.size})`) : pizzaName,
                 detalhes: itemDoCarrinho.isMeioAMeio ? `½ ${itemDoCarrinho.sabor1.name} + ½ ${itemDoCarrinho.sabor2.name}` : '',
                 tamanho: itemDoCarrinho.sizeName || itemDoCarrinho.size,
                 quantidade: pizzasQt,
@@ -1319,6 +1354,69 @@ const filtro = () => {
     });
 }
 
+const CONFIG_MEIO = {
+    salgada: {
+        tipo: 'salgada',
+        tituloCard: 'Meio a Meio',
+        precoMinimo: 'A partir de R$ 54,90',
+        badge: 'Tradicionais & Especiais',
+        imgCard: 'assets/img/pizzas/pizza-calabresa.webp',
+        imgMob: 'assets/img/pizzas/pizza-calabresa-mob.webp',
+        alt: 'Pizza Meio a Meio Tradicional e Especial',
+        classesCard: ['card-meio-a-meio', 'card-meio-salgada', 'pizzas-tradicionais', 'pizzas-especiais'],
+        modalTag: 'TRADICIONAIS & ESPECIAIS',
+        modalTitulo: 'Pizza Meio a Meio',
+        modalDesc: 'Escolha metade um sabor e metade outro entre Pizzas Tradicionais e Especiais. O preço prevalecente é o da metade de maior valor no tamanho selecionado.',
+        tamanhos: ['M', 'G', 'S', 'MX'],
+        defaultSizeKey: 'G',
+        allowedCategories: ['Pizzas Tradicionais', 'Pizzas Especiais'],
+        defaultSabor1Id: 1, // Muçarela
+        defaultSabor2Id: 4, // Calabresa
+        cartTag: 'Meio a Meio',
+        cartName: (sizeName) => `Pizza Meio a Meio (${sizeName})`
+    },
+    gourmet: {
+        tipo: 'gourmet',
+        tituloCard: 'Meio a Meio Gourmet',
+        precoMinimo: 'A partir de R$ 98,90',
+        badge: 'Pizzas Gourmet',
+        imgCard: 'assets/img/pizzas/pizza-burrata.webp',
+        imgMob: 'assets/img/pizzas/pizza-burrata.webp',
+        alt: 'Pizza Meio a Meio Gourmet',
+        classesCard: ['card-meio-a-meio', 'card-meio-gourmet', 'pizzas-gourmet'],
+        modalTag: 'GOURMET · 2 SABORES',
+        modalTitulo: 'Meio a Meio Gourmet',
+        modalDesc: 'Escolha metade um sabor e metade outro da nossa linha exclusiva Gourmet. O preço prevalecente é o da metade de maior valor no tamanho Grande (35 cm).',
+        tamanhos: ['G'],
+        defaultSizeKey: 'G',
+        allowedCategories: ['Pizzas Gourmet'],
+        defaultSabor1Id: 60, // Abobrinha Natural
+        defaultSabor2Id: 61, // Burrata
+        cartTag: 'Gourmet',
+        cartName: (sizeName) => `Pizza Meio a Meio Gourmet (${sizeName})`
+    },
+    doce: {
+        tipo: 'doce',
+        tituloCard: 'Meio a Meio Doce',
+        precoMinimo: 'A partir de R$ 44,90',
+        badge: 'Pizzas Doces',
+        imgCard: 'assets/img/pizzas/pizza-chocolate-morango.webp',
+        imgMob: 'assets/img/pizzas/pizza-chocolate-morango.webp',
+        alt: 'Pizza Meio a Meio Doce',
+        classesCard: ['card-meio-a-meio', 'card-meio-doce', 'pizzas-doces'],
+        modalTag: 'DOCES · 2 SABORES',
+        modalTitulo: 'Meio a Meio Doce',
+        modalDesc: 'Escolha metade um sabor e metade outro da nossa linha Doce. O preço prevalecente é o da metade de maior valor no tamanho selecionado.',
+        tamanhos: ['M', 'G'],
+        defaultSizeKey: 'G',
+        allowedCategories: ['Pizzas Doces'],
+        defaultSabor1Id: 55, // Chocolate c/ Banana
+        defaultSabor2Id: 56, // Chocolate c/ Morango
+        cartTag: 'Doces',
+        cartName: (sizeName) => `Pizza Meio a Meio Doce (${sizeName})`
+    }
+};
+
 const carregarPizzas = () => {
     let grid = seleciona('.cards-grid');
 
@@ -1358,48 +1456,65 @@ const carregarPizzas = () => {
     });
 
     let ultimaCategoria = '';
-    let cardMeioInserido = false;
+    let cardsMeioInseridos = { salgada: false, gourmet: false, doce: false };
 
     const fragment = document.createDocumentFragment();
 
-    const desenharCardMeioAMeio = () => {
-        if (cardMeioInserido) return;
+    const desenharCardMeio = (tipo) => {
+        if (cardsMeioInseridos[tipo]) return;
         if (categoriaAtual === 'combos' || categoriaAtual === 'bebidas') return;
+
+        const config = CONFIG_MEIO[tipo];
+        if (!config) return;
 
         if (termoAtual !== '') {
             const t = termoAtual.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-            const palavrasChave = ['meio', 'misto', 'mista', 'metade', 'dois', 'sabores', 'personalizada', 'custom', 'pizza'];
-            const bate = palavrasChave.some(p => p.includes(t) || t.includes(p));
+            const palavrasBase = ['meio', 'misto', 'mista', 'metade', 'dois', 'sabores', 'personalizada', 'custom', 'pizza'];
+            let palavrasEspecificas = [];
+            if (tipo === 'salgada') palavrasEspecificas = ['tradicional', 'especial', 'calabresa', 'mussarela', 'salgada'];
+            else if (tipo === 'gourmet') palavrasEspecificas = ['gourmet', 'burrata', 'parma', 'abobrinha'];
+            else if (tipo === 'doce') palavrasEspecificas = ['doce', 'doces', 'chocolate', 'brigadeiro', 'banana', 'morango'];
+
+            const todasPalavras = [...palavrasBase, ...palavrasEspecificas];
+            const bate = todasPalavras.some(p => p.includes(t) || t.includes(p));
             if (!bate) return;
         }
 
         let cardItem = seleciona('.models .card').cloneNode(true);
         cardItem.removeAttribute('data-st-active');
-        cardItem.classList.add('card-white', 'card-meio-a-meio');
+        cardItem.classList.add('card-white', 'card-meio-a-meio', `card-meio-${tipo}`);
+        config.classesCard.forEach(c => cardItem.classList.add(c));
 
         const pizzaImg = cardItem.querySelector(".card-pizza-img");
-        pizzaImg.srcset = "assets/img/pizzas/pizza-calabresa-mob.webp 480w, assets/img/pizzas/pizza-calabresa.webp 706w";
-        pizzaImg.sizes = "(max-width: 768px) 120px, 200px";
-        pizzaImg.src = 'assets/img/pizzas/pizza-calabresa-mob.webp';
-        pizzaImg.alt = 'Pizza Meio a Meio Artesanal';
-        pizzaImg.loading = "lazy";
-        pizzaImg.decoding = "async";
-        pizzaImg.width = 140;
-        pizzaImg.height = 93;
+        if (pizzaImg) {
+            pizzaImg.srcset = `${config.imgMob} 480w, ${config.imgCard} 706w`;
+            pizzaImg.sizes = "(max-width: 768px) 120px, 200px";
+            pizzaImg.src = config.imgMob;
+            pizzaImg.alt = config.alt;
+            pizzaImg.loading = "lazy";
+            pizzaImg.decoding = "async";
+            pizzaImg.width = 140;
+            pizzaImg.height = 93;
+        }
 
-        cardItem.querySelector(".card-title").innerHTML = "Meio a Meio";
-        cardItem.querySelector(".card-price").innerHTML = "A partir de R$ 54,90";
+        const titleEl = cardItem.querySelector(".card-title");
+        if (titleEl) titleEl.innerHTML = config.tituloCard;
+
+        const priceEl = cardItem.querySelector(".card-price");
+        if (priceEl) priceEl.innerHTML = config.precoMinimo;
 
         const cardBtn = cardItem.querySelector('.card-btn');
-        cardBtn.innerText = "Montar Pizza";
-        cardBtn.setAttribute('aria-label', 'Montar pizza meio a meio');
-        cardBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            abrirModalMeioAMeio();
-        });
+        if (cardBtn) {
+            cardBtn.innerText = "Montar Pizza";
+            cardBtn.setAttribute('aria-label', `Montar ${config.tituloCard}`);
+            cardBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                abrirModalMeioAMeio(tipo);
+            });
+        }
 
         fragment.append(cardItem);
-        cardMeioInserido = true;
+        cardsMeioInseridos[tipo] = true;
         if (window.observeCard) window.observeCard(cardItem);
     };
 
@@ -1428,8 +1543,14 @@ const carregarPizzas = () => {
                 fragment.append(titulo);
                 if (window.animateTitle) window.animateTitle(titulo);
 
-                if (!cardMeioInserido && categoriaAtual !== 'combos' && categoriaAtual !== 'bebidas') {
-                    desenharCardMeioAMeio();
+                if (ultimaCategoria === 'Pizzas Tradicionais') {
+                    desenharCardMeio('salgada');
+                } else if (ultimaCategoria === 'Pizzas Especiais' && !cardsMeioInseridos.salgada && categoriaAtual === 'pizzas-especiais') {
+                    desenharCardMeio('salgada');
+                } else if (ultimaCategoria === 'Pizzas Doces') {
+                    desenharCardMeio('doce');
+                } else if (ultimaCategoria === 'Pizzas Gourmet') {
+                    desenharCardMeio('gourmet');
                 }
             }
         }
@@ -1554,6 +1675,25 @@ const carregarPizzas = () => {
 
     pizzasNormais.forEach(obj => desenharCard(obj, false));
 
+    // Se o usuário buscou por termo relacionado a meio a meio e os cards ainda não foram inseridos
+    if (termoAtual.trim() !== '' && categoriaAtual !== 'combos' && categoriaAtual !== 'bebidas') {
+        const t = termoAtual.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const palavrasMeio = ['meio', 'misto', 'mista', 'metade', 'dois', 'sabores', 'personalizada', 'custom', 'pizza'];
+        const querMeio = palavrasMeio.some(p => p.includes(t) || t.includes(p));
+
+        if (querMeio) {
+            if (!cardsMeioInseridos.salgada && (categoriaAtual === 'all' || categoriaAtual === 'pizzas-tradicionais' || categoriaAtual === 'pizzas-especiais')) {
+                desenharCardMeio('salgada');
+            }
+            if (!cardsMeioInseridos.doce && (categoriaAtual === 'all' || categoriaAtual === 'pizzas-doces')) {
+                desenharCardMeio('doce');
+            }
+            if (!cardsMeioInseridos.gourmet && (categoriaAtual === 'all' || categoriaAtual === 'pizzas-gourmet')) {
+                desenharCardMeio('gourmet');
+            }
+        }
+    }
+
     // Monta todos os cards em um único reflow no DOM
     grid.append(fragment);
 
@@ -1653,13 +1793,14 @@ const tratarParametrosURL = () => {
    ========================================================================== */
 
 let meioState = {
+    tipo: 'salgada', // 'salgada' | 'gourmet' | 'doce'
     sabor1: null,
     sabor2: null,
     sizeIndex: 1, // 0: Média (30cm), 1: Grande (35cm), 2: Super (40cm), 3: Max (45cm)
     sizeKey: 'G',
     sizeName: 'Grande (35 cm)',
     qt: 1,
-    refrigerante: 'Coca-Cola 2L'
+    refrigerante: 'Guaraná Antarctica 2L'
 };
 
 const tamanhosMeio = [
@@ -1669,21 +1810,40 @@ const tamanhosMeio = [
     { key: 'MX', name: 'Max (45 cm)', index: 3, hasSoda: true }
 ];
 
-const obterPrecoPizzaNoTamanho = (pizza, sizeIndex) => {
+const obterPrecoPizzaNoTamanho = (pizza, sizeIndex, sizeKey) => {
     if (!pizza || !pizza.price || !pizza.price.length) return 0;
-    if (typeof pizza.price[sizeIndex] !== 'undefined') {
+
+    const key = sizeKey || (tamanhosMeio[sizeIndex] ? tamanhosMeio[sizeIndex].key : null);
+
+    if (pizza.category === 'Pizzas Gourmet') {
+        return pizza.price[0];
+    }
+
+    if (pizza.category === 'Pizzas Doces') {
+        if (key === 'M' || sizeIndex === 0) return pizza.price[0];
+        if (key === 'G' || sizeIndex === 1) return pizza.price[1] !== undefined ? pizza.price[1] : pizza.price[0];
+        return pizza.price[pizza.price.length - 1];
+    }
+
+    // Tradicionais e Especiais
+    if (key) {
+        const map = { 'M': 0, 'G': 1, 'S': 2, 'MX': 3 };
+        const idx = typeof map[key] !== 'undefined' ? map[key] : 1;
+        if (typeof pizza.price[idx] !== 'undefined') return pizza.price[idx];
+    }
+
+    if (typeof sizeIndex === 'number' && typeof pizza.price[sizeIndex] !== 'undefined') {
         return pizza.price[sizeIndex];
     }
-    // Caso o sabor não tenha o tamanho especificado (ex: doces até 35cm ou gourmet 35cm),
-    // o preço prevalecente utiliza o maior valor disponível desse sabor sem travar o tamanho
+
     return pizza.price[pizza.price.length - 1];
 };
 
 const atualizarPrecoMeio = () => {
     if (!meioState.sabor1 || !meioState.sabor2) return;
 
-    const preco1 = obterPrecoPizzaNoTamanho(meioState.sabor1, meioState.sizeIndex);
-    const preco2 = obterPrecoPizzaNoTamanho(meioState.sabor2, meioState.sizeIndex);
+    const preco1 = obterPrecoPizzaNoTamanho(meioState.sabor1, meioState.sizeIndex, meioState.sizeKey);
+    const preco2 = obterPrecoPizzaNoTamanho(meioState.sabor2, meioState.sizeIndex, meioState.sizeKey);
     const precoPrevalecente = Math.max(preco1, preco2);
 
     const nomePrevalecente = preco1 >= preco2 ? meioState.sabor1.name : meioState.sabor2.name;
@@ -1700,10 +1860,11 @@ const atualizarPrecoMeio = () => {
     if (slot1PriceEl) slot1PriceEl.innerText = formatoReal(preco1);
     if (slot2PriceEl) slot2PriceEl.innerText = formatoReal(preco2);
 
-    // Bônus refrigerante: Super (40cm) e Max (45cm)
+    // Bônus refrigerante: apenas para tipo salgada e tamanhos Super (40cm) e Max (45cm)
     const bonusRefriEl = seleciona('.meioInfo--bonusRefri');
     if (bonusRefriEl) {
-        bonusRefriEl.style.display = (meioState.sizeIndex >= 2) ? 'flex' : 'none';
+        const temRefri = (meioState.tipo === 'salgada' && (meioState.sizeKey === 'S' || meioState.sizeKey === 'MX'));
+        bonusRefriEl.style.display = temRefri ? 'flex' : 'none';
     }
 };
 
@@ -1729,26 +1890,57 @@ const atualizarSlotsMeioUI = () => {
     atualizarPrecoMeio();
 };
 
-const abrirModalMeioAMeio = () => {
-    if (!meioState.sabor1) {
-        meioState.sabor1 = pizzaJson.find(p => p.id === 1) || pizzaJson[0];
+const abrirModalMeioAMeio = (tipo = 'salgada') => {
+    const config = CONFIG_MEIO[tipo] || CONFIG_MEIO.salgada;
+    meioState.tipo = tipo;
+
+    // Configurar sabores padrão pertencentes à categoria permitida
+    if (!meioState.sabor1 || !config.allowedCategories.includes(meioState.sabor1.category)) {
+        meioState.sabor1 = pizzaJson.find(p => p.id === config.defaultSabor1Id) || pizzaJson.find(p => config.allowedCategories.includes(p.category)) || pizzaJson[0];
     }
-    if (!meioState.sabor2) {
-        meioState.sabor2 = pizzaJson.find(p => p.id === 4) || pizzaJson[1] || pizzaJson[0];
+    if (!meioState.sabor2 || !config.allowedCategories.includes(meioState.sabor2.category)) {
+        meioState.sabor2 = pizzaJson.find(p => p.id === config.defaultSabor2Id) || pizzaJson.find(p => config.allowedCategories.includes(p.category) && p.id !== meioState.sabor1.id) || meioState.sabor1;
     }
+
     meioState.qt = 1;
     const qtEl = seleciona('.meioInfo--qt');
     if (qtEl) qtEl.innerText = 1;
 
-    meioState.sizeIndex = 1;
-    meioState.sizeKey = 'G';
-    meioState.sizeName = 'Grande (35 cm)';
+    // Configurar tamanho padrão do modo
+    meioState.sizeKey = config.defaultSizeKey;
+    const sizeObj = tamanhosMeio.find(t => t.key === meioState.sizeKey) || { name: 'Grande (35 cm)', index: 1 };
+    meioState.sizeName = sizeObj.name;
+    meioState.sizeIndex = sizeObj.index;
 
+    // Atualizar textos e imagens do modal
+    const tagEl = seleciona('.meioTag');
+    if (tagEl) tagEl.innerText = config.modalTag;
+
+    const tituloEl = seleciona('.meioInfo h1');
+    if (tituloEl) tituloEl.innerText = config.modalTitulo;
+
+    const descEl = seleciona('.meioInfo--desc');
+    if (descEl) descEl.innerText = config.modalDesc;
+
+    const bigImg = seleciona('.meioBig img');
+    if (bigImg) {
+        bigImg.src = config.imgCard;
+        bigImg.alt = config.alt;
+    }
+
+    // Gerenciar visibilidade dos botões de tamanho no modal
     selecionaTodos('.meioInfo--size').forEach(btn => {
-        btn.classList.toggle('selected', btn.getAttribute('data-key') === 'G');
+        const key = btn.getAttribute('data-key');
+        if (config.tamanhos.includes(key)) {
+            btn.style.display = 'block';
+            btn.classList.toggle('selected', key === meioState.sizeKey);
+        } else {
+            btn.style.display = 'none';
+            btn.classList.remove('selected');
+        }
     });
 
-    const refriSelect = seleciona('#meio-refri-select');
+    const refriSelect = seleciona('#meio-refri-select') || seleciona('.meioInfo--refriSelect');
     if (refriSelect) meioState.refrigerante = refriSelect.value;
 
     atualizarSlotsMeioUI();
@@ -1794,11 +1986,12 @@ const fecharModalMeioAMeio = (syncHistory = true) => {
 const adicionarMeioAoCarrinho = () => {
     if (!meioState.sabor1 || !meioState.sabor2) return;
 
-    const preco1 = obterPrecoPizzaNoTamanho(meioState.sabor1, meioState.sizeIndex);
-    const preco2 = obterPrecoPizzaNoTamanho(meioState.sabor2, meioState.sizeIndex);
+    const config = CONFIG_MEIO[meioState.tipo] || CONFIG_MEIO.salgada;
+    const preco1 = obterPrecoPizzaNoTamanho(meioState.sabor1, meioState.sizeIndex, meioState.sizeKey);
+    const preco2 = obterPrecoPizzaNoTamanho(meioState.sabor2, meioState.sizeIndex, meioState.sizeKey);
     const precoFinal = Math.max(preco1, preco2);
 
-    const temRefri = (meioState.sizeIndex >= 2);
+    const temRefri = (meioState.tipo === 'salgada' && (meioState.sizeKey === 'S' || meioState.sizeKey === 'MX'));
     let refriEscolhido = null;
     if (temRefri) {
         const selectRefriEl = seleciona('.meioInfo--refriSelect');
@@ -1807,7 +2000,7 @@ const adicionarMeioAoCarrinho = () => {
     }
 
     const idsOrdenados = [meioState.sabor1.id, meioState.sabor2.id].sort((a, b) => a - b).join('-');
-    const identificador = `meio@${idsOrdenados}@${meioState.sizeKey}@${refriEscolhido || 'semRefri'}`;
+    const identificador = `meio_${meioState.tipo}@${idsOrdenados}@${meioState.sizeKey}@${refriEscolhido || 'semRefri'}`;
 
     const itemExistenteIndex = cart.findIndex(item => item.identificador === identificador);
 
@@ -1817,8 +2010,10 @@ const adicionarMeioAoCarrinho = () => {
         cart.push({
             identificador: identificador,
             isMeioAMeio: true,
+            tipoMeio: meioState.tipo,
             id: meioState.sabor1.id,
-            name: `Pizza Meio a Meio (${meioState.sizeName})`,
+            name: config.cartName(meioState.sizeName),
+            img: config.imgCard,
             sabor1: {
                 id: meioState.sabor1.id,
                 name: meioState.sabor1.name,
@@ -1896,13 +2091,15 @@ const configurarModalMeioAMeio = () => {
 
     if (slot0) {
         slot0.addEventListener('click', () => {
+            const config = CONFIG_MEIO[meioState.tipo] || CONFIG_MEIO.salgada;
             if (typeof window.abrirSeletorSaboresUnico === 'function') {
                 window.abrirSeletorSaboresUnico({
-                    title: "Escolha a 1ª Metade",
+                    title: `Escolha a 1ª Metade (${config.tituloCard})`,
                     stepText: "1ª Metade",
                     subtitle: "Toque no sabor para selecionar",
-                    allowedCategories: [],
+                    allowedCategories: config.allowedCategories,
                     sizeIndex: meioState.sizeIndex,
+                    sizeKey: meioState.sizeKey,
                     selectedId: meioState.sabor1 ? meioState.sabor1.id : null,
                     onSelect: (pizza) => {
                         meioState.sabor1 = pizza;
@@ -1915,13 +2112,15 @@ const configurarModalMeioAMeio = () => {
 
     if (slot1) {
         slot1.addEventListener('click', () => {
+            const config = CONFIG_MEIO[meioState.tipo] || CONFIG_MEIO.salgada;
             if (typeof window.abrirSeletorSaboresUnico === 'function') {
                 window.abrirSeletorSaboresUnico({
-                    title: "Escolha a 2ª Metade",
+                    title: `Escolha a 2ª Metade (${config.tituloCard})`,
                     stepText: "2ª Metade",
                     subtitle: "Toque no sabor para selecionar",
-                    allowedCategories: [],
+                    allowedCategories: config.allowedCategories,
                     sizeIndex: meioState.sizeIndex,
+                    sizeKey: meioState.sizeKey,
                     selectedId: meioState.sabor2 ? meioState.sabor2.id : null,
                     onSelect: (pizza) => {
                         meioState.sabor2 = pizza;
@@ -1936,23 +2135,26 @@ const configurarModalMeioAMeio = () => {
     const btnChooseAll = seleciona('.meioInfo--slotsArea .meio-choose-all-btn');
     if (btnChooseAll) {
         btnChooseAll.addEventListener('click', () => {
+            const config = CONFIG_MEIO[meioState.tipo] || CONFIG_MEIO.salgada;
             if (typeof window.iniciarFluxoSelecaoSabores === 'function') {
                 window.iniciarFluxoSelecaoSabores({
                     steps: [
                         {
-                            title: "Escolha a 1ª Metade",
+                            title: `Escolha a 1ª Metade (${config.tituloCard})`,
                             stepText: "Passo 1 de 2",
                             subtitle: "Selecione o sabor da primeira metade",
-                            allowedCategories: [],
+                            allowedCategories: config.allowedCategories,
                             sizeIndex: meioState.sizeIndex,
+                            sizeKey: meioState.sizeKey,
                             selectedId: meioState.sabor1 ? meioState.sabor1.id : null
                         },
                         {
-                            title: "Escolha a 2ª Metade",
+                            title: `Escolha a 2ª Metade (${config.tituloCard})`,
                             stepText: "Passo 2 de 2",
                             subtitle: "Selecione o sabor da segunda metade",
-                            allowedCategories: [],
+                            allowedCategories: config.allowedCategories,
                             sizeIndex: meioState.sizeIndex,
+                            sizeKey: meioState.sizeKey,
                             selectedId: meioState.sabor2 ? meioState.sabor2.id : null
                         }
                     ],
@@ -2055,7 +2257,7 @@ const atualizarEtapaFlavorPicker = () => {
         if (allowed.length > 0) {
             if (cat === 'all') {
                 btn.style.display = '';
-                btn.innerText = (allowed.length === 1 && allowed[0] === 'Pizzas Doces') ? 'Todas Doces' : 'Todas';
+                btn.innerText = (allowed.length === 1 && allowed[0] === 'Pizzas Doces') ? 'Todas Doces' : ((allowed.length === 1 && allowed[0] === 'Pizzas Gourmet') ? 'Todas Gourmet' : 'Todas');
             } else if (allowed.includes(cat)) {
                 btn.style.display = '';
             } else {
@@ -2146,7 +2348,7 @@ const renderizarCardsSabores = () => {
         });
 
         pizzasFiltradas.forEach((pizza, index) => {
-            const preco = obterPrecoPizzaNoTamanho(pizza, sizeIndex);
+            const preco = obterPrecoPizzaNoTamanho(pizza, sizeIndex, currentStep.sizeKey);
             const isSelected = selectedId === pizza.id;
             const cor = coresAtribuidas[index];
 
