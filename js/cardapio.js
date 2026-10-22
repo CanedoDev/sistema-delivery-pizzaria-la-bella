@@ -776,8 +776,12 @@ const adicionarNoCarrinho = () => {
         let refriEscolhido = null;
         if (!isBebida && (size === 'S' || size === 'MX')) {
             const selectRefriEl = seleciona('.pizzaInfo--refriSelect');
-            const refriVal = selectRefriEl ? selectRefriEl.value : 'Guaraná Antarctica 2L';
-            refriEscolhido = `${refriVal} (Sujeito a estoque)`;
+            const refriVal = selectRefriEl && selectRefriEl.value ? selectRefriEl.value.trim() : 'Guaraná Antarctica 2L';
+            if (refriVal && refriVal.toLowerCase() !== 'null' && refriVal.toLowerCase() !== 'undefined') {
+                refriEscolhido = `${refriVal} (Sujeito a estoque)`;
+            } else {
+                refriEscolhido = 'Guaraná Antarctica 2L (Sujeito a estoque)';
+            }
         }
 
         let identificador = itemAtual.id + 't' + size + (selectedType ? '_' + selectedType : '') + (refriEscolhido ? '_' + refriEscolhido.replace(/\s+/g, '_') : '');
@@ -859,7 +863,7 @@ const atualizarCarrinho = () => {
                 cartItem.classList.add('is-combo')
                 cartItem.querySelector('.cart--item img').src = itemDoCarrinho.img || 'assets/img/banner-promocao-combo-pizza.webp'
 
-                const precoOriginalItem = (itemDoCarrinho.originalPrice || itemDoCarrinho.price) * itemDoCarrinho.qt
+                const precoOriginalItem = Math.max(itemDoCarrinho.originalPrice || itemDoCarrinho.price, itemDoCarrinho.price) * itemDoCarrinho.qt
                 const precoFinalItem = itemDoCarrinho.price * itemDoCarrinho.qt
                 const economiaItem = (itemDoCarrinho.discount || 0) * itemDoCarrinho.qt
 
@@ -932,7 +936,7 @@ const atualizarCarrinho = () => {
                 let itemTotal = itemDoCarrinho.qt * itemDoCarrinho.price
                 subtotal += itemTotal
 
-                const ehItemPromo = quartaFeira && (itemDoCarrinho.size === 'G' || itemDoCarrinho.sizeIndex === 1) &&
+                const ehItemPromo = !itemDoCarrinho.isMeioAMeio && quartaFeira && (itemDoCarrinho.size === 'G' || itemDoCarrinho.sizeIndex === 1) &&
                     (pizzaPromoQuartaUm.includes(itemDoCarrinho.id) || pizzaPromoQuartaDois.includes(itemDoCarrinho.id))
 
                 if (ehItemPromo) {
@@ -951,7 +955,7 @@ const atualizarCarrinho = () => {
             seleciona('.menu-openner span').innerHTML = cart.length
 
             cartItem.querySelector('.cart--item-qtmais').addEventListener('click', () => {
-                const ehItemPromo = quartaFeira && (itemDoCarrinho.size === 'G' || itemDoCarrinho.sizeIndex === 1) &&
+                const ehItemPromo = !itemDoCarrinho.isMeioAMeio && quartaFeira && (itemDoCarrinho.size === 'G' || itemDoCarrinho.sizeIndex === 1) &&
                     (pizzaPromoQuartaUm.includes(itemDoCarrinho.id) || pizzaPromoQuartaDois.includes(itemDoCarrinho.id))
                 if (ehItemPromo) {
                     mostrarPopupAvisoPromo()
@@ -980,7 +984,10 @@ const atualizarCarrinho = () => {
             promoAlertEl.style.display = totalPizzasPromoNoCarrinho > 1 ? 'block' : 'none'
         }
 
-        total = Math.max(0, subtotal - desconto)
+        const resumo = capturarDadosDoPedido()
+        subtotal = resumo.subtotal
+        desconto = resumo.desconto
+        total = resumo.total
 
         seleciona('.menu-openner span').innerHTML = cart.length
         seleciona('.subtotal span:last-child').innerHTML = formatoReal(subtotal)
@@ -1001,6 +1008,48 @@ const atualizarCarrinho = () => {
 
 }
 
+const arredondarMoeda = valor => Math.round((valor + Number.EPSILON) * 100) / 100;
+
+const nomeBebidaPedido = (nome, tamanho = '', fallback = 'Bebida a confirmar com o atendente') => {
+    const limpo = String(nome || '').replace(/\b(null|undefined)\b/gi, '').replace(/\s+/g, ' ').trim();
+    if (!limpo || /^bebida$/i.test(limpo)) return fallback;
+    return tamanho && !limpo.toLowerCase().includes(tamanho.toLowerCase()) ? limpo + ' ' + tamanho : limpo;
+};
+
+const formatarMensagemPedido = (pedido, dados) => {
+    const linhas = ['🍕 *NOVO PEDIDO — LA BELLA PIZZA*', '', '*ITENS DO PEDIDO*'];
+    pedido.itens.forEach((item, index) => {
+        const tamanho = !item.isCombo && !item.isMeioAMeio && item.tamanho ? ' (' + item.tamanho + ')' : '';
+        linhas.push('', (index + 1) + '. *' + item.quantidade + 'x ' + item.nome + tamanho + '*');
+        if (item.isCombo) {
+            item.pizzas.forEach(p => {
+                linhas.push('• Pizza: ' + p.name + ' — ' + (p.sizeName || p.size));
+                if (p.refrigerante) linhas.push('• Brinde da pizza: ' + nomeBebidaPedido(p.refrigerante));
+            });
+            item.drinks.forEach(d => linhas.push('• Bebida inclusa: ' + nomeBebidaPedido(d.name, d.size)));
+            if (!item.pizzas.length && !item.drinks.length && item.detalhes) linhas.push('• ' + item.detalhes);
+            if (item.quantidade > 1) linhas.push('Composição acima por combo.');
+        } else if (item.detalhes) {
+            linhas.push('• ' + item.detalhes);
+        }
+        if (item.brindeRefri) linhas.push('• Brinde: ' + item.quantidade + 'x ' + nomeBebidaPedido(item.refrigeranteNome));
+        const valorFinal = arredondarMoeda(item.totalPizza - (item.isCombo ? 0 : item.desconto));
+        if (item.quantidade > 1) linhas.push('Preço unitário: ' + formatoReal(item.preco));
+        linhas.push('Total do item: *' + formatoReal(valorFinal) + '*');
+        if (item.desconto > 0) linhas.push((item.isCombo ? 'Economia' : 'Desconto aplicado') + ': ' + formatoReal(item.desconto));
+    });
+    linhas.push('', '*RESUMO DO PEDIDO*', 'Subtotal antes dos descontos: ' + formatoReal(pedido.subtotal));
+    if (pedido.desconto > 0) linhas.push('Descontos/economia: -' + formatoReal(pedido.desconto));
+    linhas.push('*Total dos itens: ' + formatoReal(pedido.total) + '*', 'Entrega: taxa a confirmar com o atendente.',
+        'Total a pagar: total dos itens + taxa de entrega.', '', '*DADOS PARA ENTREGA*',
+        'Nome: ' + dados.nome, 'Telefone: ' + dados.telefone,
+        'Endereço: ' + dados.endereco + ', nº ' + dados.numero + ' — ' + dados.bairro,
+        'Tipo de imóvel: ' + dados.tipo);
+    if (dados.complemento) linhas.push('Complemento: ' + dados.complemento);
+    linhas.push('Pagamento: ' + dados.pagamento);
+    return linhas.join('\n');
+};
+
 const capturarDadosDoPedido = () => {
     let pedido = {
         itens: [],
@@ -1015,13 +1064,17 @@ const capturarDadosDoPedido = () => {
     cart.forEach((itemDoCarrinho) => {
         if (itemDoCarrinho.isCombo) {
             const precoFinal = itemDoCarrinho.price * itemDoCarrinho.qt
-            const precoOriginal = (itemDoCarrinho.originalPrice || itemDoCarrinho.price) * itemDoCarrinho.qt
+            const precoOriginal = Math.max(itemDoCarrinho.originalPrice || itemDoCarrinho.price, itemDoCarrinho.price) * itemDoCarrinho.qt
             const economia = (itemDoCarrinho.discount || 0) * itemDoCarrinho.qt
 
             pedido.itens.push({
                 isCombo: true,
+                comboCode: itemDoCarrinho.comboCode,
+                comboId: itemDoCarrinho.comboId,
                 nome: itemDoCarrinho.name,
                 detalhes: itemDoCarrinho.dynamicName || '',
+                pizzas: itemDoCarrinho.pizzas || [],
+                drinks: itemDoCarrinho.drinks || [],
                 tamanho: 'Combo',
                 quantidade: itemDoCarrinho.qt,
                 preco: itemDoCarrinho.price,
@@ -1041,7 +1094,7 @@ const capturarDadosDoPedido = () => {
             let pizzaTotal = pizzasQt * pizzaPrice
             let itemDesconto = 0
 
-            const ehItemPromo = quartaFeira && (itemDoCarrinho.size === 'G' || itemDoCarrinho.sizeIndex === 1) &&
+            const ehItemPromo = !itemDoCarrinho.isMeioAMeio && quartaFeira && (itemDoCarrinho.size === 'G' || itemDoCarrinho.sizeIndex === 1) &&
                 (pizzaPromoQuartaUm.includes(itemDoCarrinho.id) || pizzaPromoQuartaDois.includes(itemDoCarrinho.id))
 
             if (ehItemPromo && !descontoPromoAplicado) {
@@ -1054,7 +1107,11 @@ const capturarDadosDoPedido = () => {
                 pedido.desconto += itemDesconto
             }
 
-            const brindeRefri = ((itemDoCarrinho.size === 'S' || itemDoCarrinho.size === 'MX') || !!itemDoCarrinho.refrigerante) && (!pizzaItem || pizzaItem.category !== 'Bebidas')
+            const brindeRefri = ((itemDoCarrinho.size === 'S' || itemDoCarrinho.size === 'MX') || !!itemDoCarrinho.refrigerante) && (!pizzaItem || (pizzaItem.category !== 'Bebidas' && pizzaItem.category !== 'Combos'))
+            let refriNomeLimpo = nomeBebidaPedido(itemDoCarrinho.refrigerante, '', 'Guaraná Antarctica 2L (Sujeito a estoque)')
+            if (brindeRefri && !refriNomeLimpo) {
+                refriNomeLimpo = 'Guaraná Antarctica 2L (Sujeito a estoque)'
+            }
 
             pedido.itens.push({
                 isCombo: false,
@@ -1067,14 +1124,20 @@ const capturarDadosDoPedido = () => {
                 totalPizza: pizzaTotal,
                 desconto: itemDesconto,
                 brindeRefri: brindeRefri,
-                refrigeranteNome: itemDoCarrinho.refrigerante || ''
+                refrigeranteNome: refriNomeLimpo
             })
 
             pedido.subtotal += pizzaTotal
         }
     })
 
-    pedido.total = Math.max(0, pedido.subtotal - pedido.desconto)
+    pedido.itens.forEach(item => {
+        item.totalPizza = arredondarMoeda(item.totalPizza)
+        item.desconto = arredondarMoeda(item.desconto)
+    })
+    pedido.subtotal = arredondarMoeda(pedido.subtotal)
+    pedido.desconto = arredondarMoeda(pedido.desconto)
+    pedido.total = arredondarMoeda(Math.max(0, pedido.subtotal - pedido.desconto))
     return pedido
 }
 
@@ -1190,71 +1253,11 @@ const configurarCheckout = () => {
 
         let pedido = capturarDadosDoPedido()
 
-        let mensagem = `*NOVO PEDIDO - LA BELLA PIZZA*\n`
-        mensagem += `━━━━━━━━━━━━━━━━━━━━\n\n`
-        mensagem += `*ITENS DO PEDIDO:*\n\n`
-
-        pedido.itens.forEach((item) => {
-            if (item.isCombo) {
-                mensagem += `• *${item.nome}* (${item.quantidade}x)\n`
-                if (item.detalhes) {
-                    mensagem += `  ↳ ${item.detalhes}\n`
-                }
-                mensagem += `  ↳ Valor: ${formatoReal(item.totalPizza)}`
-                if (item.desconto > 0) {
-                    mensagem += ` _(Economia: ${formatoReal(item.desconto)})_`
-                }
-                mensagem += `\n\n`
-            } else if (item.isMeioAMeio) {
-                mensagem += `• *${item.nome}* (${item.quantidade}x)\n`
-                if (item.detalhes) {
-                    mensagem += `  ↳ ${item.detalhes}\n`
-                }
-                if (item.brindeRefri) {
-                    let refriTxt = item.refrigeranteNome || 'Refri 2L (Sujeito a estoque)'
-                    if (!refriTxt.toLowerCase().includes('estoque')) {
-                        refriTxt += ' (Sujeito a estoque)'
-                    }
-                    mensagem += `  ↳ *Brinde:* ${refriTxt}\n`
-                }
-                mensagem += `  ↳ Valor: ${formatoReal(item.totalPizza)}\n\n`
-            } else {
-                mensagem += `• *${item.nome}* (${item.tamanho}) - ${item.quantidade}x\n`
-                if (item.brindeRefri) {
-                    let refriTxt = item.refrigeranteNome || 'Refri 2L (Sujeito a estoque)'
-                    if (!refriTxt.toLowerCase().includes('estoque')) {
-                        refriTxt += ' (Sujeito a estoque)'
-                    }
-                    mensagem += `  ↳ *Brinde:* ${refriTxt}\n`
-                }
-                mensagem += `  ↳ Valor: ${formatoReal(item.totalPizza)}`
-                if (item.desconto > 0) {
-                    mensagem += ` _(Desconto: -${formatoReal(item.desconto)})_`
-                }
-                mensagem += `\n\n`
-            }
+        const mensagem = formatarMensagemPedido(pedido, {
+            nome: nomePessoa, telefone: telefonePessoa, endereco: enderecoPessoa,
+            numero: numeroCasaPessoa, bairro: bairroPessoa, tipo: tipoResidencia,
+            complemento: complementoPessoa, pagamento: formaPagamento
         })
-
-        mensagem += `━━━━━━━━━━━━━━━━━━━━\n`
-        mensagem += `*RESUMO FINANCEIRO:*\n`
-        mensagem += `• *Subtotal:* ${formatoReal(pedido.subtotal)}\n`
-        if (pedido.desconto > 0) {
-            mensagem += `• *Desconto / Economia:* -${formatoReal(pedido.desconto)}\n`
-        }
-        mensagem += `• *Taxa de Entrega:* Informada após o envio do pedido (via WhatsApp)\n`
-        mensagem += `• *TOTAL DOS ITENS:* *${formatoReal(pedido.total)}* (+ taxa de entrega)\n`
-        mensagem += `━━━━━━━━━━━━━━━━━━━━\n\n`
-
-        mensagem += `*DADOS PARA ENTREGA:*\n`
-        mensagem += `• *Nome:* ${nomePessoa}\n`
-        mensagem += `• *Telefone:* ${telefonePessoa}\n`
-        mensagem += `• *Endereço:* ${enderecoPessoa}, Nº ${numeroCasaPessoa} - ${bairroPessoa}\n`
-        mensagem += `• *Tipo de Imóvel:* ${tipoResidencia}\n`
-        if (complementoPessoa) {
-            mensagem += `• *Complemento:* ${complementoPessoa}\n`
-        }
-        mensagem += `• *Forma de Pagamento:* ${formaPagamento}\n`
-        mensagem += `━━━━━━━━━━━━━━━━━━━━`
 
         let mensagemFinal = encodeURIComponent(mensagem)
 
@@ -1995,8 +1998,12 @@ const adicionarMeioAoCarrinho = () => {
     let refriEscolhido = null;
     if (temRefri) {
         const selectRefriEl = seleciona('.meioInfo--refriSelect');
-        const refriVal = selectRefriEl ? selectRefriEl.value : 'Guaraná Antarctica 2L';
-        refriEscolhido = `${refriVal} (Sujeito a estoque)`;
+        const refriVal = selectRefriEl && selectRefriEl.value ? selectRefriEl.value.trim() : 'Guaraná Antarctica 2L';
+        if (refriVal && refriVal.toLowerCase() !== 'null' && refriVal.toLowerCase() !== 'undefined') {
+            refriEscolhido = `${refriVal} (Sujeito a estoque)`;
+        } else {
+            refriEscolhido = 'Guaraná Antarctica 2L (Sujeito a estoque)';
+        }
     }
 
     const idsOrdenados = [meioState.sabor1.id, meioState.sabor2.id].sort((a, b) => a - b).join('-');

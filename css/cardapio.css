@@ -2539,6 +2539,63 @@ aside.show {
     color: #ffffff;
 }
 
+/* Card de Bebida Inclusa Sob Consulta no Combo */
+.combo-drink-included-card {
+    background: #fdfdfd;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 14px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+}
+
+.combo-drink-included-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.combo-drink-included-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #e4e4e4;
+    background: #ffffff;
+}
+
+.combo-drink-included-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.combo-drink-included-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.combo-drink-included-sub {
+    font-size: 11px;
+    color: #777;
+    margin-top: 2px;
+}
+
+.combo-drink-included-tag {
+    background: #E8F5E9;
+    color: #2E7D32;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
 /* =========================================
    MODAL DE SELEÇÃO DE SABORES (flavorPickerWindowArea)
 ========================================= */

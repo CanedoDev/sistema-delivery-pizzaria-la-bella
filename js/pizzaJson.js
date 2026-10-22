@@ -611,21 +611,21 @@ let pizzaJson = [
         id: 67,
         category: 'Combos',
         comboId: 101,
-        name: 'Combo Super - 1 Doce + Refri 2L',
+        name: 'Combo 01 - Super + Média Doce + Refri/Mate 1.5L',
         img: 'assets/img/combo-doce.webp',
-        price: [120.00],
-        sizes: ['1 Super + 1 Média Doce + 1 Refri 2L'],
-        description: '1 Super Salgada (40cm) + 1 Média Doce (30cm) + 1 Refrigerante 2L'
+        price: [134.90],
+        sizes: ['Super (40cm) + Média Doce (30cm) + Refri/Mate 1.5L'],
+        description: '1 Super Salgada (40cm) + 1 Média Doce (30cm) + 1 Refrigerante ou Mate 1.5L (Sob consulta)'
     },
     {
         id: 68,
         category: 'Combos',
         comboId: 102,
-        name: 'Combo 2 Grandes - com Refri 2L',
+        name: 'Combo 02 - 2 Grandes + Refri/Mate 1.5L',
         img: 'assets/img/combo-2-grandes.webp',
-        price: [120.00],
-        sizes: ['2 Grandes + Refri 2L'],
-        description: '2 Pizzas Grandes Tradicionais (35cm) + 1 Refrigerante 2L'
+        price: [132.90],
+        sizes: ['2 Grandes (35cm) + Refri/Mate 1.5L'],
+        description: '2 Pizzas Grandes Tradicionais (35cm) + 1 Refrigerante ou Mate 1.5L (Sob consulta)'
     },
 
     {
@@ -684,43 +684,54 @@ let pizzaJson = [
         sizes: ['2L'],
         price: [12.00],
         description: 'Refrigerante Sprite sabor limão bem geladinho e refrescante.'
+    },
+    {
+        id: 74,
+        category: 'Bebidas',
+        name: 'Mate Leão (Natural ou Limão)',
+        baseName: 'Mate Leão',
+        img: 'assets/img/bebida-mate.webp',
+        types: ['Natural', 'Limão'],
+        sizes: ['1.5L'],
+        price: [10.00],
+        description: 'Chá Matte Leão geladinho e refrescante 1.5L. Escolha entre a versão Natural ou Limão.'
     }
 ];
 
 let combosJson = [
     {
         id: 101,
-        code: 'combo_super_doce_refri',
-        name: 'Combo Super - 1 Doce + Refri 2L',
+        code: 'combo_01_super_doce_bebida',
+        name: 'Combo 01 - Super + Média Doce + Refri/Mate 1.5L',
         category: 'Combos',
         img: 'assets/img/combo-doce.webp',
-        price: 120.00,
-        description: '1 Super Salgada (40cm) + 1 Média Doce (30cm) + 1 Refrigerante 2L',
+        price: 134.90,
+        description: '1 Super Salgada (40cm) + 1 Média Doce (30cm) + 1 Refrigerante ou Mate 1.5L (Sob consulta)',
         rules: {
             pizzas: [
                 { size: 'S', sizeIndex: 2, sizeName: 'Super (40cm)', category: ['Pizzas Tradicionais'], label: '1ª Pizza Salgada Super (40cm)' },
                 { size: 'M', sizeIndex: 0, sizeName: 'Média (30cm)', category: ['Pizzas Doces'], label: '2ª Pizza Doce Média (30cm)' }
             ],
             drinks: [
-                { size: '2L', sizeIndex: 1, label: 'Refrigerante 2L' }
+                { size: '1.5L', name: 'Refri ou Mate 1.5L (Sob consulta)', estimatedPrice: 10.00, label: 'Bebida Inclusa (Sob Consulta)' }
             ]
         }
     },
     {
         id: 102,
-        code: 'combo_2_grandes_refri',
-        name: 'Combo 2 Grandes - com Refri 2L',
+        code: 'combo_02_grandes_bebida',
+        name: 'Combo 02 - 2 Grandes + Refri/Mate 1.5L',
         category: 'Combos',
         img: 'assets/img/combo-2-grandes.webp',
-        price: 120.00,
-        description: '2 Pizzas Grandes Tradicionais (35cm) + 1 Refrigerante 2L',
+        price: 132.90,
+        description: '2 Pizzas Grandes Tradicionais (35cm) + 1 Refrigerante ou Mate 1.5L (Sob consulta)',
         rules: {
             pizzas: [
                 { size: 'G', sizeIndex: 1, sizeName: 'Grande (35cm)', category: ['Pizzas Tradicionais'], label: '1ª Pizza Grande (35cm)' },
                 { size: 'G', sizeIndex: 1, sizeName: 'Grande (35cm)', category: ['Pizzas Tradicionais'], label: '2ª Pizza Grande (35cm)' }
             ],
             drinks: [
-                { size: '2L', sizeIndex: 1, label: 'Refrigerante 2L' }
+                { size: '1.5L', name: 'Refri ou Mate 1.5L (Sob consulta)', estimatedPrice: 10.00, label: 'Bebida Inclusa (Sob Consulta)' }
             ]
         }
     },

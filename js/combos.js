@@ -29,7 +29,12 @@ const obterPizzasParaRegra = (regraPizza) => {
 
 const obterBebidasParaRegra = (regraBebida) => {
     return pizzaJson.filter(item => {
-        return item.category === 'Bebidas' && item.sizes && (item.sizes.includes(regraBebida.size) || item.sizes.length > 0);
+        if (item.category !== 'Bebidas') return false;
+        if (!item.sizes) return false;
+        if (regraBebida && regraBebida.size) {
+            return item.sizes.includes(regraBebida.size);
+        }
+        return true;
     });
 };
 
@@ -324,26 +329,24 @@ const abrirModalCombo = (combo) => {
     }
 
     if (combo.rules.drinks && combo.rules.drinks.length > 0) {
-        combo.rules.drinks.forEach((regraBebida, index) => {
-            const bebidasDisponiveis = obterBebidasParaRegra(regraBebida);
+        combo.rules.drinks.forEach((regraBebida) => {
             const slotDiv = document.createElement('div');
-            slotDiv.className = 'combo-slot-group';
+            slotDiv.className = 'combo-slot-group combo-slot-drink-included';
 
-            let optionsHtml = '';
-            bebidasDisponiveis.forEach((bebida, bIdx) => {
-                const drinkSizeIndex = bebida.sizes.indexOf(regraBebida.size) >= 0 ? bebida.sizes.indexOf(regraBebida.size) : (regraBebida.sizeIndex !== undefined ? regraBebida.sizeIndex : 1);
-                const precoBebida = bebida.price[drinkSizeIndex] || bebida.price[bebida.price.length - 1];
-                const itemFormatado = `${bebida.name} ${regraBebida.size} (${formatarBRL(precoBebida)})`;
-                const isSelected = bIdx === 0 ? 'selected' : '';
-                optionsHtml += `<option value="${bebida.id}" data-price="${precoBebida}" ${isSelected}>${itemFormatado}</option>`;
-            });
+            const drinkTitle = regraBebida.name || 'Refri ou Mate 1.5L (Sob consulta)';
+            const drinkLabel = regraBebida.label || 'Bebida Inclusa (Sob Consulta)';
 
             slotDiv.innerHTML = `
-                <div class="comboInfo--sector">${regraBebida.label || `Bebida ${index + 1}`}</div>
-                <div class="bonus-select-wrap">
-                    <select class="combo-select-drink pizzaInfo--refriSelect" style="display: block; width: 100%;" data-slot-index="${index}" data-size="${regraBebida.size}">
-                        ${optionsHtml}
-                    </select>
+                <div class="comboInfo--sector">${drinkLabel}</div>
+                <div class="combo-drink-included-card">
+                    <div class="combo-drink-included-left">
+                        <img src="assets/img/bebida-guarana.webp" alt="Refri ou Mate 1.5L" class="combo-drink-included-img" />
+                        <div class="combo-drink-included-details">
+                            <h4 class="combo-drink-included-name">${drinkTitle}</h4>
+                            <span class="combo-drink-included-sub">*Sabores sob consulta (confirmar com o atendente)</span>
+                        </div>
+                    </div>
+                    <span class="combo-drink-included-tag">Incluso</span>
                 </div>
             `;
             selectionsContainer.appendChild(slotDiv);
@@ -391,13 +394,23 @@ const fecharModalCombo = (syncHistory = true) => {
 
 const calcularPrecoOriginalModal = () => {
     let precoOriginal = 0;
-    const selects = document.querySelectorAll('.comboSelections select');
+    const modalBody = document.querySelector('.comboWindowBody');
+    if (!modalBody || !comboAtualModal) return 0;
+
+    const selects = modalBody.querySelectorAll('.comboSelections select');
     selects.forEach(select => {
         const selectedOption = select.options[select.selectedIndex];
         if (selectedOption) {
             precoOriginal += parseFloat(selectedOption.getAttribute('data-price')) || 0;
         }
     });
+
+    if (comboAtualModal.rules && comboAtualModal.rules.drinks && comboAtualModal.rules.drinks.length > 0) {
+        comboAtualModal.rules.drinks.forEach(d => {
+            precoOriginal += (d.estimatedPrice !== undefined ? d.estimatedPrice : 10.00);
+        });
+    }
+
     return precoOriginal;
 };
 
@@ -422,15 +435,18 @@ const atualizarResumoPrecoCombo = () => {
 const confirmarAdicaoCombo = () => {
     if (!comboAtualModal) return;
 
+    const modalBody = document.querySelector('.comboWindowBody');
+    if (!modalBody) return;
+
     const pizzasSelecionadas = [];
     const bebidasSelecionadas = [];
 
-    document.querySelectorAll('.combo-select-pizza').forEach(select => {
+    modalBody.querySelectorAll('.combo-select-pizza').forEach(select => {
         const pizzaId = parseInt(select.value);
         const pizzaObj = pizzaJson.find(p => p.id === pizzaId);
         const selectedOption = select.options[select.selectedIndex];
-        const preco = parseFloat(selectedOption.getAttribute('data-price')) || 0;
-        const size = select.getAttribute('data-size');
+        const preco = parseFloat(selectedOption ? selectedOption.getAttribute('data-price') : null) || 0;
+        const size = select.getAttribute('data-size') || '';
         const sizeName = select.getAttribute('data-size-name') || size;
 
         pizzasSelecionadas.push({
@@ -442,20 +458,15 @@ const confirmarAdicaoCombo = () => {
         });
     });
 
-    document.querySelectorAll('.combo-select-drink').forEach(select => {
-        const drinkId = parseInt(select.value);
-        const drinkObj = pizzaJson.find(d => d.id === drinkId);
-        const selectedOption = select.options[select.selectedIndex];
-        const preco = parseFloat(selectedOption.getAttribute('data-price')) || 0;
-        const size = select.getAttribute('data-size');
-
-        bebidasSelecionadas.push({
-            id: drinkId,
-            name: drinkObj ? drinkObj.name : 'Bebida',
-            size: size,
-            price: preco
+    if (comboAtualModal.rules && comboAtualModal.rules.drinks && comboAtualModal.rules.drinks.length > 0) {
+        comboAtualModal.rules.drinks.forEach(d => {
+            bebidasSelecionadas.push({
+                name: d.name || 'Refri ou Mate 1.5L (Sob consulta)',
+                size: d.size || '1.5L',
+                price: d.estimatedPrice !== undefined ? d.estimatedPrice : 10.00
+            });
         });
-    });
+    }
 
     const precoOriginal = calcularPrecoOriginalModal();
     const precoCombo = comboAtualModal.price;
@@ -496,15 +507,15 @@ const gerarNomeDinamicoCombo = (combo, pizzas, drinks) => {
     let partes = [];
 
     if (pizzas && pizzas.length > 0) {
-        const qtdPizzas = pizzas.length;
-        const nomesSabores = pizzas.map(p => p.name).join(' e ');
-        const tamanhoNome = pizzas[0].sizeName ? pizzas[0].sizeName.split(' ')[0] : 'Pizzas';
-        partes.push(`${qtdPizzas}x ${tamanhoNome} (${nomesSabores})`);
+        pizzas.forEach(p => {
+            const tam = p.sizeName || p.size || '';
+            partes.push(`${p.name} (${tam})`);
+        });
     }
 
     if (drinks && drinks.length > 0) {
         drinks.forEach(d => {
-            partes.push(`1x ${d.name} ${d.size}`);
+            partes.push(d.name || 'Refri ou Mate 1.5L (Sob consulta)');
         });
     }
 
@@ -521,14 +532,14 @@ const detectarEAplicarCombos = (carrinhoAtual) => {
 
         let itensAvulsos = [];
         carrinhoAtual.forEach((cartItem, cartIndex) => {
-            if (!cartItem.isCombo && cartItem.qt > 0) {
+            if (!cartItem.isCombo && !cartItem.isMeioAMeio && cartItem.qt > 0) {
                 const pizzaItem = pizzaJson.find(p => p.id === cartItem.id);
                 if (pizzaItem) {
                     for (let q = 0; q < cartItem.qt; q++) {
                         itensAvulsos.push({
                             cartIndex: cartIndex,
                             id: cartItem.id,
-                            name: pizzaItem.name,
+                            name: cartItem.customName || pizzaItem.name,
                             category: pizzaItem.category,
                             size: cartItem.size,
                             sizeIndex: cartItem.sizeIndex,
@@ -609,7 +620,8 @@ const tentarCombinarItensParaCombo = (combo, itensAvulsos) => {
                     name: item.name,
                     size: item.size,
                     sizeName: regraPizza.sizeName || item.size,
-                    price: item.price
+                    price: item.price,
+                    refrigerante: item.itemRef.refrigerante || null
                 });
                 itensCasados.push(item);
                 break;
@@ -626,9 +638,10 @@ const tentarCombinarItensParaCombo = (combo, itensAvulsos) => {
                 const item = itensAvulsos[i];
                 const ehBebida = (item.category === 'Bebidas');
 
+                const is15L = (regraBebida.size === '1.5L') && (item.size === '1.5L');
                 const is2L = (regraBebida.size === '2L') && (item.size === '2L' || item.size === 'G' || item.size === 'M' || item.sizeIndex === 1 || item.size === 'Grande 35 cm');
                 const is600ml = (regraBebida.size === '600ml') && (item.size === '600ml' || item.size === 'M' || item.size === 'P' || item.sizeIndex === 0 || item.size === 'Média 30 cm');
-                const sizeMatch = is2L || is600ml || (item.size === regraBebida.size);
+                const sizeMatch = is15L || is2L || is600ml || (item.size === regraBebida.size);
 
                 if (ehBebida && sizeMatch) {
                     indicesUsados.add(i);
