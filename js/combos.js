@@ -38,6 +38,26 @@ const obterBebidasParaRegra = (regraBebida) => {
     });
 };
 
+const obterOpcoesBebidaCombo = regra => obterBebidasParaRegra(regra).flatMap(item => {
+    const tipos = item.types || [''];
+    return tipos.flatMap(tipo => {
+        const dados = item.typeRules && item.typeRules[tipo] ? item.typeRules[tipo] : item;
+        const index = dados.sizes.indexOf(regra.size);
+        if (index < 0) return [];
+        return [{ id: item.id, key: item.id + ':' + tipo, name: (item.baseName || item.name) + (tipo ? ' ' + tipo : ''), size: regra.size, price: dados.price[index], img: item.img }];
+    });
+});
+
+const obterDescontoQuartaCombo = itens => {
+    if (typeof getPromocaoStatus !== 'function' || !getPromocaoStatus().quartaFeira) return 0;
+    for (const item of itens) {
+        if (item.qt <= 0 || item.isCombo || item.isMeioAMeio || !(item.size === 'G' || item.sizeIndex === 1)) continue;
+        if (pizzaPromoQuartaUm.includes(item.id)) return 10;
+        if (pizzaPromoQuartaDois.includes(item.id)) return 11;
+    }
+    return 0;
+};
+
 const formatarBRL = (valor) => {
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 };
@@ -328,30 +348,27 @@ const abrirModalCombo = (combo) => {
         }
     }
 
-    if (combo.rules.drinks && combo.rules.drinks.length > 0) {
-        combo.rules.drinks.forEach((regraBebida) => {
-            const slotDiv = document.createElement('div');
-            slotDiv.className = 'combo-slot-group combo-slot-drink-included';
-
-            const drinkTitle = regraBebida.name || 'Refri ou Mate 1.5L (Sob consulta)';
-            const drinkLabel = regraBebida.label || 'Bebida Inclusa (Sob Consulta)';
-
-            slotDiv.innerHTML = `
-                <div class="comboInfo--sector">${drinkLabel}</div>
-                <div class="combo-drink-included-card">
-                    <div class="combo-drink-included-left">
-                        <img src="assets/img/bebida-guarana.webp" alt="Refri ou Mate 1.5L" class="combo-drink-included-img" />
-                        <div class="combo-drink-included-details">
-                            <h4 class="combo-drink-included-name">${drinkTitle}</h4>
-                            <span class="combo-drink-included-sub">*Sabores sob consulta (confirmar com o atendente)</span>
-                        </div>
-                    </div>
-                    <span class="combo-drink-included-tag">Incluso</span>
+    (combo.rules.drinks || []).forEach((regra, index) => {
+        const opcoes = obterOpcoesBebidaCombo(regra);
+        const slotDiv = document.createElement('div');
+        slotDiv.className = 'combo-slot-group combo-slot-drink-included';
+        slotDiv.innerHTML = `
+            <label class="comboInfo--sector" for="combo-bebida-${index}">Bebida inclusa — ${regra.size}</label>
+            <div class="combo-drink-included-card">
+                <img src="${opcoes[0] ? opcoes[0].img : 'assets/img/bebida-guarana.webp'}" alt="" class="combo-drink-included-img" />
+                <div class="combo-drink-included-details">
+                    <select id="combo-bebida-${index}" class="combo-select-drink" aria-describedby="combo-estoque-${index}">
+                        ${opcoes.map(o => '<option value="' + o.key + '" data-price="' + o.price + '">' + o.name + ' ' + o.size + '</option>').join('')}
+                    </select>
+                    <small id="combo-estoque-${index}" class="combo-drink-included-sub">Sujeito a estoque. Confirme a disponibilidade com o atendente.</small>
                 </div>
-            `;
-            selectionsContainer.appendChild(slotDiv);
+            </div>`;
+        slotDiv.querySelector('select').addEventListener('change', event => {
+            const opcao = opcoes.find(o => o.key === event.target.value);
+            if (opcao) slotDiv.querySelector('img').src = opcao.img;
         });
-    }
+        selectionsContainer.appendChild(slotDiv);
+    });
 
     atualizarResumoPrecoCombo();
 
@@ -405,12 +422,6 @@ const calcularPrecoOriginalModal = () => {
         }
     });
 
-    if (comboAtualModal.rules && comboAtualModal.rules.drinks && comboAtualModal.rules.drinks.length > 0) {
-        comboAtualModal.rules.drinks.forEach(d => {
-            precoOriginal += (d.estimatedPrice !== undefined ? d.estimatedPrice : 10.00);
-        });
-    }
-
     return precoOriginal;
 };
 
@@ -425,9 +436,13 @@ const atualizarResumoPrecoCombo = () => {
     const finalPriceEl = document.querySelector('.comboFinalPrice');
     const savingsEl = document.querySelector('.comboSavingsBadge');
 
-    if (originalPriceEl) originalPriceEl.innerHTML = `De: <s>${formatarBRL(precoOriginal)}</s>`;
+    if (originalPriceEl) {
+        originalPriceEl.hidden = economia < 0.01;
+        originalPriceEl.innerHTML = `Avulsos: <s>${formatarBRL(precoOriginal)}</s>`;
+    }
     if (finalPriceEl) finalPriceEl.innerHTML = formatarBRL(precoCombo);
     if (savingsEl) {
+        savingsEl.hidden = economia < 0.01;
         savingsEl.innerHTML = `Economia de ${formatarBRL(economia)}`;
     }
 };
@@ -458,14 +473,11 @@ const confirmarAdicaoCombo = () => {
         });
     });
 
-    if (comboAtualModal.rules && comboAtualModal.rules.drinks && comboAtualModal.rules.drinks.length > 0) {
-        comboAtualModal.rules.drinks.forEach(d => {
-            bebidasSelecionadas.push({
-                name: d.name || 'Refri ou Mate 1.5L (Sob consulta)',
-                size: d.size || '1.5L',
-                price: d.estimatedPrice !== undefined ? d.estimatedPrice : 10.00
-            });
-        });
+    for (const [index, regra] of (comboAtualModal.rules.drinks || []).entries()) {
+        const select = modalBody.querySelectorAll('.combo-select-drink')[index];
+        const opcao = obterOpcoesBebidaCombo(regra).find(o => select && o.key === select.value);
+        if (!opcao) return;
+        bebidasSelecionadas.push({ ...opcao, name: opcao.name + ' ' + opcao.size + ' (Sujeito a estoque)' });
     }
 
     const precoOriginal = calcularPrecoOriginalModal();
@@ -483,7 +495,7 @@ const confirmarAdicaoCombo = () => {
         dynamicName: dynamicName,
         img: comboAtualModal.img || 'assets/img/banner-promocao-combo-pizza.webp',
         price: precoCombo,
-        originalPrice: precoOriginal,
+        originalPrice: Math.max(precoOriginal, precoCombo),
         discount: desconto,
         pizzas: pizzasSelecionadas,
         drinks: bebidasSelecionadas,
@@ -515,7 +527,7 @@ const gerarNomeDinamicoCombo = (combo, pizzas, drinks) => {
 
     if (drinks && drinks.length > 0) {
         drinks.forEach(d => {
-            partes.push(d.name || 'Refri ou Mate 1.5L (Sob consulta)');
+            partes.push((d.name || 'Bebida a confirmar') + (d.size && !(d.name || '').includes(d.size) ? ' ' + d.size : ''));
         });
     }
 
@@ -551,8 +563,16 @@ const detectarEAplicarCombos = (carrinhoAtual) => {
             }
         });
 
-        for (let combo of combosDisponiveis) {
+        const descontoAntes = obterDescontoQuartaCombo(carrinhoAtual);
+        const candidatos = combosDisponiveis.map(combo => {
             const match = tentarCombinarItensParaCombo(combo, itensAvulsos);
+            if (!match) return null;
+            const soma = match.itensCasados.reduce((total, item) => total + item.price, 0);
+            const restantes = carrinhoAtual.map(item => ({ ...item, qt: item.qt - match.itensCasados.filter(i => i.itemRef === item).length }));
+            const economia = Math.round((soma - combo.price - descontoAntes + obterDescontoQuartaCombo(restantes)) * 100);
+            return economia >= 0 ? { combo, match, economia } : null;
+        }).filter(Boolean).sort((a, b) => b.economia - a.economia);
+        for (const { combo, match } of candidatos) {
             if (match) {
                 const precoOriginalSoma = match.itensCasados.reduce((sum, it) => sum + it.price, 0);
                 if (precoOriginalSoma >= combo.price) {
@@ -648,7 +668,7 @@ const tentarCombinarItensParaCombo = (combo, itensAvulsos) => {
                     bebidaEncontrada = item;
                     bebidasCasadas.push({
                         id: item.id,
-                        name: item.name,
+                        name: item.name + ' ' + regraBebida.size + ' (Sujeito a estoque)',
                         size: regraBebida.size,
                         price: item.price
                     });

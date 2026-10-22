@@ -3168,3 +3168,12 @@ aside.show {
         border-radius: 16px;
     }
 }
+/* Combo: preço simples e seleção de bebida compacta em todas as telas. */
+.comboPriceArea { background: transparent; border: 0; padding: 8px 0; box-shadow: none; }
+.comboSavingsBadge { background: transparent; color: #444; padding: 0; }
+.comboOriginalPrice[hidden], .comboSavingsBadge[hidden] { display: none; }
+.comboWindowBody .combo-drink-included-card { display: flex; gap: 12px; padding: 10px; min-width: 0; }
+.comboWindowBody .combo-drink-included-img { width: 40px; height: 56px; max-width: 40px; flex: 0 0 40px; object-fit: contain; border: 0; border-radius: 0; }
+.comboWindowBody .combo-drink-included-details { flex: 1; min-width: 0; gap: 6px; }
+.comboWindowBody .combo-select-drink { width: 100%; min-width: 0; max-width: 100%; font-size: 16px; padding: 10px 8px; }
+.comboWindowBody .combo-drink-included-sub { font-size: 12px; line-height: 1.4; }

@@ -872,9 +872,9 @@ const atualizarCarrinho = () => {
                     <div class="cart--item-combo-title">${itemDoCarrinho.name}</div>
                     <div class="cart--item-combo-sub">${itemDoCarrinho.dynamicName || ''}</div>
                     <div class="cart--item-prices-combo">
-                        <s>${formatoReal(precoOriginalItem)}</s>
+                        ${economiaItem > 0.009 ? `<s>${formatoReal(precoOriginalItem)}</s>` : ''}
                         <strong>${formatoReal(precoFinalItem)}</strong>
-                        <span class="economy-tag">Economia de ${formatoReal(economiaItem)}</span>
+                        ${economiaItem > 0.009 ? `<span class="economy-tag">Economia de ${formatoReal(economiaItem)}</span>` : ''}
                     </div>
                 `
                 cartItem.querySelector('.cart--item--qt').innerHTML = itemDoCarrinho.qt

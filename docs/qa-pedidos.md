@@ -23,6 +23,12 @@ Catálogo e funções reais do projeto. DOM e animações simulados. O checkout 
 | Duas grandes sem bebida | 153.80 | 0.00 | 153.80 |
 | Terça meio a meio x2 | 153.80 | 0.00 | 153.80 |
 | Checkout real combo + pizza | 204.70 | 14.90 | 189.80 |
+| Tradicionais sem bebida | 139.80 | 0.00 | 139.80 |
+| Volume incompatível | 147.80 | 0.00 | 147.80 |
+| Combo 01 automático | 146.80 | 11.90 | 134.90 |
+| Combo + avulsa na quarta | 221.70 | 28.90 | 192.80 |
+| Avulsas promocionais mais baratas | 149.80 | 10.00 | 139.80 |
+| Dois combos automáticos | 303.60 | 37.80 | 265.80 |
 
 ## Pizza média
 
@@ -416,7 +422,7 @@ Pagamento: Pix
 1. *1x Combo 02 - 2 Grandes + Refri/Mate 1.5L*
 • Pizza: Atum — Grande (35cm)
 • Pizza: Atum — Grande (35cm)
-• Bebida inclusa: Coca-Cola Zero 1.5L
+• Bebida inclusa: Coca-Cola Zero 1.5L (Sujeito a estoque)
 Total do item: *R$ 132,90*
 Economia: R$ 18,90
 
@@ -510,6 +516,193 @@ Total do item: *R$ 54,90*
 Subtotal antes dos descontos: R$ 204,70
 Descontos/economia: -R$ 14,90
 *Total dos itens: R$ 189,80*
+Entrega: taxa a confirmar com o atendente.
+Total a pagar: total dos itens + taxa de entrega.
+
+*DADOS PARA ENTREGA*
+Nome: Cliente Teste
+Telefone: 24999990000
+Endereço: Rua de Teste, nº 10 — Centro
+Tipo de imóvel: Casa
+Complemento: Portão azul
+Pagamento: Pix
+```
+
+## Tradicionais sem bebida
+
+```text
+🍕 *NOVO PEDIDO — LA BELLA PIZZA*
+
+*ITENS DO PEDIDO*
+
+1. *2x Atum (G)*
+Preço unitário: R$ 69,90
+Total do item: *R$ 139,80*
+
+*RESUMO DO PEDIDO*
+Subtotal antes dos descontos: R$ 139,80
+*Total dos itens: R$ 139,80*
+Entrega: taxa a confirmar com o atendente.
+Total a pagar: total dos itens + taxa de entrega.
+
+*DADOS PARA ENTREGA*
+Nome: Cliente Teste
+Telefone: 24999990000
+Endereço: Rua de Teste, nº 10 — Centro
+Tipo de imóvel: Casa
+Complemento: Portão azul
+Pagamento: Pix
+```
+
+## Volume incompatível
+
+```text
+🍕 *NOVO PEDIDO — LA BELLA PIZZA*
+
+*ITENS DO PEDIDO*
+
+1. *2x Atum (G)*
+Preço unitário: R$ 69,90
+Total do item: *R$ 139,80*
+
+2. *1x Coca-Cola (Comum ou Zero) (600ml)*
+Total do item: *R$ 8,00*
+
+*RESUMO DO PEDIDO*
+Subtotal antes dos descontos: R$ 147,80
+*Total dos itens: R$ 147,80*
+Entrega: taxa a confirmar com o atendente.
+Total a pagar: total dos itens + taxa de entrega.
+
+*DADOS PARA ENTREGA*
+Nome: Cliente Teste
+Telefone: 24999990000
+Endereço: Rua de Teste, nº 10 — Centro
+Tipo de imóvel: Casa
+Complemento: Portão azul
+Pagamento: Pix
+```
+
+## Combo 01 automático
+
+```text
+🍕 *NOVO PEDIDO — LA BELLA PIZZA*
+
+*ITENS DO PEDIDO*
+
+1. *1x Combo 01 - Super + Média Doce + Refri/Mate 1.5L*
+• Pizza: Atum — Super (40cm)
+• Pizza: Festa — Média (30cm)
+• Bebida inclusa: Mate Leão Limão 1.5L (Sujeito a estoque)
+Total do item: *R$ 134,90*
+Economia: R$ 11,90
+
+*RESUMO DO PEDIDO*
+Subtotal antes dos descontos: R$ 146,80
+Descontos/economia: -R$ 11,90
+*Total dos itens: R$ 134,90*
+Entrega: taxa a confirmar com o atendente.
+Total a pagar: total dos itens + taxa de entrega.
+
+*DADOS PARA ENTREGA*
+Nome: Cliente Teste
+Telefone: 24999990000
+Endereço: Rua de Teste, nº 10 — Centro
+Tipo de imóvel: Casa
+Complemento: Portão azul
+Pagamento: Pix
+```
+
+## Combo + avulsa na quarta
+
+```text
+🍕 *NOVO PEDIDO — LA BELLA PIZZA*
+
+*ITENS DO PEDIDO*
+
+1. *1x Atum (G)*
+Total do item: *R$ 59,90*
+Desconto aplicado: R$ 10,00
+
+2. *1x Combo 02 - 2 Grandes + Refri/Mate 1.5L*
+• Pizza: Atum — Grande (35cm)
+• Pizza: Atum — Grande (35cm)
+• Bebida inclusa: Coca-Cola Zero 1.5L (Sujeito a estoque)
+Total do item: *R$ 132,90*
+Economia: R$ 18,90
+
+*RESUMO DO PEDIDO*
+Subtotal antes dos descontos: R$ 221,70
+Descontos/economia: -R$ 28,90
+*Total dos itens: R$ 192,80*
+Entrega: taxa a confirmar com o atendente.
+Total a pagar: total dos itens + taxa de entrega.
+
+*DADOS PARA ENTREGA*
+Nome: Cliente Teste
+Telefone: 24999990000
+Endereço: Rua de Teste, nº 10 — Centro
+Tipo de imóvel: Casa
+Complemento: Portão azul
+Pagamento: Pix
+```
+
+## Avulsas promocionais mais baratas
+
+```text
+🍕 *NOVO PEDIDO — LA BELLA PIZZA*
+
+*ITENS DO PEDIDO*
+
+1. *2x Atum (G)*
+Preço unitário: R$ 69,90
+Total do item: *R$ 129,80*
+Desconto aplicado: R$ 10,00
+
+2. *1x Mate Leão (Natural ou Limão) (1.5L)*
+Total do item: *R$ 10,00*
+
+*RESUMO DO PEDIDO*
+Subtotal antes dos descontos: R$ 149,80
+Descontos/economia: -R$ 10,00
+*Total dos itens: R$ 139,80*
+Entrega: taxa a confirmar com o atendente.
+Total a pagar: total dos itens + taxa de entrega.
+
+*DADOS PARA ENTREGA*
+Nome: Cliente Teste
+Telefone: 24999990000
+Endereço: Rua de Teste, nº 10 — Centro
+Tipo de imóvel: Casa
+Complemento: Portão azul
+Pagamento: Pix
+```
+
+## Dois combos automáticos
+
+```text
+🍕 *NOVO PEDIDO — LA BELLA PIZZA*
+
+*ITENS DO PEDIDO*
+
+1. *1x Combo 02 - 2 Grandes + Refri/Mate 1.5L*
+• Pizza: Atum — Grande (35cm)
+• Pizza: Atum — Grande (35cm)
+• Bebida inclusa: Coca-Cola Zero 1.5L (Sujeito a estoque)
+Total do item: *R$ 132,90*
+Economia: R$ 18,90
+
+2. *1x Combo 02 - 2 Grandes + Refri/Mate 1.5L*
+• Pizza: Atum — Grande (35cm)
+• Pizza: Atum — Grande (35cm)
+• Bebida inclusa: Coca-Cola Zero 1.5L (Sujeito a estoque)
+Total do item: *R$ 132,90*
+Economia: R$ 18,90
+
+*RESUMO DO PEDIDO*
+Subtotal antes dos descontos: R$ 303,60
+Descontos/economia: -R$ 37,80
+*Total dos itens: R$ 265,80*
 Entrega: taxa a confirmar com o atendente.
 Total a pagar: total dos itens + taxa de entrega.
 
