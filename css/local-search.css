@@ -1,0 +1,13 @@
+/* Local information uses the existing typography and palette. */
+.local-search-intro { max-width: 800px; margin: 0 auto 28px; font-family: 'Poppins', sans-serif; font-size: 15px; line-height: 1.8; color: #555; }
+.local-search-intro a, .menu-text-list a { color: #ad362e; text-decoration: underline; text-underline-offset: 3px; }
+.local-search-intro a:focus-visible, .menu-text-list a:focus-visible, .menu-text-list summary:focus-visible { outline: 3px solid #64B95F; outline-offset: 4px; }
+.cardapio-container > .local-search-intro { text-align: center; }
+.menu-text-list { width: 82%; max-width: 1200px; margin: 0 auto 48px; font-family: 'Poppins', sans-serif; line-height: 1.8; color: #333; }
+.menu-text-list details { border: 1px solid #ddd; border-radius: 16px; padding: 18px 24px; background: #fff; }
+.menu-text-list summary { cursor: pointer; font-weight: 600; }
+.menu-text-list h3 { margin: 24px 0 8px; font-size: 18px; }
+.menu-text-list ul { columns: 3 220px; padding-left: 22px; }
+.menu-text-list li { break-inside: avoid; padding: 4px 12px 4px 0; }
+.menu-text-list p { margin: 12px 0; font-size: 14px; }
+@media (max-width: 600px) { .menu-text-list { width: 90%; } .menu-text-list details { padding: 16px; } .local-search-intro { font-size: 14px; } }

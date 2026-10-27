@@ -13,7 +13,7 @@ Aplicação web completa e interativa para pizzaria artesanal em Petrópolis/RJ.
 * **Motor de Promoções Dinâmicas e Calendário:** Sistema que avalia dinamicamente o dia da semana (ex: Terça em Dobro, Quarta da Casa), checa feriados/vésperas e manipula dinamicamente banners, CTAs de conversão e direcionamento de filtros.
 * **Modal Responsivo Viewport-Adaptive:** Modal de customização de pizzas (tamanhos, bordas, adicionais e observações) projetado com técnicas modernas de CSS viewport-relative (`dvh`, `clamp`), eliminando barras de rolagem desnecessárias em telas compactas (ex: Samsung Galaxy S21 FE).
 * **Animações Aceleradas por GPU (GSAP 3):** Efeitos de rolagem e interações com ScrollTrigger e transformações CSS 3D com consumo otimizado de memória e renderização a 60fps.
-* **SEO Técnico e GEO (Generative Engine Optimization):** Estrutura semântica avançada com JSON-LD Schema.org (`Restaurant`, `LocalBusiness`, `OpeningHoursSpecification`, `FAQPage`), sitemap XML e suporte a `llm.txt` para mecanismos de busca por IA.
+* **SEO Técnico e GEO (Generative Engine Optimization):** Conteúdo local sobre Bingen em HTML, lista estática de sabores gerada do catálogo, JSON-LD Schema.org (`Restaurant`, `Menu`, `WebPage`, `FAQPage`), sitemap XML e regras de rastreamento. O resumo opcional `llm.txt` não garante indexação nem presença em respostas de IA.
 
 ---
 
@@ -97,3 +97,7 @@ Essa abordagem reflete um fluxo de trabalho contemporâneo de engenharia de soft
 Desenvolvido por **Canedo Web Studio** / **CanedoDev**  
 * GitHub: [CanedoDev](https://github.com/CanedoDev)
 * Website do Cliente: [La Bella Pizza Petrópolis](https://pizzarialabellapetropolis.com.br)
+
+## Manutenção do conteúdo local
+
+Após editar `js/pizzaJson.js`, execute `node scripts/build-menu-seo.cjs` para atualizar a lista de sabores em HTML. Verifique com `node scripts/build-menu-seo.cjs --check`. A lista usa o catálogo existente, sem duplicar preços. Veja `docs/seo-bingen.md` para validação e publicação.

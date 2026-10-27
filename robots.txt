@@ -1,35 +1,13 @@
-# robots.txt para La Bella Pizza Petrópolis
-# https://pizzarialabellapetropolis.com.br
-
+# La Bella Pizza: public pages may be crawled by search and answer engines.
 User-agent: *
 Allow: /
-# Bloqueio de pastas internas de desenvolvimento
 Disallow: /.git/
 Disallow: /.vscode/
 Disallow: /.agent/
+Disallow: /.agents/
+Disallow: /tests/
+Disallow: /scripts/
+Disallow: /work/
+Disallow: /docs/
 
-# Motores de Inteligência Artificial e GEO (Generative Engine Optimization)
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: Meta-ExternalAgent
-Allow: /
-
-# Mapeamento do Site e Contexto para LLMs
 Sitemap: https://pizzarialabellapetropolis.com.br/sitemap.xml
-# Contexto para IAs: https://pizzarialabellapetropolis.com.br/llm.txt

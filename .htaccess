@@ -10,6 +10,9 @@
     RewriteEngine On
     RewriteBase /
 
+    # Arquivos de desenvolvimento e backups locais não são conteúdo público.
+    RewriteRule ^(?:\.git|\.vscode|\.agents?|work|tests|scripts|docs)(?:/|$) - [F,L,NC]
+
     # 0.1 Redirecionar acessos antigos com acento (/cardápio ou /cardápio.html) para /cardapio limpo
     RewriteCond %{THE_REQUEST} /card(%C3%A1|%c3%a1|á)pio(\.html)? [NC]
     RewriteRule ^.*$ /cardapio [R=301,L]
